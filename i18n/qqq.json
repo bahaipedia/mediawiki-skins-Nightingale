@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"..."
+		]
+	},
+	"skinname-ridvan": "{{optional}}",
+	"ridvan-skin-desc": "{{desc|what=skin|name=Ridvan|url=https://www.mediawiki.org/wiki/Skin:Ridvan}}",
+	"ridvan-no-categories": "Message to show when no categories available"
+}

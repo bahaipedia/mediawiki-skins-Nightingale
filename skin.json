@@ -1,0 +1,83 @@
+{
+	"name": "Ridvan",
+	"version": "1.0.0",
+	"author": [
+		"[https://skins.wmflabs.org skins.wmflabs.org v.3.0]"
+	],
+	"url": "https://www.mediawiki.org/wiki/Skin:Ridvan",
+	"descriptionmsg": "ridvan-skin-desc",
+	"namemsg": "skinname-ridvan",
+	"type": "skin",
+	"requires": {
+		"MediaWiki": ">= 1.41.0"
+	},
+	"ValidSkinNames": {
+		"ridvan": {
+			"class": "SkinMustache",
+			"args": [
+				{
+					"name": "ridvan",
+					"responsive": true,
+					"toc": true,
+					"messages": [
+						"ridvan-no-categories",
+						"otherlanguages",
+						"sitetitle",
+						"search",
+						"tagline"
+					],
+					"styles": [
+						"codex-styles",
+						"skins.ridvan.styles"
+					],
+					"scripts": [
+						"skins.ridvan"
+					]
+				}
+			]
+		}
+	},
+	"MessagesDirs": {
+		"Ridvan": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {
+		"skins.ridvan.styles": {
+			"class": "MediaWiki\\ResourceLoader\\SkinModule",
+			"features": {
+				"normalize": true,
+				"elements": true,
+				"content-tables": true,
+				"content-links": true,
+				"content-media": true,
+				"content-links-external": false,
+				"interface-message-box": false,
+				"interface-category": true,
+				"toc": true
+			},
+			"targets": [
+				"desktop",
+				"mobile"
+			],
+			"styles": [
+				"resources/skin.less"
+			]
+		},
+		"skins.ridvan": {
+			"targets": [
+				"desktop",
+				"mobile"
+			],
+			"packageFiles": [
+				"resources/skin.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "Ridvan"
+	},
+	"ResourceModuleSkinStyles": {},
+	"manifest_version": 2
+}
