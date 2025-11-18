@@ -7,18 +7,24 @@
                 {{^is-ca-edit}}
                     {{#is-ca-talk}}
                         {{#is-new}}
-                            <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                            <li id="{{id}}" class="{{class}}">
+                                {{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}
+                            </li>
                         {{/is-new}}
                     {{/is-ca-talk}}
                     {{^is-ca-talk}}
-                        <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                        <li id="{{id}}" class="{{class}}">
+                            {{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}
+                        </li>
                     {{/is-ca-talk}}
                 {{/is-ca-edit}}
             {{/data-portlets.data-views.array-items}}
 
             {{! 2. Render all items from data-actions. }}
             {{#data-portlets.data-actions.array-items}}
-                <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                <li id="{{id}}" class="{{class}}">
+                    {{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}
+                </li>
             {{/data-portlets.data-actions.array-items}}
         </ul>
     </div>
