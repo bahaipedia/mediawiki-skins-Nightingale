@@ -1,10 +1,23 @@
-{{! Iterate through all list items in the 'views' portlet. }}
-{{#data-portlets.data-views.array-items}}
-    {{! Check for the 'edit' flag on the list item object itself. }}
-    {{#is-ca-edit}}
-        {{! If found, render the link(s) inside it. }}
+<div id="template-debug" style="background: yellow; color: black; padding: 1em; border: 2px solid red; font-family: monospace; white-space: pre-wrap; z-index: 9999; position: relative;">
+    <h3>TEMPLATE DEBUG OUTPUT for 'data-views'</h3>
+    <hr>
+    {{#data-portlets.data-views.array-items}}
+    <p><strong>--- Found a List Item (LI) ---</strong></p>
+    <ul>
+        <li><strong>Data on the LI:</strong></li>
+        <li>ID: {{id}}</li>
+        <li>CLASS: {{class}}</li>
+        <li>is-ca-edit FLAG HERE? <strong>{{#is-ca-edit}}YES{{/is-ca-edit}}{{^is-ca-edit}}NO{{/is-ca-edit}}</strong></li>
+        <li>is-ca-talk FLAG HERE? <strong>{{#is-ca-talk}}YES{{/is-ca-talk}}{{^is-ca-talk}}NO{{/is-ca-talk}}</strong></li>
+    </ul>
         {{#array-links}}
-            <a class="header-button header-button--edit" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
+        <ul>
+            <li><strong>Data on the Link (A) inside the LI:</strong></li>
+            <li>TEXT: {{text}}</li>
+            <li>is-ca-edit FLAG HERE? <strong>{{#is-ca-edit}}YES{{/is-ca-edit}}{{^is-ca-edit}}NO{{/is-ca-edit}}</strong></li>
+            <li>is-ca-talk FLAG HERE? <strong>{{#is-ca-talk}}YES{{/is-ca-talk}}{{^is-ca-talk}}NO{{/is-ca-talk}}</strong></li>
+        </ul>
         {{/array-links}}
-    {{/is-ca-edit}}
-{{/data-portlets.data-views.array-items}}
+    <hr>
+    {{/data-portlets.data-views.array-items}}
+</div>
