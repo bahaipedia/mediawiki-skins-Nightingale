@@ -1,11 +1,9 @@
-<div class="header-button-wrapper--talk">
-    {{#data-portlets.data-views}}
-        <ul>
-            {{#array-items}}
-                {{^is-new}}
-                    <li id="{{id}}" class="{{class}}">{{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}</li>
-                {{/is-new}}
-            {{/array-items}}
-        </ul>
-    {{/data-portlets.data-views}}
+{{#ridvan-content-talk}}
+<div class="ridvan-talk-button" id="{{id}}">
+    {{#array-links}}
+        <a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}} class="ridvan-btn-secondary">
+            {{text}}
+        </a>
+    {{/array-links}}
 </div>
+{{/ridvan-content-talk}}
