@@ -1,9 +1,11 @@
 {{#ridvan-content-edit}}
 <div id="{{id}}" class="mw-portlet ridvan-edit-button">
     <div class="mw-portlet-body">
-        <a href="{{href}}" title="{{text}}" class="ridvan-edit-link">
-            {{text}}
-        </a>
+        {{#array-links}}
+            <a href="{{href}}" title="{{text}}" class="ridvan-edit-link">
+                {{text}}
+            </a>
+        {{/array-links}}
     </div>
 </div>
 {{/ridvan-content-edit}}
