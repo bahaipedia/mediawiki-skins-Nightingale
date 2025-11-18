@@ -1,13 +1,9 @@
-{{#data-portlets.data-views}}
-<div class="header-button-wrapper--edit">
-    <ul>
-        {{#array-items}}
-            <li id="{{id}}" class="{{class}}">
-                {{#array-links}}
-                    <a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
-                {{/array-links}}
-            </li>
-        {{/array-items}}
-    </ul>
+{{#ridvan-content-edit}}
+<div class="ridvan-edit-button" id="{{id}}">
+    {{#array-links}}
+        <a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}} class="ridvan-btn-primary">
+            {{text}}
+        </a>
+    {{/array-links}}
 </div>
-{{/data-portlets.data-views}}
+{{/ridvan-content-edit}}
