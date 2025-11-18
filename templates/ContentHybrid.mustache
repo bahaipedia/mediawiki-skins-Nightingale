@@ -1,26 +1,11 @@
-<nav class="custom-toolbar">
-    <ul class="toolbar-primary">
-        {{#custom-bar-visible}}
-            <li id="{{id}}" class="{{class}}">
-                {{#array-links}}
-                    <a href="{{href}}" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>
-                        {{text}}
-                    </a>
-                {{/array-links}}
-            </li>
-        {{/custom-bar-visible}}
-    </ul>
-
-    <div class="toolbar-dropdown-container">
-        <button class="dropdown-trigger">More ▾</button>
-        <ul class="dropdown-menu">
-            {{#custom-bar-dropdown}}
-                <li id="{{id}}" class="{{class}}">
-                    {{#array-links}}
-                        <a href="{{href}}">{{text}}</a>
-                    {{/array-links}}
-                </li>
-            {{/custom-bar-dropdown}}
-        </ul>
-    </div>
-</nav>
+<ul class="ridvan-hybrid-menu">
+    {{#ridvan-content-hybrid}}
+        <li id="{{id}}" class="{{class}}">
+            {{#array-links}}
+                <a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>
+                    {{text}}
+                </a>
+            {{/array-links}}
+        </li>
+    {{/ridvan-content-hybrid}}
+</ul>
