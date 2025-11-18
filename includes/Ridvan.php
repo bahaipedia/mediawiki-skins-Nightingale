@@ -3,38 +3,39 @@
 class SkinRidvan extends SkinMustache {
 
     public function getTemplateData() {
-        // 1. Get the standard data provided by MediaWiki
         $data = parent::getTemplateData();
 
-        // 2. Initialize our custom buckets
-        $visibleButtons = [];
-        $dropdownButtons = [];
-
-        // 3. Define which IDs you want visible (The Allow List)
-        // 'ca-edit' is standard edit, 'ca-talk' is discussion.
-        // 'ca-view' is the "Page/Read" tab 
-        $forceVisible = [ 'ca-edit', 'ca-talk' ];
-
-        // 4. Merge the separate arrays (Views + Actions) to process them together
+        // 1. Merge Views and Actions
         $allPortlets = array_merge(
             $data['data-portlets']['data-views']['array-items'] ?? [],
             $data['data-portlets']['data-actions']['array-items'] ?? []
         );
 
-        // 5. Sort them
+        // 2. Initialize buckets
+        $editButton = null;
+        $talkButton = null;
+        $hybridMenu = [];
+
+        // 3. Sort items
         foreach ( $allPortlets as $key => $item ) {
-            if ( in_array( $key, $forceVisible ) ) {
-                // Add to visible bar
-                $visibleButtons[] = $item;
-            } else {
-                // Add to dropdown
-                $dropdownButtons[] = $item;
+            // Handle Edit (or View Source if locked)
+            if ( $key === 'ca-edit' || $key === 'ca-viewsource' ) {
+                $editButton = $item;
+            } 
+            // Handle Talk
+            elseif ( $key === 'ca-talk' ) {
+                $talkButton = $item;
+            } 
+            // Handle everything else (History, Move, Delete, Read, etc.)
+            else {
+                $hybridMenu[] = $item;
             }
         }
 
-        // 6. Pass these new arrays back to Mustache
-        $data['custom-bar-visible'] = $visibleButtons;
-        $data['custom-bar-dropdown'] = $dropdownButtons;
+        // 4. Pass distinct data to Mustache
+        $data['ridvan-content-edit'] = $editButton;
+        $data['ridvan-content-talk'] = $talkButton;
+        $data['ridvan-content-hybrid'] = $hybridMenu;
 
         return $data;
     }
