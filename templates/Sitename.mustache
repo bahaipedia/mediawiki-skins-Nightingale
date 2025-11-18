@@ -1,5 +1,9 @@
 <div id="p-sitename" class="mw-portlet" role="banner">
     <a href="{{link-mainpage}}">
-        <h1>{{msg-sitetitle}}</h1>
+    {{#data-logos}}
+        {{#icon}}<img class="icon" src="{{.}}" width="40" height="40">{{/icon}}
+        {{#wordmark}}<img src="{{src}}" width="{{width}}" height="{{height}}">{{/wordmark}}
+        {{^wordmark}}<h1>{{msg-sitetitle}}</h1>{{/wordmark}}
+    {{/data-logos}}
     </a>
 </div>
