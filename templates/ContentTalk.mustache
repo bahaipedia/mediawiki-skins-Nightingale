@@ -1,13 +1,13 @@
 {{! Iterate through all list items in the 'views' portlet. }}
 {{#data-portlets.data-views.array-items}}
-    {{! Find the specific list item for 'talk'. }}
-    {{#is-ca-talk}}
-        {{! Within that list item, check if the page exists. }}
-        {{^is-new}}
-            {{! Within that list item, loop through its links. }}
-            {{#array-links}}
+    {{! Within each item, loop through its links. }}
+    {{#array-links}}
+        {{! Check for the 'talk' flag on the link object. }}
+        {{#is-ca-talk}}
+            {{! Also check that the link is not for a new (non-existent) page. }}
+            {{^is-new}}
                 <a class="header-button header-button--talk" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
-            {{/array-links}}
-        {{/is-new}}
-    {{/is-ca-talk}}
+            {{/is-new}}
+        {{/is-ca-talk}}
+    {{/array-links}}
 {{/data-portlets.data-views.array-items}}
