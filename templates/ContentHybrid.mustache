@@ -4,20 +4,20 @@
         <ul>
             {{! 1. Render remaining items from data-views. }}
             {{#data-portlets.data-views.array-items}}
-                {{^is-ca-edit}}
+                {{! Loop through the links within each list item. }}
+                {{#array-links}}
+                    {{! For the 'talk' link, only render the li if the page is new. }}
                     {{#is-ca-talk}}
                         {{#is-new}}
-                            <li id="{{id}}" class="{{class}}">
-                                {{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}
-                            </li>
+                            <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
                         {{/is-new}}
                     {{/is-ca-talk}}
-                    {{^is-ca-talk}}
-                        <li id="{{id}}" class="{{class}}">
-                            {{#array-links}}<a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>{{/array-links}}
-                        </li>
-                    {{/is-ca-talk}}
-                {{/is-ca-edit}}
+
+                    {{! For all other links, render the li unless it's 'talk' or 'edit'. }}
+                    {{^is-ca-talk}}{{{^is-ca-edit}}}
+                        <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                    {{{/is-ca-edit}}}{{/is-ca-talk}}
+                {{/array-links}}
             {{/data-portlets.data-views.array-items}}
 
             {{! 2. Render all items from data-actions. }}
