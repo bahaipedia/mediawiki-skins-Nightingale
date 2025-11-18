@@ -1,17 +1,10 @@
-{{! --- DEBUGGING BLOCK --- }}
-{{! This will print the text of all available "view" links, e.g., [Read][Talk][Edit][View history] }}
-{{! If you see no output here, the data is not reaching the template. }}
-{{! If you see links but not "Edit", you are on a page that cannot be edited. }}
-<div style="display:none;">
-    {{#data-portlets.data-views.array-items}}
-        [{{text}}]
-    {{/data-portlets.data-views.array-items}}
-</div>
-{{! --- END DEBUGGING BLOCK --- }}
-
-{{! This is the original code. It will only render if the "Edit" link exists in the data above. }}
+{{! Iterate through all list items in the 'views' portlet. }}
 {{#data-portlets.data-views.array-items}}
+    {{! Find the specific list item for 'edit'. }}
     {{#is-ca-edit}}
-        <a class="header-button header-button--edit" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
+        {{! Within that list item, loop through its links (usually just one). }}
+        {{#array-links}}
+            <a class="header-button header-button--edit" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
+        {{/array-links}}
     {{/is-ca-edit}}
 {{/data-portlets.data-views.array-items}}
