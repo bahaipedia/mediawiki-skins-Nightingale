@@ -16,31 +16,45 @@
 	}
 }
 
-.header-button-wrapper--edit {
-    ul, li {
-        // Reset list styling to behave like a button
+// Style the wrappers to behave like single buttons and align with other header items.
+.header-button-wrapper--edit,
+.header-button-wrapper--talk {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5em;
+
+    ul,
+    li {
+        // Reset list styling to remove bullets, margins, etc.
         list-style: none;
         margin: 0;
         padding: 0;
     }
+
+    // You can style the actual <a> tag here if needed, for example:
+    // a {
+    //   padding: 4px 8px;
+    //   border: 1px solid #a2a9b1;
+    //   border-radius: 2px;
+    // }
+}
+
+// For the Edit button wrapper, show ONLY the li with id="ca-edit".
+.header-button-wrapper--edit {
     li:not(#ca-edit) {
         display: none;
     }
 }
 
-// For the Talk button wrapper, hide everything that IS NOT the talk button.
+// For the Talk button wrapper, show ONLY the li with id="ca-talk".
 .header-button-wrapper--talk {
-    ul, li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
     li:not(#ca-talk) {
         display: none;
     }
 }
 
-// For the "More" dropdown menu, hide the Edit and Talk buttons, which are now displayed separately.
+// For the "More" dropdown menu, hide the Edit and Talk buttons,
+// which are now displayed separately.
 #p-hybrid-actions {
     #ca-edit,
     #ca-talk {
