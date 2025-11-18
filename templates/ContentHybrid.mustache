@@ -14,9 +14,9 @@
                     {{/is-ca-talk}}
 
                     {{! For all other links, render the li unless it's 'talk' or 'edit'. }}
-                    {{^is-ca-talk}}{{{^is-ca-edit}}}
+                    {{^is-ca-talk}}{{^is-ca-edit}}
                         <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
-                    {{{/is-ca-edit}}}{{/is-ca-talk}}
+                    {{/is-ca-edit}}{{/is-ca-talk}}
                 {{/array-links}}
             {{/data-portlets.data-views.array-items}}
 
