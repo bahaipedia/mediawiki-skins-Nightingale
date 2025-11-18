@@ -5,8 +5,10 @@ class SkinRidvan extends SkinMustache {
     public function getTemplateData() {
         $data = parent::getTemplateData();
 
-        // 1. Merge Views and Actions
+        // 1. Merge Namespaces (Page/Talk), Views (Edit/History), and Actions (Move/Delete)
+        // We were missing 'data-namespaces' before!
         $allPortlets = array_merge(
+            $data['data-portlets']['data-namespaces']['array-items'] ?? [],
             $data['data-portlets']['data-views']['array-items'] ?? [],
             $data['data-portlets']['data-actions']['array-items'] ?? []
         );
@@ -21,12 +23,10 @@ class SkinRidvan extends SkinMustache {
             $id = $item['id'] ?? '';
 
             // CHECK 1: Edit Button
-            // catch 'ca-edit' (standard) or 'ca-viewsource' (locked pages)
             if ( $id === 'ca-edit' || $id === 'ca-viewsource' ) {
                 $editButton = $item;
             } 
             // CHECK 2: Talk Button
-            // catch 'ca-talk' (main) or 'ca-nstab-talk' (sometimes used on talk pages)
             elseif ( $id === 'ca-talk' || $id === 'ca-nstab-talk' ) {
                 $talkButton = $item;
             }
@@ -37,9 +37,9 @@ class SkinRidvan extends SkinMustache {
         }
 
         // 4. Pass data to Mustache
-        // We use 'ridvan-content-edit' as a boolean check or data source
-        $data['ridvan-content-edit'] = $editButton;
-        $data['ridvan-content-talk'] = $talkButton;
+        // We wrap in [] because the mustache template iterates over them
+        $data['ridvan-content-edit'] = $editButton ? [ $editButton ] : [];
+        $data['ridvan-content-talk'] = $talkButton ? [ $talkButton ] : [];
         $data['ridvan-content-hybrid'] = $hybridMenu;
 
         return $data;
