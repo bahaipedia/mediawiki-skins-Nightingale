@@ -42,6 +42,13 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-content-talk'] = $talkButton ? [ $talkButton ] : [];
         $data['ridvan-content-hybrid'] = $hybridMenu;
 
+        // --- DEBUGGING CODE START ---
+        echo "<pre style='background:white; color:black; z-index:9999; position:relative;'>";
+        print_r( $data['ridvan-content-edit'] );
+        echo "</pre>";
+        die(); 
+        // --- DEBUGGING CODE END ---
+
         return $data;
     }
 }
