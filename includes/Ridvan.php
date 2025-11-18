@@ -1,6 +1,6 @@
 <?php
 
-class SkinMySkin extends SkinMustache {
+class SkinRidvan extends SkinMustache {
 
     public function getTemplateData() {
         // 1. Get the default data from Core
