@@ -4,21 +4,21 @@
         <ul>
             {{! 1. Render remaining items from data-views. }}
             {{#data-portlets.data-views.array-items}}
-                {{! Exclude the Edit button, which is handled separately. }}
                 {{^is-ca-edit}}
-                    {{! For the Talk button, only include it here if it's for a 'new' page. }}
                     {{#is-ca-talk}}
-                        {{#is-new}}{{>ListItem}}{{/is-new}}
+                        {{#is-new}}
+                            <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                        {{/is-new}}
                     {{/is-ca-talk}}
-
-                    {{! Render all other view items (e.g., View History) that are not Talk. }}
-                    {{^is-ca-talk}}{{>ListItem}}{{/is-ca-talk}}
+                    {{^is-ca-talk}}
+                        <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
+                    {{/is-ca-talk}}
                 {{/is-ca-edit}}
             {{/data-portlets.data-views.array-items}}
 
             {{! 2. Render all items from data-actions. }}
             {{#data-portlets.data-actions.array-items}}
-                {{>ListItem}}
+                <li id="{{id}}" class="{{class}}"><a {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a></li>
             {{/data-portlets.data-actions.array-items}}
         </ul>
     </div>
