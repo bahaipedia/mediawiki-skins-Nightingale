@@ -1,10 +1,10 @@
 {{! Iterate through all list items in the 'views' portlet. }}
 {{#data-portlets.data-views.array-items}}
-    {{! Find the specific list item for 'edit'. }}
-    {{#is-ca-edit}}
-        {{! Within that list item, loop through its links (usually just one). }}
-        {{#array-links}}
+    {{! Within each item, loop through its links. }}
+    {{#array-links}}
+        {{! Check for the 'edit' flag on the link object itself. }}
+        {{#is-ca-edit}}
             <a class="header-button header-button--edit" {{#array-attributes}}{{key}}="{{value}}"{{/array-attributes}}>{{text}}</a>
-        {{/array-links}}
-    {{/is-ca-edit}}
+        {{/is-ca-edit}}
+    {{/array-links}}
 {{/data-portlets.data-views.array-items}}
