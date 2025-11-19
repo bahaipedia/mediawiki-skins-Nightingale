@@ -28,8 +28,29 @@ main {
 		background: @background-color-base;
 	}
 
-	body {
+body {
 		background: @background-color-article;
+		color: @color-base;
+		margin: 0 auto;
+		min-height: 100vh;
+		display: grid;
+		grid-template-columns: 250px 1fr; 
+		grid-template-rows: auto 1fr;
+		grid-template-areas: 
+			"header header"
+			"sidebar content";
+	}
+
+	.mw-header {
+		grid-area: header;
+	}
+
+	.toggle-list {
+		grid-area: sidebar;
+	}
+
+	#content {
+		grid-area: content;
 	}
 
 	body,
@@ -51,6 +72,6 @@ main {
 	}
 
 	main {
-		border-bottom: solid 20px @background-color-base;
+		padding: 20px 40px;
 	}
 }
