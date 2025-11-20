@@ -9,12 +9,13 @@
     margin: 0 1em 1em 1em;
     padding: 0;
     box-sizing: border-box;
-    align-self: start; 
+    align-self: start;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 2. THE CARDS (Individual Portlets) */
 .ridvan-sidebar .mw-portlet {
-    /* Apply the Card styling here instead */
     background: #f8f9fa;
     border: 1px solid @background-color-base;
     box-shadow: 0 1px 7px 1px rgba(0, 0, 0, 0.1);
@@ -22,6 +23,7 @@
     padding: 1em;
     box-sizing: border-box;
     overflow-wrap: break-word;
+    order: 10;
 }
 
 /* This removes the invisible box blocking your links */
@@ -77,4 +79,12 @@
 /* Hide "Add links" in "In other languages" */
 .after-portlet-lang {
     display: none;
+}
+
+#p-wikibase-otherprojects {
+    order: 5;
+}
+
+#p-tb {
+    order: 6;
 }
