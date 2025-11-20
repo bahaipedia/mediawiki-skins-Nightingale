@@ -2,19 +2,34 @@
 
 .mw-portlet {
     position: relative;
+    margin: 0 10px; /* Add some spacing between header items */
 
+    /* 1. HIDE THE LABEL BY DEFAULT */
+    /* This removes "Notifications" text in the header */
+    h3 {
+        display: none;
+    }
+
+    /* 2. LIST SETTINGS */
     ul {
         margin: 0;
         padding: 0;
         list-style: none;
+        display: flex; /* Use Flexbox for better alignment */
+        align-items: center;
     }
 
-    h3 {
-        display: block; 
-    }
-
+    /* 3. HORIZONTAL ITEMS BY DEFAULT */
+    /* This fixes the vertically stacked bells/alerts */
     li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+    
+    /* Notification Badges (Echo) specific tweak */
+    /* Ensures the bell/tray icons sit nicely */
+    .mw-echo-notifications-badge {
         display: block;
-        margin: 0;
+        text-decoration: none;
     }
 }
