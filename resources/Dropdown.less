@@ -1,5 +1,20 @@
 @import 'mediawiki.skin.variables.less';
 
+/* This hides the input but keeps it functional */
+.mw-checkbox-hack-checkbox {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0; /* Make invisible */
+    z-index: 1; /* Sit above so it might capture clicks if label fails */
+    cursor: pointer;
+}
+
 /* Checkbox hack dropdown */
 .mw-portlet-dropdown ~ .mw-portlet {
 	li {
