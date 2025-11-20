@@ -1,64 +1,76 @@
 @import 'mediawiki.skin.variables.less';
 
-/* 1. SIDEBAR CONTAINER */
+/* 1. SIDEBAR COLUMN (The Invisible Stack) */
 .ridvan-sidebar {
-	background-color: #f8f9fa;
-	border: 1px solid @background-color-base;
-	box-shadow: 0 1px 7px 1px rgba(0, 0, 0, 0.1);
-	margin: 0em 1em 1em 1em;
-	padding: 1em;
-	box-sizing: border-box;
-	overflow-wrap: break-word;
+    /* Remove styles from the container */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0 1em 1em 1em;
+    padding: 0;
+    box-sizing: border-box;
+    align-self: start; 
 }
 
-/* 2. THE MENU LIST */
-.ridvan-sidebar-menu {
-	width: 100%;
-	margin: 0;
-	padding: 0;
+/* 2. THE CARDS (Individual Portlets) */
+.ridvan-sidebar .mw-portlet {
+    /* Apply the Card styling here instead */
+    background: #f8f9fa;
+    border: 1px solid @background-color-base;
+    box-shadow: 0 1px 7px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em; /* Space between cards */
+    padding: 1em;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
 
-	/* Portlet Headers (e.g. "Navigation", "Tools") */
-	h3 {
-		display: block;
-		padding: 0 15px;
-		margin: 20px 0 5px 0;
-		font-size: 0.75rem;
-		font-weight: bold;
-		text-transform: uppercase;
-		color: #72777d;
-	}
+/* 3. CRITICAL FIX: KILL THE CHECKBOX OVERLAY */
+/* This removes the invisible box blocking your links */
+.ridvan-sidebar .mw-portlet input[type='checkbox'] {
+    display: none !important;
+    pointer-events: none;
+}
 
-	/* Remove top margin for the very first header */
-	.mw-portlet:first-child h3 {
-		margin-top: 0;
-	}
+/* 4. HEADERS */
+.ridvan-sidebar h3 {
+    display: block; /* Override Portlet.less which hides them */
+    padding: 0;
+    margin: 0 0 0.5em 0;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #72777d;
+    border-bottom: 1px solid #eaecf0;
+}
 
-	/* The List (ul) */
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+/* 5. LISTS */
+.ridvan-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-	/* The Items (li) */
-	li {
-		padding: 0;
-		margin: 0;
-		display: block;
-	}
+.ridvan-sidebar li {
+    display: block; /* Override Portlet.less which makes them inline */
+    padding: 0;
+    margin: 0;
+}
 
-	/* The Links (a) */
-	a {
-		display: block;
-		padding: 6px 15px;
-		color: @color-base;
-		text-decoration: none;
-		font-size: 0.9rem;
+/* 6. LINKS */
+.ridvan-sidebar a {
+    display: block;
+    padding: 6px 0;
+    color: @color-base;
+    text-decoration: none;
+    font-size: 0.9rem;
 
-		&:hover {
-			background-color: #eaecf0;
-			color: @color-link;
-			text-decoration: none;
-		}
-	}
+    /* Ensure link sits above any accidental z-indexing */
+    position: relative; 
+    z-index: 5;
+
+    &:hover {
+        background-color: transparent;
+        color: @color-link;
+        text-decoration: underline;
+    }
 }
