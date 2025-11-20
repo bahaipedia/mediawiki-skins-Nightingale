@@ -1,6 +1,6 @@
 @import 'mediawiki.skin.variables.less';
 
-/* This hides the input but keeps it functional */
+/* 1. CHECKBOX HACK CORE (The Logic) */
 .mw-checkbox-hack-checkbox {
     display: block;
     position: absolute;
@@ -10,41 +10,61 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    opacity: 0; /* Make invisible */
-    z-index: 1; /* Sit above so it might capture clicks if label fails */
+    opacity: 0; /* Hides the box but keeps it clickable */
+    z-index: 1; 
     cursor: pointer;
 }
 
-/* Checkbox hack dropdown */
-.mw-portlet-dropdown ~ .mw-portlet {
-	li {
-		display: block;
-		padding: 0.75em 0.875em;
-	}
+/* 2. MENU CONTAINER */
+/* This applies to the wrapper of the dropdowns */
+#p-hybrid,
+#p-personal {
+    /* Ensure the dropdown body is positioned correctly relative to this */
+    position: relative;
 
-	.mw-portlet-body {
-		display: none;
+    .mw-portlet-body {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #ffffff;
+        border: 1px solid #a2a9b1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 100;
+        min-width: 200px;
+        padding: 10px;
+        border-radius: 2px;
+    }
 
-		ul {
-			background: @background-color-article;
-			position: absolute;
-			overflow-y: auto;
-			z-index: 2;
-			box-shadow: 0 5px 17px 0 rgba( 0, 0, 0, 0.24 ), 0 0 1px @color-gray;
-			right: 0;
-			min-width: 200px;
-		}
-	}
+    /* SHOW MENU WHEN CHECKED */
+    /* This looks for the checked input, then finds the sibling body */
+    .mw-checkbox-hack-checkbox:checked ~ .mw-portlet-body {
+        display: block;
+    }
+}
 
-	input:checked {
-		~ .mw-portlet-body ul {
-			opacity: 1;
-			visibility: visible;
-		}
+/* 3. FORCE VERTICAL LISTS (Fixing the Horizontal Issue) */
+#p-hybrid ul,
+#p-personal ul {
+    display: block !important; /* Override Flexbox */
+}
 
-		~ .mw-portlet-body {
-			display: block;
-			opacity: 1;
-		}
-	}
+#p-hybrid li,
+#p-personal li {
+    display: block !important; /* Stack vertically */
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #eaecf0;
+}
+
+#p-hybrid li:last-child,
+#p-personal li:last-child {
+    border-bottom: none;
+}
+
+#p-hybrid a,
+#p-personal a {
+    display: block;
+    padding: 5px 10px;
+    white-space: nowrap; /* Prevent text wrapping */
 }
