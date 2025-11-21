@@ -1,0 +1,15 @@
+<div class="mw-portlet mw-portlet-mobile-dropdown">
+    <input type="checkbox" id="cb-{{id}}" class="mw-checkbox-hack-checkbox">
+    <label for="cb-{{id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
+    <div class="mw-portlet-body">
+        <ul>
+            {{#items}}
+                <li class="{{class}}">
+                    <a href="{{href}}" {{#array-attributes}}{{key}}="{{value}}" {{/array-attributes}}>
+                        {{text}}
+                    </a>
+                </li>
+            {{/items}}
+        </ul>
+    </div>
+</div>
