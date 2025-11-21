@@ -4,30 +4,16 @@
     {{>Search}}
 
     <div class="ridvan-header-tools">
-        <!-- DESKTOP/SHARED BUTTONS -->
-        {{>ContentEdit}}
-        {{>ContentTalk}}
-        {{>Notifications}}
 
-        <!-- DESKTOP MENUS -->
-        <div class="ridvan-desktop-menus">
-            {{>Dropdown}}{{>ContentHybrid}}
-            {{>Dropdown}}{{>PersonalMenu}}
-        </div>
-
-        <!-- MOBILE MENUS -->
-        <div class="ridvan-mobile-menus">
+        <!-- LEFT GROUP: Text Menus (Mobile Only) -->
+        <div class="ridvan-text-menus">
             
             <!-- 1. MENU -->
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-menu" class="mw-checkbox-hack-button">Menu ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#ridvan-mobile-menu}}
-                            {{>ListItem}}
-                        {{/ridvan-mobile-menu}}
-                    </ul>
+                    <ul>{{#ridvan-mobile-menu}}{{>ListItem}}{{/ridvan-mobile-menu}}</ul>
                 </div>
             </div>
 
@@ -36,11 +22,7 @@
                 <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-tools" class="mw-checkbox-hack-button">Tools ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#ridvan-mobile-tools}}
-                            {{>ListItem}}
-                        {{/ridvan-mobile-tools}}
-                    </ul>
+                    <ul>{{#ridvan-mobile-tools}}{{>ListItem}}{{/ridvan-mobile-tools}}</ul>
                 </div>
             </div>
 
@@ -49,14 +31,19 @@
                 <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-links" class="mw-checkbox-hack-button">Links ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#ridvan-mobile-links}}
-                             {{>ListItem}}
-                        {{/ridvan-mobile-links}}
-                    </ul>
+                    <ul>{{#ridvan-mobile-links}}{{>ListItem}}{{/ridvan-mobile-links}}</ul>
                 </div>
             </div>
-
         </div>
+
+        <!-- RIGHT GROUP: Icons (Edit, Talk, Hybrid, Notif, Personal) -->
+        <div class="ridvan-icon-menus">
+            {{>ContentEdit}}
+            {{>ContentTalk}}
+            {{>Dropdown}}{{>ContentHybrid}}
+            {{>Notifications}}
+            {{>Dropdown}}{{>PersonalMenu}}
+        </div>
+
     </div>
 </header>
