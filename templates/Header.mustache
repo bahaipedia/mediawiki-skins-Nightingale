@@ -8,7 +8,7 @@
         <!-- LEFT GROUP: Text Menus (Mobile Only) -->
         <div class="ridvan-text-menus">
             
-            <!-- 1. MENU -->
+            <!-- 1. MENU (Always renders) -->
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-menu" class="mw-checkbox-hack-button">Menu ▾</label>
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <!-- 2. TOOLS -->
+            <!-- 2. TOOLS (Always renders) -->
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-tools" class="mw-checkbox-hack-button">Tools ▾</label>
@@ -26,7 +26,8 @@
                 </div>
             </div>
 
-            <!-- 3. LINKS -->
+            <!-- 3. LINKS (Conditional) -->
+            {{#ridvan-has-mobile-links}}
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-links" class="mw-checkbox-hack-button">Links ▾</label>
@@ -34,6 +35,8 @@
                     <ul>{{#ridvan-mobile-links}}{{>ListItem}}{{/ridvan-mobile-links}}</ul>
                 </div>
             </div>
+            {{/ridvan-has-mobile-links}}
+            
         </div>
 
         <!-- RIGHT GROUP: Icons (Edit, Talk, Hybrid, Notif, Personal) -->
