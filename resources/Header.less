@@ -122,27 +122,87 @@
     display: flex;
 }
 
-/* Mobile Breakpoint */
+/* MOBILE */
 @media ( max-width: @max-width-breakpoint-tablet ) {
-    
-    /* Flip visibility */
-    .ridvan-mobile-menus {
-        display: flex;
-        gap: 10px; /* Space between Menu / Tools / Links */
-    }
     
     .ridvan-desktop-menus {
         display: none;
     }
 
-    /* Ensure the label looks like a button */
-    .ridvan-mobile-menus .mw-checkbox-hack-button {
-        width: auto; 
-        padding: 5px 10px;
-        background: #eee;
-        border-radius: 4px;
-        text-indent: 0; /* Reset the icon-only indent if inherited */
-        color: black;
+    .ridvan-mobile-menus {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    /* 1. RESET BUTTON STYLES */
+    /* Your default skin forces these to be 20px icons. We reset that for text labels. */
+    .ridvan-mobile-dropdown .mw-checkbox-hack-button {
+        width: auto;
+        height: auto;
+        padding: 6px 12px;
+        background-color: #f8f9fa;
+        border: 1px solid #a2a9b1;
+        border-radius: 2px;
+        color: #202122;
         font-size: 0.9rem;
+        font-weight: bold;
+        text-indent: 0; /* Reveals the text */
+        mask-image: none; /* Removes the icon mask */
+        -webkit-mask-image: none;
+        display: inline-block;
+    }
+
+    /* 2. DROPDOWN MECHANISM */
+    .ridvan-mobile-dropdown {
+        position: relative;
+    }
+
+    /* Hide the checkbox input */
+    .ridvan-mobile-dropdown input {
+        display: none;
+    }
+
+    /* Hide the menu body by default */
+    .ridvan-mobile-dropdown .mw-portlet-body {
+        display: none;
+        position: absolute;
+        right: 0; /* Aligns dropdown to right of button */
+        top: 100%;
+        z-index: 100;
+        background: #ffffff;
+        border: 1px solid #a2a9b1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        min-width: 200px;
+        padding: 10px 0;
+    }
+
+    /* Show the menu body when checkbox is checked */
+    .ridvan-mobile-dropdown input:checked ~ .mw-portlet-body {
+        display: block;
+    }
+
+    /* 3. LIST STYLING INSIDE DROPDOWN */
+    .ridvan-mobile-dropdown ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .ridvan-mobile-dropdown li {
+        display: block;
+        margin: 0;
+    }
+
+    .ridvan-mobile-dropdown li a {
+        display: block;
+        padding: 8px 16px;
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    .ridvan-mobile-dropdown li a:hover {
+        background-color: #eaecf0;
     }
 }
