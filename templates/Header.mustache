@@ -3,11 +3,54 @@
     {{>Sitename}}
     {{>Search}}
     
-    <div class="ridvan-header-tools">
-        {{>ContentEdit}}
-        {{>ContentTalk}}
-        {{>Notifications}}
+<div class="ridvan-header-tools">
+    {{>ContentEdit}}
+    {{>ContentTalk}}
+    {{>Notifications}}
+
+    <div class="ridvan-desktop-menus">
         {{>Dropdown}}{{>ContentHybrid}}
         {{>Dropdown}}{{>PersonalMenu}}
     </div>
+
+    <div class="ridvan-mobile-menus">
+        
+        <div class="mw-portlet">
+            <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
+            <label for="cb-mob-menu" class="mw-checkbox-hack-button">Menu</label>
+            <div class="mw-portlet-body">
+                <ul>
+                    {{#ridvan-mobile-menu}}
+                        {{>ListItem}}
+                    {{/ridvan-mobile-menu}}
+                </ul>
+            </div>
+        </div>
+
+        <div class="mw-portlet">
+            <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
+            <label for="cb-mob-tools" class="mw-checkbox-hack-button">Tools</label>
+            <div class="mw-portlet-body">
+                <ul>
+                    {{#ridvan-mobile-tools}}
+                        {{>ListItem}}
+                    {{/ridvan-mobile-tools}}
+                </ul>
+            </div>
+        </div>
+
+        <div class="mw-portlet">
+            <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
+            <label for="cb-mob-links" class="mw-checkbox-hack-button">Links</label>
+            <div class="mw-portlet-body">
+                <ul>
+                    {{#ridvan-mobile-links}}
+                         {{>ListItem}}
+                    {{/ridvan-mobile-links}}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
 </header>
