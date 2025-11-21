@@ -49,6 +49,28 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
+        // CUSTOM: INJECT SPECIAL PAGES INTO TOOLBOX
+        // We inject this here so it appears in the Desktop sidebar
+        // AND gets picked up by the Mobile Tools logic below.
+        // ---------------------------------------------------------
+        if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
+            // Iterate by reference (&$portlet) to modify the actual data
+            foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as &$portlet ) {
+                if ( ($portlet['id'] ?? '') === 'p-tb' ) {
+                    // Append the Special Pages link
+                    $portlet['array-items'][] = [
+                        'id' => 't-specialpages',
+                        'text' => $this->msg( 'specialpages' )->text(),
+                        'href' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL(),
+                        'class' => ''
+                    ];
+                    break; // Found toolbox, stop looping
+                }
+            }
+            unset($portlet); // Clean up reference
+        }
+
+        // ---------------------------------------------------------
         // PART 3: MOBILE DATA PREPARATION (STRICT MODE)
         // ---------------------------------------------------------
 
@@ -57,6 +79,7 @@ class SkinRidvan extends SkinMustache {
         $mobileMenu = $data['data-portlets-sidebar']['data-portlets-first']['array-items'] ?? [];
 
         // 2. SORT SIDEBAR "REST"
+        // Note: This now contains our injected 'Special Pages' link inside p-tb
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
         $mobileTools = [];
