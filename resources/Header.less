@@ -1,16 +1,17 @@
 @import 'mediawiki.skin.variables.less';
 
 .mw-header {
-	background-color: @background-color-article;
-	width: 100%;
-	padding: 0 20px;
-	margin-bottom: 10px;
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	min-height: 50px;
-	
-	@media ( max-width: @max-width-breakpoint-tablet ) {
+    background-color: @background-color-article;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+
+    /* MOBILE HEADER LAYOUT */
+    @media ( max-width: @max-width-breakpoint-tablet ) {
         padding: 10px;
         flex-wrap: wrap; /* Allow items to flow to next line */
 
@@ -36,8 +37,8 @@
             width: 100%;
             margin-top: 10px;
             display: flex;
-            justify-content: space-between;
-            /* Or use justify-content: flex-end; to align them right */
+            justify-content: space-between; /* Pushes Text Menus Left, Icons Right */
+            align-items: center;
         }
     }
 }
@@ -48,7 +49,34 @@
     align-items: center;
 }
 
-/* --- ICON STYLES --- */
+/* --- GROUPS --- */
+
+/* Text Menus (Mobile Only: Menu, Tools, Links) */
+.ridvan-text-menus {
+    display: none; /* Default Hidden */
+    
+    @media ( max-width: @max-width-breakpoint-tablet ) {
+        display: flex;
+        gap: 15px; /* Space between the words */
+    }
+}
+
+/* Icon Menus (Edit, Talk, User, etc) */
+.ridvan-icon-menus {
+    display: flex;
+    align-items: center;
+}
+
+/* DESKTOP MENUS (Hybrid + Personal) - Hidden on Mobile */
+.ridvan-desktop-menus {
+    display: flex;
+    @media ( max-width: @max-width-breakpoint-tablet ) {
+        display: none;
+    }
+}
+
+
+/* --- STANDARD ICON STYLES (Edit, Talk, etc) --- */
 .ridvan-edit-button,
 .ridvan-talk-button,
 .mw-checkbox-hack-button {
@@ -59,7 +87,7 @@
     color: transparent;
     position: relative;
     z-index: 10;
-	vertical-align: middle;	    
+    vertical-align: middle;     
     background-color: #385b82; 
 
     /* Mask settings */
@@ -114,44 +142,33 @@
     }
 }
 
-/* Default: Hide Mobile Menus, Show Desktop */
-.ridvan-mobile-menus {
-    display: none;
-}
-.ridvan-desktop-menus {
-    display: flex;
-}
 
-/* MOBILE */
+/* --- MOBILE DROPDOWN STYLING --- */
 @media ( max-width: @max-width-breakpoint-tablet ) {
-    
-    .ridvan-desktop-menus {
-        display: none;
-    }
 
-    .ridvan-mobile-menus {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 10px;
-    }
-
-    /* 1. RESET BUTTON STYLES */
-    /* Your default skin forces these to be 20px icons. We reset that for text labels. */
+    /* 1. RESET BUTTON STYLES FOR MOBILE TEXT MENUS */
+    /* We specifically target the dropdowns inside ridvan-mobile-dropdown to override the 20px icon defaults */
     .ridvan-mobile-dropdown .mw-checkbox-hack-button {
         width: auto;
         height: auto;
-        padding: 6px 12px;
-        background-color: #f8f9fa;
-        border: 1px solid #a2a9b1;
-        border-radius: 2px;
-        color: #202122;
-        font-size: 0.9rem;
-        font-weight: bold;
-        text-indent: 0; /* Reveals the text */
-        mask-image: none; /* Removes the icon mask */
+        padding: 0;
+        margin: 0;
+        background: transparent; /* Remove the blue box */
+        border: none;
+        color: @color-base;
+        font-size: 1rem;
+        font-weight: normal;
+        text-indent: 0; /* Show the text */
+        mask-image: none; /* Remove the icon mask */
         -webkit-mask-image: none;
         display: inline-block;
+        cursor: pointer;
+    }
+
+    /* Hover state for text links */
+    .ridvan-mobile-dropdown .mw-checkbox-hack-button:hover {
+        color: @color-link;
+        background: transparent;
     }
 
     /* 2. DROPDOWN MECHANISM */
@@ -165,17 +182,19 @@
     }
 
     /* Hide the menu body by default */
+    /* Styled simply: White box, grey border, shadow */
     .ridvan-mobile-dropdown .mw-portlet-body {
         display: none;
         position: absolute;
-        right: 0; /* Aligns dropdown to right of button */
+        left: 0; /* Align left edge with text label */
         top: 100%;
         z-index: 100;
         background: #ffffff;
         border: 1px solid #a2a9b1;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        min-width: 200px;
-        padding: 10px 0;
+        min-width: 180px;
+        padding: 5px 0;
+        margin-top: 5px;
     }
 
     /* Show the menu body when checkbox is checked */
@@ -197,12 +216,14 @@
 
     .ridvan-mobile-dropdown li a {
         display: block;
-        padding: 8px 16px;
+        padding: 8px 15px;
         color: #0645ad;
         text-decoration: none;
+        font-size: 0.95em;
     }
 
     .ridvan-mobile-dropdown li a:hover {
         background-color: #eaecf0;
+        text-decoration: none;
     }
 }
