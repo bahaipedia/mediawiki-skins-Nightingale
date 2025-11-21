@@ -97,6 +97,10 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-mobile-tools'] = $mobileTools;
         $data['ridvan-mobile-links'] = $mobileLinks;
 
+        // 4. VISIBILITY FLAGS (For Conditional Rendering)
+        // We add these booleans so Mustache can check "if exists" without iterating the array
+        $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
+
         return $data;
     }
 }
