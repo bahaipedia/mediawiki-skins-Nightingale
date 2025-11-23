@@ -6,7 +6,7 @@ class SkinRidvan extends SkinMustache {
         $data = parent::getTemplateData();
 
         // ---------------------------------------------------------
-        // PART 1: HEADER BUTTONS (EXISTING LOGIC)
+        // PART 1: HEADER BUTTONS
         // ---------------------------------------------------------
         $allPortlets = array_merge(
             $data['data-portlets']['data-namespaces']['array-items'] ?? [],
@@ -34,7 +34,7 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-content-hybrid'] = $hybridMenu;
 
         // ---------------------------------------------------------
-        // PART 2: CLEANUP LANGUAGES (EXISTING LOGIC)
+        // PART 2: CLEANUP LANGUAGES
         // ---------------------------------------------------------
         if ( isset( $data['data-portlets']['data-languages']['array-items'] ) ) {
             $langItems = $data['data-portlets']['data-languages']['array-items'];
@@ -49,66 +49,44 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
-        // CUSTOM: INJECT SPECIAL PAGES & REMOVE FALLBACK NAV
+        // PART 3: MOBILE DATA & DEBUGGING
         // ---------------------------------------------------------
-        if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
-            // Iterate with key so we can unset specific items
-            foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
-                $id = $portlet['id'] ?? '';
-
-                // 1. Inject Special Pages into Toolbox
-                if ( $id === 'p-tb' ) {
-                    $portlet['array-items'][] = [
-                        'id' => 't-specialpages',
-                        'text' => $this->msg( 'specialpages' )->text(),
-                        'href' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL(),
-                        'class' => ''
-                    ];
-                }
-                
-                // 2. REMOVE THE RANDOM "NAVIGATION" SECTION
-                // This removes the fallback portlet containing only "Special Pages"
-                if ( $id === 'p-navigation' ) {
-                    unset( $data['data-portlets-sidebar']['array-portlets-rest'][$key] );
-                }
-            }
-            unset($portlet); 
-            // Re-index array to avoid mustache hiccups
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
-        }
-
-        // ---------------------------------------------------------
-        // PART 3: MOBILE DATA PREPARATION (STRICT MODE)
-        // ---------------------------------------------------------
-
-        // 1. MOBILE MENU 
-        // STRICT: Only the "First" Sidebar item (Your "About" Section)
+        
+        // 1. MOBILE MENU (Navigation)
         $mobileMenu = $data['data-portlets-sidebar']['data-portlets-first']['array-items'] ?? [];
 
-        // 2. SORT SIDEBAR "REST"
+        // 2. SORT SIDEBAR "REST" & FIND TOOLBOX LOCATION
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
         $mobileTools = [];
         $mobileLinks = [];
+        
+        // DEBUG ARRAYS
+        $debugInfo = [
+            'Where is p-tb?' => 'Not Found',
+            'Sidebar_Rest_IDs' => [],
+            'Main_Portlets_Has_p-tb' => isset($data['data-portlets']['p-tb']) ? 'YES' : 'NO',
+        ];
+
+        // Check main portlets first
+        if (isset($data['data-portlets']['p-tb'])) {
+            $debugInfo['Where is p-tb?'] = 'In data-portlets[p-tb]';
+        }
 
         foreach ( $sidebarRest as $portlet ) {
-            $id = $portlet['id'] ?? '';
+            $id = $portlet['id'] ?? 'NO-ID';
+            $debugInfo['Sidebar_Rest_IDs'][] = $id;
             $items = $portlet['array-items'] ?? [];
 
-            if ( empty( $items ) ) {
-                continue;
-            }
-
-            // A. WIKIBASE -> LINKS
-            if ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
-                $mobileLinks = array_merge( $mobileLinks, $items );
-            } 
-            // B. TOOLBOX -> TOOLS (STRICT: Only p-tb)
-            elseif ( $id === 'p-tb' ) {
+            if ( $id === 'p-tb' ) {
+                $debugInfo['Where is p-tb?'] = 'In Sidebar Rest Array';
                 $mobileTools = array_merge( $mobileTools, $items );
             } 
-            // C. EVERYTHING ELSE -> DROPPED
+            elseif ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
+                $mobileLinks = array_merge( $mobileLinks, $items );
+            } 
             else {
+                // Everything else ignored in strict mode
                 continue;
             }
         }
@@ -118,16 +96,21 @@ class SkinRidvan extends SkinMustache {
         $langClean = array_filter( $langRaw, function( $item ) {
             return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
         });
-
         $mobileLinks = array_merge( $mobileLinks, $langClean );
 
         // ASSIGN TO TEMPLATE
         $data['ridvan-mobile-menu'] = $mobileMenu;
         $data['ridvan-mobile-tools'] = $mobileTools;
         $data['ridvan-mobile-links'] = $mobileLinks;
-
-        // 4. VISIBILITY FLAG
         $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
+
+        // --- RENDER DEBUG BOX ---
+        $debugHtml = '<div style="border: 5px solid red; padding: 20px; background: white; color: black; font-family: monospace; position: relative; z-index: 10000; clear: both;">';
+        $debugHtml .= '<h3>DEBUG: TOOLBOX LOCATION</h3>';
+        $debugHtml .= '<pre>' . print_r($debugInfo, true) . '</pre>';
+        $debugHtml .= '</div>';
+        
+        $data['html-after-content'] .= $debugHtml;
 
         return $data;
     }
