@@ -51,31 +51,34 @@ class SkinRidvan extends SkinMustache {
         // ---------------------------------------------------------
         // PART 3: MODIFY SIDEBAR DATA (INJECT & REMOVE)
         // ---------------------------------------------------------
-        // We must modify the data source BEFORE assigning it to variables for Mobile Logic.
-
+        
         if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
             foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
                 $id = $portlet['id'] ?? '';
 
-                // 1. INJECT SPECIAL PAGES INTO TOOLBOX (p-tb)
+                // 1. INJECT GOOGLE TEST INTO TOOLBOX (p-tb)
                 if ( $id === 'p-tb' ) {
+                    // Ensure the array exists before appending
+                    if ( !isset( $portlet['array-items'] ) ) {
+                        $portlet['array-items'] = [];
+                    }
+
                     $portlet['array-items'][] = [
-                        'id' => 't-specialpages',
-                        'text' => $this->msg( 'specialpages' )->text(),
-                        'href' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL(),
+                        'id' => 't-googletest',
+                        'text' => 'GOOGLE TEST LINK',
+                        'href' => 'https://www.google.com',
                         'class' => ''
                     ];
                 }
 
                 // 2. REMOVE FALLBACK NAVIGATION (p-navigation)
-                // This removes the section that only contains "Special Pages" redundancy
                 if ( $id === 'p-navigation' ) {
                     unset( $data['data-portlets-sidebar']['array-portlets-rest'][$key] );
                 }
             }
-            unset($portlet); // Clean up reference
+            unset($portlet); 
 
-            // Re-index array so Mustache treats it as a list, not an object
+            // Re-index array
             $data['data-portlets-sidebar']['array-portlets-rest'] = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
         }
 
@@ -83,11 +86,10 @@ class SkinRidvan extends SkinMustache {
         // PART 4: MOBILE DATA PREPARATION (STRICT MODE)
         // ---------------------------------------------------------
 
-        // 1. MOBILE MENU (Navigation)
+        // 1. MOBILE MENU 
         $mobileMenu = $data['data-portlets-sidebar']['data-portlets-first']['array-items'] ?? [];
 
         // 2. SORT SIDEBAR "REST" -> TOOLS vs LINKS
-        // Now using the MODIFIED array from Part 3
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
         $mobileTools = [];
@@ -109,7 +111,7 @@ class SkinRidvan extends SkinMustache {
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
             } 
-            // C. EVERYTHING ELSE -> DROPPED (Authors, Books, etc)
+            // C. EVERYTHING ELSE -> DROPPED
             else {
                 continue;
             }
