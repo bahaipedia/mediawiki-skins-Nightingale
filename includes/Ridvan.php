@@ -54,7 +54,8 @@ class SkinRidvan extends SkinMustache {
         // ---------------------------------------------------------
         // PART 3: MODIFY SIDEBAR DATA (INJECT & REMOVE)
         // ---------------------------------------------------------
-        
+
+        // 1. Existing Loop: Modifications (Inject Special Pages, Remove Nav)
         if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
             foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
                 $id = $portlet['id'] ?? '';
@@ -65,10 +66,6 @@ class SkinRidvan extends SkinMustache {
                     if ( !isset( $portlet['array-items'] ) ) {
                         $portlet['array-items'] = [];
                     }
-
-                    // MUST MATCH MUSTACHE SCHEMA:
-                    // ListItem.mustache iterates over 'array-links'
-                    // ListItemLink.mustache iterates over 'array-attributes' to build the <a> tag
                     $portlet['array-items'][] = [
                         'id' => 't-specialpages',
                         'class' => 'mw-list-item',
@@ -96,6 +93,37 @@ class SkinRidvan extends SkinMustache {
                 }
             }
             unset($portlet); 
+
+            // -----------------------------------------------------
+            // ORDER THE SIDEBAR
+            // -----------------------------------------------------
+            $currentRest = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
+            
+            $bucketTools = [];
+            $bucketWikibase = [];
+            $bucketSidebar = [];
+
+            foreach ( $currentRest as $item ) {
+                $id = $item['id'] ?? '';
+
+                if ( $id === 'p-tb' ) {
+                    $bucketTools[] = $item;
+                } 
+                elseif ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
+                    $bucketWikibase[] = $item;
+                } 
+                else {
+                    // This catches standard MediaWiki:Sidebar menus
+                    $bucketSidebar[] = $item;
+                }
+            }
+
+            // MERGE IN SPECIFIC ORDER: Sidebar -> Wikibase -> Tools
+            $data['data-portlets-sidebar']['array-portlets-rest'] = array_merge(
+                $bucketSidebar, 
+                $bucketWikibase, 
+                $bucketTools
+            );
 
             // Re-index array
             $data['data-portlets-sidebar']['array-portlets-rest'] = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
