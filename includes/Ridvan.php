@@ -148,10 +148,7 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-mobile-tools'] = $mobileTools;
         $data['ridvan-mobile-links'] = $mobileLinks;
         $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
-echo "<pre>";
-print_r( array_keys( $data ) );
-echo "</pre>";
-die();
+
         return $data;
     }
 }
