@@ -11,7 +11,7 @@
             <!-- 1. MENU (Always renders) -->
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-menu" class="mw-checkbox-hack-button">Menu ▾</label>
+                <label for="cb-mob-menu" class="mw-checkbox-hack-button">{{ridvan-mobile-menu-label}} ▾</label>
                 <div class="mw-portlet-body">
                     <ul>{{#ridvan-mobile-menu}}{{>ListItem}}{{/ridvan-mobile-menu}}</ul>
                 </div>
@@ -20,7 +20,7 @@
             <!-- 2. TOOLS (Always renders) -->
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-tools" class="mw-checkbox-hack-button">Tools ▾</label>
+                <label for="cb-mob-tools" class="mw-checkbox-hack-button">{{ridvan-mobile-tools-label}} ▾</label>
                 <div class="mw-portlet-body">
                     <ul>{{#ridvan-mobile-tools}}{{>ListItem}}{{/ridvan-mobile-tools}}</ul>
                 </div>
@@ -30,7 +30,7 @@
             {{#ridvan-has-mobile-links}}
             <div class="mw-portlet ridvan-mobile-dropdown">
                 <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-links" class="mw-checkbox-hack-button">Links ▾</label>
+                <label for="cb-mob-links" class="mw-checkbox-hack-button">{{ridvan-mobile-links-label}} ▾</label>
                 <div class="mw-portlet-body">
                     <ul>{{#ridvan-mobile-links}}{{>ListItem}}{{/ridvan-mobile-links}}</ul>
                 </div>
