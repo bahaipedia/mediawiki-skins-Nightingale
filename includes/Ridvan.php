@@ -106,17 +106,26 @@ class SkinRidvan extends SkinMustache {
         // ---------------------------------------------------------
 
         // 1. MOBILE MENU 
-        $mobileMenu = $data['data-portlets-sidebar']['data-portlets-first']['array-items'] ?? [];
+        // Get the actual portlet data to extract the label
+        $navPortlet = $data['data-portlets-sidebar']['data-portlets-first'] ?? [];
+        $mobileMenu = $navPortlet['array-items'] ?? [];
+        
+        // DYNAMIC LABEL: Use the label from the first sidebar item (usually "Navigation")
+        $mobileMenuLabel = $navPortlet['label'] ?? $this->msg('navigation')->text();
 
         // 2. SORT SIDEBAR "REST" -> TOOLS vs LINKS
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
         $mobileTools = [];
         $mobileLinks = [];
+        
+        // DYNAMIC LABEL: Default to standard "Toolbox" message
+        $mobileToolsLabel = $this->msg('toolbox')->text(); 
 
         foreach ( $sidebarRest as $portlet ) {
             $id = $portlet['id'] ?? '';
             $items = $portlet['array-items'] ?? [];
+            $label = $portlet['label'] ?? '';
 
             if ( empty( $items ) ) {
                 continue;
@@ -129,6 +138,10 @@ class SkinRidvan extends SkinMustache {
             // B. TOOLBOX -> TOOLS (STRICT: Only p-tb)
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
+                // Capture the localized label for the toolbox directly from the portlet if available
+                if ( !empty($label) ) {
+                    $mobileToolsLabel = $label;
+                }
             } 
             // C. EVERYTHING ELSE -> DROPPED
             else {
@@ -145,8 +158,13 @@ class SkinRidvan extends SkinMustache {
 
         // ASSIGN TO TEMPLATE
         $data['ridvan-mobile-menu'] = $mobileMenu;
+        $data['ridvan-mobile-menu-label'] = $mobileMenuLabel;
+        
         $data['ridvan-mobile-tools'] = $mobileTools;
+        $data['ridvan-mobile-tools-label'] = $mobileToolsLabel;
+        
         $data['ridvan-mobile-links'] = $mobileLinks;
+        $data['ridvan-mobile-links-label'] = $this->msg('ridvan-mobile-links-label')->text();
         $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
 
         return $data;
