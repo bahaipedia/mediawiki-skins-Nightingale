@@ -74,9 +74,13 @@
     }
 }
 
-/* Hide "Add links" in "In other languages" */
+/* Hide "Add links" in "In other languages" section */
 .after-portlet-lang {
     display: none;
+}
+/* Remove the Expand All/Collapse all from Tools section when page has items that can be expanded */
+.mw-list-item mw-list-item-js {
+	display:none;
 }
 
 @media ( max-width: @max-width-breakpoint-tablet ) {
