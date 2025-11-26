@@ -1,56 +1,60 @@
 /** ResourceLoaderSkinModule: normalize,elements,content-tables,content-links,content-media,interface-message-box,interface-category,toc */
 @media print {
-	@import './print.less';
+    @import './print.less';
 }
 
 html {
-	margin: 0;
+    margin: 0;
 }
 
 body {
-	max-width: 100%;
-	margin: 0 auto;
-	font-family: @font-family;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: @font-family;
     line-height: 1.5;
 }
 
 main {
-	padding: 1em;
+    padding: 1em;
 
-	& ~ nav,
-	& ~ footer {
-		padding: 1em;
-	}
+    & ~ nav,
+    & ~ footer {
+        padding: 1em;
+    }
 }
 
 @media screen {
-	html {
-		background: @background-color-base;
-	}
+    html {
+        background: @background-color-base;
+    }
 
-body {
+    body {
         background: @background-color-base;
         color: @color-base;
         margin: 0 auto;
         min-height: 100vh;
-        display: grid;
-        
-        /* DESKTOP (Default) */
-        grid-template-columns: 250px 1fr; 
-        grid-template-rows: auto 1fr auto; 
-        grid-template-areas: 
-            "header header"
-            "sidebar content-column"
-            "footer footer";
+        /* CHANGE: Body is now a vertical Flex stack, NOT a Grid */
+        display: flex;
+        flex-direction: column;
+    }
 
-        /* MOBILE OVERRIDE */
+    /* CHANGE: The Grid logic moves to this new container */
+    #ridvan-page-container {
+        display: grid;
+        flex-grow: 1; /* This forces the middle section to expand and push footer down */
+
+        /* DESKTOP */
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: "sidebar content-column";
+
+        /* MOBILE */
         @media (max-width: @max-width-breakpoint-tablet) {
             grid-template-columns: 1fr;
-			grid-template-rows: auto auto auto auto;
-            grid-template-areas: 
-                "header"
-                "content-column"
-                "footer";
+            grid-template-rows: auto auto;
+            grid-template-areas:
+                "content-column";
+            /* Sidebar is hidden in your Sidebar.less on mobile, so we don't need an area for it here */
         }
     }
 
@@ -61,45 +65,38 @@ body {
         min-width: 0;
     }
 
-    .mw-header {
-        grid-area: header;
-    }
-
+    /* Sidebar IS in the grid (inside ridvan-page-container), so it keeps its area */
     .ridvan-sidebar {
         grid-area: sidebar;
         align-self: start;
     }
-	
-	#content {
-		grid-area: content;
-	}
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		color: @color-base;
-		font-family: 'Linux Libertine', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman', 'Noto Serif', 'Times', serif;
-	}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: @color-base;
+        font-family: 'Linux Libertine', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman', 'Noto Serif', 'Times', serif;
+    }
 
-	a {
-		color: @color-link;
+    a {
+        color: @color-link;
 
-		&:visited {
-			color: @color-link--visited;
-		}
-	}
+        &:visited {
+            color: @color-link--visited;
+        }
+    }
 
-	main {
-		background: @background-color-article;
-		padding: 5px 30px;
-		margin-right: 23px;
+    main {
+        background: @background-color-article;
+        padding: 5px 30px;
+        margin-right: 23px;
 
-		/* MOBILE OVERRIDE */
-		@media (max-width: @max-width-breakpoint-tablet) {
-			margin-right: 0;
-		}
-	}
+        /* MOBILE OVERRIDE */
+        @media (max-width: @max-width-breakpoint-tablet) {
+            margin-right: 0;
+        }
+    }
 }
