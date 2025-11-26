@@ -37,12 +37,11 @@ body {
         
         /* DESKTOP (Default) */
         grid-template-columns: 250px 1fr; 
-        grid-template-rows: auto auto auto auto;
+        grid-template-rows: auto 1fr auto; 
         grid-template-areas: 
             "header header"
-            "sidebar content"
-			"sidebar categories"
-			"footer footer";
+            "sidebar content-column"
+            "footer footer";
 
         /* MOBILE OVERRIDE */
         @media (max-width: @max-width-breakpoint-tablet) {
@@ -50,21 +49,27 @@ body {
 			grid-template-rows: auto auto auto auto;
             grid-template-areas: 
                 "header"
-                "content"
-				"categories"
-				"footer";
+                "content-column"
+                "footer";
         }
     }
 
-	.mw-header {
-		grid-area: header;
-	}
+    #ridvan-content-column {
+        grid-area: content-column;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
 
-	.ridvan-sidebar {
-		grid-area: sidebar;
-		align-self: start;
-	}
+    .mw-header {
+        grid-area: header;
+    }
 
+    .ridvan-sidebar {
+        grid-area: sidebar;
+        align-self: start;
+    }
+	
 	#content {
 		grid-area: content;
 	}
