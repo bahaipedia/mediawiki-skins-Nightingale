@@ -5,6 +5,8 @@
             {{{html-title-heading}}}
         {{/is-mainpage}}
     </header>
-    {{>ContentBody}}
-    {{#data-toc}}{{>TableOfContents}}{{/data-toc}}
+    <div id="bodyContent" class="mw-body-content">
+        {{>ContentBody}}
+        {{#data-toc}}{{>TableOfContents}}{{/data-toc}}
+    </div>
 </main>
