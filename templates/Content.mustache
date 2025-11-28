@@ -1,8 +1,10 @@
 <main id="content" class="mw-body">
-	<header class="content__header">
-		{{>ContentIndicators}}
-		{{{html-title-heading}}}
-	</header>
-	{{>ContentBody}}
-	{{#data-toc}}{{>TableOfContents}}{{/data-toc}}
+    <header class="content__header">
+        {{>ContentIndicators}}
+        {{^is-mainpage}}
+            {{{html-title-heading}}}
+        {{/is-mainpage}}
+    </header>
+    {{>ContentBody}}
+    {{#data-toc}}{{>TableOfContents}}{{/data-toc}}
 </main>
