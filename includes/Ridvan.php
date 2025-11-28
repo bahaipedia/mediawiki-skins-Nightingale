@@ -178,16 +178,23 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
-        // PART 5: USERNAME LABEL
+        // PART 5: USERNAME LABEL & CLASSES
         // ---------------------------------------------------------
         $user = $this->getSkin()->getUser();
         
-        if ( $user->isNamed() ) {
-            // User is logged in: Set label to "Sarah"
-            $data['data-portlets']['data-user-menu']['label'] = $user->getName();
-        } else {
-            // User is Anon: Keep label empty or use default
-            // (The icon handles the visual)
+        // Ensure the array exists and has a class key to append to
+        if ( isset($data['data-portlets']['data-user-menu']) ) {
+            $userMenu = &$data['data-portlets']['data-user-menu'];
+            if ( !isset($userMenu['class']) ) { $userMenu['class'] = ''; }
+
+            if ( $user->isNamed() ) {
+                // LOGGED IN
+                $userMenu['label'] = $user->getName();
+                $userMenu['class'] .= ' is-loggedin'; // Append class
+            } else {
+                // ANONYMOUS
+                $userMenu['class'] .= ' is-anon';     // Append class
+            }
         }
         
         // 3. ADD LANGUAGES TO LINKS
