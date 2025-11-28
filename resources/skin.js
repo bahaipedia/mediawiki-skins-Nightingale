@@ -20,10 +20,20 @@ $( function () {
     } );
 
     // 2. Handle "Exclusive" behavior (Close others when one opens)
-    // (This part of your code was correct and can stay)
     $( '.mw-portlet input[type="checkbox"]' ).on( 'change', function () {
         if ( $( this ).is( ':checked' ) ) {
             $( '.mw-portlet input[type="checkbox"]' ).not( this ).prop( 'checked', false );
         }
     } );
+
+    // 3. Fix for Android Mobile Search Lag (IME Composition)
+    var $searchInput = $( '#searchInput' );
+    if ( $searchInput.length ) {
+        $searchInput.on( 'input', function () {
+            // Force MediaWiki's search suggestions to wake up.
+            // The "input" event fires on every character change, unlike "keyup/keydown" 
+            // which are often suppressed by Android keyboards during composition.
+            $searchInput.trigger( 'keydown' );
+        } );
+    }
 } );
