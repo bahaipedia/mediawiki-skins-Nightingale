@@ -77,7 +77,6 @@
 			],
 			"dependencies": [
 				"mediawiki.util",
-				"mediawiki.skin.defaults",
 				"mediawiki.searchSuggest"
 			]
 		}
