@@ -1,1 +1,3 @@
-{{#data-portlets.data-user-menu}}{{>Portlet}}{{/data-portlets.data-user-menu}}
+<div class="ridvan-personal-container {{#is-anon}}is-anon{{/is-anon}} {{^is-anon}}is-loggedin{{/is-anon}}">
+    {{#data-portlets.data-user-menu}}{{>Portlet}}{{/data-portlets.data-user-menu}}
+</div>
