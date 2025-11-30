@@ -1,0 +1,10 @@
+{
+	"czsearch-search-noresults-title": "نتیجه‌ای برای «$1» یافت نشد",
+	"czsearch-search-noresults-desc": "املای خود را بررسی کنید یا عبارت دیگری را امتحان کنید.",
+	"czsearch-search-fulltext": "جستجوی متن «$1»",
+	"searchsuggest-search": "جستجو",
+	"czsearch-search-editpage": "ویرایش یا ایجاد صفحه «$1»",
+	"czsearch-search-mediasearch": "جستجوی پرونده‌های رسانه‌ای منطبق با «$1»",
+	"czsearch-search-empty-desc": "جستجو برای صفحات، رسانه‌ها و موارد دیگر",
+	"search-redirect": "(تغییرمسیر به $1)"
+}
