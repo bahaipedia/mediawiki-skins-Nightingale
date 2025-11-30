@@ -161,12 +161,12 @@
 /* --- MOBILE: FULL WIDTH DROPDOWN --- */
 @media ( max-width: 768px ) {
     .citizen-typeahead {
-        width: 100vw;
-        left: var(--mobile-offset-left, 0);
+        width: calc(100vw - 20px);
+        left: calc(var(--mobile-offset-left, 0) + 10px);
         right: auto;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
+        border-left: 1px solid var(--border-color-base);
+        border-right: 1px solid var(--border-color-base);
+        border-radius: var(--border-radius-medium);
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 }
