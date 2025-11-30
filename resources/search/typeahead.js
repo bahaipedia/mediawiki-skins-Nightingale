@@ -1,4 +1,4 @@
-const SEARCH_LOADING_CLASS = 'citizen-loading';
+const SEARCH_LOADING_CLASS = 'czsearch-loading';
 
 // Config object
 const config = require( './config.json' );
@@ -39,7 +39,7 @@ const typeahead = {
 			this.element = inputEl;
 
 			// Standard Input attributes
-			this.element.classList.add( 'citizen-typeahead-input' );
+			this.element.classList.add( 'czsearch-typeahead-input' );
 			this.element.setAttribute( 'aria-autocomplete', 'list' );
 			this.element.setAttribute( 'aria-controls', typeahead.element.id );
 			this.element.addEventListener( 'focus', this.onFocus );
@@ -130,14 +130,14 @@ const typeahead = {
 		},
 		set: function () {
 			const typeaheadElement = typeahead.element;
-			this.elements = typeaheadElement.querySelectorAll( '.citizen-typeahead-list-item-link' );
+			this.elements = typeaheadElement.querySelectorAll( '.czsearch-typeahead-list-item-link' );
 			this.bindMouseHoverEvent();
 			this.setMax( this.elements.length );
 		}
 	},
 	close: function () {
-		const groupEl = document.getElementById( 'citizen-typeahead-group-page' );
-		const actionEl = document.getElementById( 'citizen-typeahead-group-action' );
+		const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
+		const actionEl = document.getElementById( 'czsearch-typeahead-group-action' );
 		
 		if ( groupEl ) groupEl.hidden = true;
 		if ( actionEl ) actionEl.hidden = true;
@@ -158,7 +158,7 @@ const typeahead = {
 	onClick: function ( event ) {
 		// Only handle clicks, but REMOVED history saving logic
 		if ( typeahead.element.contains( event.target ) ) {
-			const link = event.target.closest( '.citizen-typeahead-list-item-link' );
+			const link = event.target.closest( '.czsearch-typeahead-list-item-link' );
 			if ( !link ) return;
 			// Normal link behavior will follow
 		}
@@ -224,8 +224,8 @@ const typeahead = {
 
 async function getSuggestions() {
 	const renderSuggestions = ( results ) => {
-		const groupEl = document.getElementById( 'citizen-typeahead-group-page' );
-		const listEl = document.getElementById( 'citizen-typeahead-list-page' );
+		const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
+		const listEl = document.getElementById( 'czsearch-typeahead-list-page' );
 		
 		// We don't use placeholder anymore
 		if ( results.length > 0 ) {

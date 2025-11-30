@@ -17,7 +17,7 @@ function searchAction() {
 					search: searchQuery.value
 				} ),
 				icon: 'ridvanSearch',
-				text: mw.message( 'citizen-search-fulltext', searchQuery.value ).text()
+				text: mw.message( 'czsearch-search-fulltext', searchQuery.value ).text()
 			} );
 
 			// 2. (Optional) "Edit/Create page" link - You can remove this block if you don't want it
@@ -25,7 +25,7 @@ function searchAction() {
 				id: 'editpage',
 				href: this.urlGeneratorInstance.generateUrl( searchQuery.value, { action: 'edit' } ),
 				icon: 'ridvanEdit',
-				text: mw.message( 'citizen-search-editpage', searchQuery.value ).text()
+				text: mw.message( 'czsearch-search-editpage', searchQuery.value ).text()
 			} );
 
 			const data = {
@@ -38,21 +38,21 @@ function searchAction() {
 			};
 
 			// Inject the HTML
-			const actionList = document.getElementById( 'citizen-typeahead-list-action' );
-			const actionGroup = document.getElementById( 'citizen-typeahead-group-action' );
+			const actionList = document.getElementById( 'czsearch-typeahead-list-action' );
+			const actionGroup = document.getElementById( 'czsearch-typeahead-group-action' );
 			
 			if ( actionList && actionGroup ) {
 				actionList.outerHTML = templates.TypeaheadList.render( data, partials ).html();
 				// Show the group
-				document.getElementById( 'citizen-typeahead-group-action' ).hidden = false;
+				document.getElementById( 'czsearch-typeahead-group-action' ).hidden = false;
 			}
 		},
 		
 		clear: function () {
-			const actionList = document.getElementById( 'citizen-typeahead-list-action' );
+			const actionList = document.getElementById( 'czsearch-typeahead-list-action' );
 			if ( actionList ) actionList.innerHTML = '';
 
-			const actionGroup = document.getElementById( 'citizen-typeahead-group-action' );
+			const actionGroup = document.getElementById( 'czsearch-typeahead-group-action' );
 			if ( actionGroup ) actionGroup.hidden = true;
 		},
 		

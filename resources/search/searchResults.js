@@ -28,10 +28,10 @@ function searchResults() {
 			};
 			const generateRedirectHtml = () => {
 				const div = document.createElement( 'div' );
-				div.classList.add( 'citizen-typeahead__labelItem' );
+				div.classList.add( 'czsearch-typeahead__labelItem' );
 				div.title = getRedirectMessage();
 				const spanIcon = document.createElement( 'span' );
-				spanIcon.classList.add( 'citizen-ui-icon', 'mw-ui-icon-wikimedia-articleRedirect' );
+				spanIcon.classList.add( 'czsearch-ui-icon', 'mw-ui-icon-wikimedia-articleRedirect' );
 				div.appendChild( spanIcon );
 				const spanText = document.createElement( 'span' );
 				spanText.textContent = this.highlightTitle( matchedTitle, queryValue );
@@ -47,7 +47,7 @@ function searchResults() {
 		highlightTitle: function ( title, match ) {
 			if ( !match ) return title;
 			if ( !regexCache[ match ] ) regexCache[ match ] = new RegExp( mw.util.escapeRegExp( match ), 'i' );
-			return title.replace( regexCache[ match ], '<span class="citizen-typeahead__highlight">$&</span>' );
+			return title.replace( regexCache[ match ], '<span class="czsearch-typeahead__highlight">$&</span>' );
 		},
 		
 		// --- CHANGED: Return empty string instead of placeholder HTML ---
@@ -69,7 +69,7 @@ function searchResults() {
 				if ( result.thumbnail && result.thumbnail.url ) {
 					item.image.url = result.thumbnail.url;
 				} else {
-					item.image.class = 'citizen-typeahead-list-item-image--placeholder';
+					item.image.class = 'czsearch-typeahead-list-item-image--placeholder';
 				}
 				items.push( item );
 			} );
@@ -92,8 +92,8 @@ function searchResults() {
 			searchAction.render( searchQuery, templates );
 		},
 		clear: function () {
-			document.getElementById( 'citizen-typeahead-list-page' ).innerHTML = '';
-			document.getElementById( 'citizen-typeahead-group-page' ).hidden = true;
+			document.getElementById( 'czsearch-typeahead-list-page' ).innerHTML = '';
+			document.getElementById( 'czsearch-typeahead-group-page' ).hidden = true;
 			searchAction.clear();
 		},
 		init: function () {

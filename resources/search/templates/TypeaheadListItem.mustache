@@ -1,22 +1,22 @@
-<li class="citizen-typeahead-list-item">
+<li class="czsearch-typeahead-list-item">
 	<a
 		href="{{href}}"
-		class="citizen-typeahead-list-item-link"
-		id="citizen-typeahead-item-{{type}}-{{id}}"
+		class="czsearch-typeahead-list-item-link"
+		id="czsearch-typeahead-item-{{type}}-{{id}}"
 	>
-		{{#icon}}<div class="citizen-typeahead-list-item-icon citizen-ui-icon mw-ui-icon-wikimedia-{{.}}"></div>{{/icon}}
+		{{#icon}}<div class="czsearch-typeahead-list-item-icon czsearch-ui-icon mw-ui-icon-wikimedia-{{.}}"></div>{{/icon}}
 		{{#image}}
 		<div
-			class="citizen-typeahead-list-item-image{{#image.class}} {{.}}{{/image.class}}"
+			class="czsearch-typeahead-list-item-image{{#image.class}} {{.}}{{/image.class}}"
 			{{#image.url}}style="background-image: url({{.}});"{{/image.url}}
 		>
 		</div>
 		{{/image}}
-		<div class="citizen-typeahead-list-item-text">
+		<div class="czsearch-typeahead-list-item-text">
 			{{#text}}{{.}}{{/text}}
-			{{#title}}<div class="citizen-typeahead-list-item-title">{{{.}}}</div>{{/title}}
-			{{#description}}<div class="citizen-typeahead-list-item-description">{{.}}</div>{{/description}}
+			{{#title}}<div class="czsearch-typeahead-list-item-title">{{{.}}}</div>{{/title}}
+			{{#description}}<div class="czsearch-typeahead-list-item-description">{{.}}</div>{{/description}}
 		</div>
-		{{#html-end}}<div class="citizen-typeahead-list-item-end">{{{.}}}</div>{{/html-end}}
+		{{#html-end}}<div class="czsearch-typeahead-list-item-end">{{{.}}}</div>{{/html-end}}
 	</a>
 </li>

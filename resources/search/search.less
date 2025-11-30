@@ -1,15 +1,15 @@
 /* Default state: Hide the dropdown completely */
-.citizen-typeahead {
+.czsearch-typeahead {
     display: none;
 }
 
 /* ONLY show the dropdown if it contains a group that is NOT hidden */
-.citizen-typeahead:has(.citizen-typeahead-group:not([hidden])) {
+.czsearch-typeahead:has(.czsearch-typeahead-group:not([hidden])) {
     display: block;
 }
 
 /* --- COMPATIBILITY LAYER --- */
-.citizen-typeahead {
+.czsearch-typeahead {
 	--color-base: #202122;
 	--color-emphasized: #000000;
 	--color-subtle: #54595d;
@@ -31,14 +31,14 @@
 }
 
 /* Mixin shim */
-.mixin-citizen-font-styles( @type ) {
+.mixin-czsearch-font-styles( @type ) {
 	font-family: sans-serif;
 	font-size: 14px;
 }
 
 /* --- MAIN STYLES (Ported) --- */
 
-.citizen-typeahead {
+.czsearch-typeahead {
 	background: #fff;
 	border: 1px solid var(--border-color-base);
 	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -52,7 +52,7 @@
 	/* Styles from skins.citizen.search.less */
 	border-bottom-right-radius: var( --border-radius-medium );
 	border-bottom-left-radius: var( --border-radius-medium );
-	.mixin-citizen-font-styles( 'small' );
+	.mixin-czsearch-font-styles( 'small' );
 
 	a {
 		color: var( --color-base );
@@ -91,7 +91,7 @@
 }
 
 /* List Styles */
-.citizen-typeahead-list {
+.czsearch-typeahead-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -100,7 +100,7 @@
 }
 
 /* Item Styles */
-.citizen-typeahead-list-item {
+.czsearch-typeahead-list-item {
 	&-link {
 		display: flex;
 		gap: var( --space-sm );
@@ -148,12 +148,12 @@
 }
 
 /* Only hide the placeholder */
-#citizen-typeahead-placeholder {
+#czsearch-typeahead-placeholder {
 	display: none !important;
 }
 
 /* Style the action group to look distinct (Optional) */
-#citizen-typeahead-group-action {
+#czsearch-typeahead-group-action {
     border-top: 1px solid var(--border-color-base);
     margin-top: 4px;
 }
@@ -164,7 +164,7 @@
 /* --- ICONS --- */
 
 /* 1. Base Icon Class (Sets size and prepares for masking) */
-.citizen-ui-icon {
+.czsearch-ui-icon {
     width: var(--size-icon);
     height: var(--size-icon);
     display: inline-block;
@@ -193,7 +193,7 @@
 
 /* --- MOBILE: FULL WIDTH DROPDOWN --- */
 @media ( max-width: 768px ) {
-    .citizen-typeahead {
+    .czsearch-typeahead {
         width: calc(100vw - 20px);
         left: calc(var(--mobile-offset-left, 0) + 10px);
         right: auto;
