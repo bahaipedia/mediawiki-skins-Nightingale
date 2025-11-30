@@ -351,7 +351,6 @@ async function getSuggestions() {
 		const placeholderEl = document.getElementById( 'citizen-typeahead-placeholder' );
 
 		if ( results.length > 0 ) {
-			// TODO: This should be a generic method
 			listEl.outerHTML = searchResults.getResultsHTML(
 				results,
 				searchQuery.valueHtml,
@@ -361,11 +360,11 @@ async function getSuggestions() {
 			placeholderEl.innerHTML = '';
 			placeholderEl.hidden = true;
 		} else {
-			// Update placeholder with no result content
+			// --- CHANGED: HIDE EVERYTHING ON NO RESULTS ---
 			listEl.innerHTML = '';
 			groupEl.hidden = true;
-			placeholderEl.innerHTML = searchResults.getPlaceholderHTML( searchQuery.value, compiledTemplates );
-			placeholderEl.hidden = false;
+			placeholderEl.innerHTML = '';
+			placeholderEl.hidden = true;
 		}
 
 		typeahead.form.setLoadingState( false );
