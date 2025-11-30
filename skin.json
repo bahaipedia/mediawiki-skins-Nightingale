@@ -80,8 +80,6 @@
 				"mediawiki.util"
 			]
 		},
-
-		/* === New search module === */
 		"skins.ridvan.search": {
 			"targets": [
 				"desktop",
