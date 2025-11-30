@@ -6,7 +6,13 @@ class SkinRidvan extends SkinMustache {
         $data = parent::getTemplateData();
 
         // ---------------------------------------------------------
-        // PART 1: HEADER BUTTONS
+        // PART 1: GLOBAL FLAGS & METADATA
+        // ---------------------------------------------------------
+        // Inject redirect status for template logic (e.g. hiding categories)
+        $data['is-redirect'] = $this->getTitle()->isRedirect();
+
+        // ---------------------------------------------------------
+        // PART 2: HEADER BUTTONS (ACTIONS)
         // ---------------------------------------------------------
         $allPortlets = array_merge(
             $data['data-portlets']['data-namespaces']['array-items'] ?? [],
@@ -20,6 +26,7 @@ class SkinRidvan extends SkinMustache {
 
         foreach ( $allPortlets as $item ) {
             $id = $item['id'] ?? '';
+            // Skip "View" tab as it is redundant in this design
             if ( $id === 'ca-view' ) {
                 continue;
             }
@@ -37,13 +44,16 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-content-hybrid'] = $hybridMenu;
 
         // ---------------------------------------------------------
-        // PART 2: CLEANUP LANGUAGES
+        // PART 3: CLEANUP LANGUAGES
         // ---------------------------------------------------------
+        // Filter out Wikibase/Wikidata edit links from the language list
         if ( isset( $data['data-portlets']['data-languages']['array-items'] ) ) {
             $langItems = $data['data-portlets']['data-languages']['array-items'];
             $realLanguages = array_filter( $langItems, function( $item ) {
                 return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
             });
+            
+            // If no real languages remain, remove the portlet entirely
             if ( empty( $realLanguages ) ) {
                 unset( $data['data-portlets']['data-languages'] );
             }
@@ -52,17 +62,14 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
-        // PART 3: MODIFY SIDEBAR DATA (INJECT & REMOVE)
+        // PART 4: SIDEBAR MODIFICATION (INJECT & REMOVE)
         // ---------------------------------------------------------
-
-        // 1. Existing Loop: Modifications (Inject Special Pages, Remove Nav)
         if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
             foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
                 $id = $portlet['id'] ?? '';
 
                 // 1. INJECT SPECIAL PAGES INTO TOOLBOX (p-tb)
                 if ( $id === 'p-tb' ) {
-                    // Ensure the array exists
                     if ( !isset( $portlet['array-items'] ) ) {
                         $portlet['array-items'] = [];
                     }
@@ -95,7 +102,7 @@ class SkinRidvan extends SkinMustache {
             unset($portlet); 
 
             // -----------------------------------------------------
-            // ORDER THE SIDEBAR
+            // RE-ORDER THE SIDEBAR
             // -----------------------------------------------------
             $currentRest = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
             
@@ -130,15 +137,12 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
-        // PART 4: MOBILE DATA PREPARATION (STRICT MODE)
+        // PART 5: MOBILE DATA PREPARATION
         // ---------------------------------------------------------
 
         // 1. MOBILE MENU 
-        // Get the actual portlet data to extract the label
         $navPortlet = $data['data-portlets-sidebar']['data-portlets-first'] ?? [];
         $mobileMenu = $navPortlet['array-items'] ?? [];
-        
-        // DYNAMIC LABEL: Use the label from the first sidebar item (usually "Navigation")
         $mobileMenuLabel = $navPortlet['label'] ?? $this->msg('navigation')->text();
 
         // 2. SORT SIDEBAR "REST" -> TOOLS vs LINKS
@@ -147,7 +151,6 @@ class SkinRidvan extends SkinMustache {
         $mobileTools = [];
         $mobileLinks = [];
         
-        // DYNAMIC LABEL: Default to standard "Toolbox" message
         $mobileToolsLabel = $this->msg('toolbox')->text(); 
 
         foreach ( $sidebarRest as $portlet ) {
@@ -166,7 +169,6 @@ class SkinRidvan extends SkinMustache {
             // B. TOOLBOX -> TOOLS (STRICT: Only p-tb)
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
-                // Capture the localized label for the toolbox directly from the portlet if available
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
                 }
@@ -177,28 +179,11 @@ class SkinRidvan extends SkinMustache {
             }
         }
 
-        // ---------------------------------------------------------
-        // PART 5: USERNAME LABEL & CLASSES
-        // ---------------------------------------------------------
-        $user = $this->getSkin()->getUser();
-        
-        // Ensure the array exists and has a class key to append to
-        if ( isset($data['data-portlets']['data-user-menu']) ) {
-            $userMenu = &$data['data-portlets']['data-user-menu'];
-            if ( !isset($userMenu['class']) ) { $userMenu['class'] = ''; }
-
-            if ( $user->isNamed() ) {
-                // LOGGED IN
-                $userMenu['label'] = $user->getName();
-                $userMenu['class'] .= ' is-loggedin'; // Append class
-            } else {
-                // ANONYMOUS
-                $userMenu['class'] .= ' is-anon';     // Append class
-            }
-        }
-        
         // 3. ADD LANGUAGES TO LINKS
+        // Note: Part 3 may have unset this key if empty, so we check for existence.
         $langRaw = $data['data-portlets']['data-languages']['array-items'] ?? [];
+        
+        // Filter again just to be safe (though Part 3 usually handles the unset)
         $langClean = array_filter( $langRaw, function( $item ) {
             return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
         });
@@ -214,6 +199,25 @@ class SkinRidvan extends SkinMustache {
         $data['ridvan-mobile-links'] = $mobileLinks;
         $data['ridvan-mobile-links-label'] = $this->msg('ridvan-mobile-links-label')->text();
         $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
+
+        // ---------------------------------------------------------
+        // PART 6: USER MENU & STATE
+        // ---------------------------------------------------------
+        $user = $this->getSkin()->getUser();
+        
+        if ( isset($data['data-portlets']['data-user-menu']) ) {
+            $userMenu = &$data['data-portlets']['data-user-menu'];
+            if ( !isset($userMenu['class']) ) { $userMenu['class'] = ''; }
+
+            if ( $user->isNamed() ) {
+                // LOGGED IN
+                $userMenu['label'] = $user->getName();
+                $userMenu['class'] .= ' is-loggedin';
+            } else {
+                // ANONYMOUS
+                $userMenu['class'] .= ' is-anon';
+            }
+        }
 
         return $data;
     }
