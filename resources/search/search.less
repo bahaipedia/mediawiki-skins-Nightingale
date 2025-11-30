@@ -193,37 +193,6 @@
     mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg fill='%23000000' viewBox='0 0 36 36' stroke='currentColor' version='1.1' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Enote-edit-line%3C/title%3E%3Cpath d='M28,30H6V8H19.22l2-2H6A2,2,0,0,0,4,8V30a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V15l-2,2Z' class='clr-i-outline clr-i-outline-path-1'%3E%3C/path%3E%3Cpath d='M33.53,5.84,30.16,2.47a1.61,1.61,0,0,0-2.28,0L14.17,16.26l-1.11,4.81A1.61,1.61,0,0,0,14.63,23,1.69,1.69,0,0,0,15,23l4.85-1.07L33.53,8.12A1.61,1.61,0,0,0,33.53,5.84ZM18.81,20.08l-3.66.81L16,17.26,26.32,6.87l2.82,2.82ZM30.27,8.56,27.45,5.74,29,4.16,31.84,7Z' class='clr-i-outline clr-i-outline-path-2'%3E%3C/path%3E%3C/svg%3E");
 }
 
-/* --- 2. IMAGE PLACEHOLDER (For Search Results) --- */
-/* Completely separate logic. No conflict. */
-.citizen-search-placeholder {
-    /* Hardcoded grey box */
-    width: 60px;
-    height: 60px;
-    background-color: var(--background-color-base-fixed);
-    display: grid;
-    place-content: center;
-    border-radius: var(--border-radius-medium);
-}
-
-/* The icon inside the placeholder */
-.citizen-search-placeholder::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background-color: var(--color-subtle);
-    display: block;
-    
-    /* Standard Image Icon Mask */
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M19 3H1v14h18V3zm-2 12H3V5h14v10z'/%3E%3Cpath d='M6 8.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zM5 14h10l-2.5-3.5L10 13l-2-2.5z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M19 3H1v14h18V3zm-2 12H3V5h14v10z'/%3E%3Cpath d='M6 8.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zM5 14h10l-2.5-3.5L10 13l-2-2.5z'/%3E%3C/svg%3E");
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-}
-
 /* --- MOBILE: FULL WIDTH DROPDOWN --- */
 @media ( max-width: 768px ) {
     .citizen-typeahead {
