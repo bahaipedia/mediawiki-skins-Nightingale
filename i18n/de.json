@@ -1,0 +1,10 @@
+{
+	"czsearch-search-noresults-title": "Keine Ergebnisse für „$1“",
+	"czsearch-search-noresults-desc": "Überprüfe deine Schreibweise oder versuche einen anderen Suchbegriff.",
+	"czsearch-search-fulltext": "Suche nach Text „$1“",
+	"searchsuggest-search": "Suche",
+	"czsearch-search-editpage": "Seite „$1“ bearbeiten oder erstellen",
+	"czsearch-search-mediasearch": "Suche nach Mediendateien für „$1“",
+	"czsearch-search-empty-desc": "Suche nach Seiten, Medien und mehr",
+	"search-redirect": "(Weiterleitung nach $1)"
+}
