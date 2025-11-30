@@ -4,13 +4,11 @@
 }
 
 /* ONLY show the dropdown if it contains a group that is NOT hidden */
-/* This prevents the empty border from showing up */
 .citizen-typeahead:has(.citizen-typeahead-group:not([hidden])) {
     display: block;
 }
 
 /* --- COMPATIBILITY LAYER --- */
-/* Maps Citizen variables to standard MediaWiki/Codex variables */
 .citizen-typeahead {
 	--color-base: #202122;
 	--color-emphasized: #000000;
@@ -50,7 +48,7 @@
 	right: 0;
 	width: 100%;
 	z-index: 100;
-	margin-top: 4px;
+	margin-top: 4px; /* Space between input and results */
 	
 	/* Styles from skins.citizen.search.less */
 	border-bottom-right-radius: var( --border-radius-medium );
@@ -63,39 +61,23 @@
 		&:hover, &:focus { text-decoration: none; }
 	}
 
+    /* --- INPUT STYLING (SIMPLIFIED) --- */
+    /* We removed -group and -overlay, now just style the input directly */
 	&-input {
-		color: transparent !important;
+		color: var( --color-emphasized ) !important; /* TEXT IS VISIBLE NOW */
+        caret-color: auto; /* Default browser cursor */
 		height: 100%;
 		width: 100%;
-		padding: 0 8px;
-		caret-color: var( --color-emphasized );
+        padding: 6px 8px; /* Standard padding */
 		box-sizing: border-box;
-		background: transparent !important;
-		
-		&-group {
-			display: flex;
-			align-items: center;
-			position: relative;
-			height: 100%;
-			width: 100%;
-			display: flex;
-			flex-grow: 1;
-		}
-
-		&-overlay {
-			position: absolute;
-			inset: 0 var( --height-search-bar ) 0 0;
-			display: flex;
-			align-items: center;
-			overflow: hidden;
-			white-space: nowrap;
-			pointer-events: none;
-			padding: 0 8px;
-			top: 0;
-			left: 0;
-
-			&-query { color: var( --color-emphasized ); }
-		}
+		background: #fff !important; /* White background */
+        border: 1px solid var(--border-color-base);
+        border-radius: var(--border-radius-medium);
+        
+        &:focus {
+            border-color: #36c;
+            outline: 1px solid #36c;
+        }
 	}
 
 	&__highlight {
@@ -118,15 +100,6 @@
 	list-style: none;
 	display: flex !important;
     flex-direction: column !important;
-
-	.citizen-typeahead-group--chips & {
-		display: flex;
-		gap: var( --space-xxs );
-		padding: var( --space-xs ) var( --space-md );
-		overflow-x: auto;
-		scrollbar-width: none;
-		&::-webkit-scrollbar { display: none; }
-	}
 }
 
 /* Item Styles */
@@ -176,28 +149,12 @@
 
 	&-title { font-weight: var( --font-weight-semi-bold ); }
 	&-description { color: var( --color-subtle ); font-size: 0.85em;}
-
-	.citizen-typeahead-group--chips & {
-		&-link {
-			gap: var( --space-xs );
-			min-height: 36px;
-			padding: var( --space-xxs ) var( --space-sm );
-			border: 1px solid var( --border-color-base );
-			border-radius: var( --border-radius-medium );
-		}
-	}
 }
 
-/* Placeholder Styles */
-.citizen-typeahead-placeholder {
-	&-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: var( --space-xxl ) var( --space-md );
-		text-align: center;
-	}
-	&-icon { font-size: 3rem; margin-bottom: var( --space-xs ); opacity: 0.5; }
+/* Force hide placeholder and action group */
+#citizen-typeahead-placeholder,
+#citizen-typeahead-group-action {
+	display: none !important;
 }
 
 /* Hide default MediaWiki suggestions */
