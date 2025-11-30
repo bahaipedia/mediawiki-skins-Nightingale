@@ -1,13 +1,10 @@
 {{#data-search-box}}
-<form action="{{form-action}}" role="search" class="mw-portlet ridvan-search-portlet" id="p-search">
+<form action="{{form-action}}" role="search" class="mw-portlet" id="p-search">
     <input type="hidden" name="title" value="{{page-title}}">
     <h3>
         <label for="searchInput">{{msg-search}}</label>
     </h3>
-
-    <div class="ridvan-search-container">
-        {{{html-input}}}          {{!-- MediaWiki renders <input id="searchInput"> --}}
-        {{{html-button-search}}}
-    </div>
+    {{{html-input}}}
+    {{{html-button-search}}}
 </form>
 {{/data-search-box}}
