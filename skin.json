@@ -118,14 +118,13 @@
 				"resources/search/search.less"
 			],
 			"messages": [
-				"citizen-search-noresults-title",
-				"citizen-search-noresults-desc",
-				"citizen-search-fulltext",
+				"czsearch-search-noresults-title",
+				"czsearch-search-noresults-desc",
+				"czsearch-search-fulltext",
 				"searchsuggest-search",
-				"citizen-search-advancedsearch",
-				"citizen-search-editpage",
-				"citizen-search-mediasearch",
-				"citizen-search-empty-desc",
+				"czsearch-search-editpage",
+				"czsearch-search-mediasearch",
+				"czsearch-search-empty-desc",
 				"search-redirect"
 			],
 			"dependencies": [
