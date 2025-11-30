@@ -3,6 +3,7 @@ const urlGenerator = require( './urlGenerator.js' );
 
 /**
  * Simplified Search Client for MediaWiki REST API
+ * Mimics the structure of Citizen's complex client factory
  */
 function searchClient( config ) {
 	// Helper to format the API response
@@ -29,11 +30,10 @@ function searchClient( config ) {
 		};
 	}
 
-	return {
-		active: { id: 'mwRestApi' }, // Mocking the active object for compatibility
-		
+	// This object mimics the "mwRestApiSearchClient" instance
+	const internalClient = {
 		fetchByTitle: ( q, limit = config.wgCitizenMaxSearchResults, showDescription = true ) => {
-			// Ensure we use the correct script path from MW config if the JSON is static
+			// Ensure we use the correct script path from MW config
 			const scriptPath = mw.config.get( 'wgScriptPath' ) || config.wgScriptPath;
 			const searchApiUrl = scriptPath + '/rest.php';
 			
@@ -50,6 +50,25 @@ function searchClient( config ) {
 				abort: result.abort,
 				fetch: searchResponsePromise
 			};
+		}
+	};
+
+	// return the object structure typeahead.js expects
+	return {
+		// The active client holder
+		active: {
+			id: 'mwRestApi',
+			client: internalClient
+		},
+
+		// No-op: We only support one client, so we ignore requests to switch
+		setActive: function ( id ) {
+			return;
+		},
+
+		// No-op: We don't support special command data (like starting search with "/")
+		getData: function ( key, value ) {
+			return null;
 		}
 	};
 }
