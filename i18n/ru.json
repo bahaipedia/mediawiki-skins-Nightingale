@@ -1,0 +1,10 @@
+{
+	"czsearch-search-noresults-title": "Нет результатов для «$1»",
+	"czsearch-search-noresults-desc": "Проверьте написание или попробуйте другой запрос.",
+	"czsearch-search-fulltext": "Найти текст «$1»",
+	"searchsuggest-search": "Поиск",
+	"czsearch-search-editpage": "Править или создать страницу «$1»",
+	"czsearch-search-mediasearch": "Найти медиафайлы, соответствующие «$1»",
+	"czsearch-search-empty-desc": "Поиск страниц, медиафайлов и многого другого",
+	"search-redirect": "(перенаправляет на $1)"
+}
