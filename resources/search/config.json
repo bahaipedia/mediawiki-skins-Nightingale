@@ -1,7 +1,7 @@
 {
 	"wgCitizenSearchGateway": "mwRestApi",
 	"wgCitizenMaxSearchResults": 10,
-	"wgScriptPath": "/",
+	"wgScriptPath": "",
 	"isAdvancedSearchExtensionEnabled": false,
 	"isMediaSearchExtensionEnabled": false
 }
