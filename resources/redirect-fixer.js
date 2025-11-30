@@ -1,4 +1,5 @@
 $(function () {
+    console.log( 'Ridvan: redirect-fixer.js loaded successfully.' );
     // 1. Find the link to the immediate redirect target
     // MediaWiki puts this in <ul class="redirectText"><li><a ...>Target</a></li></ul>
     var $targetLink = $('.redirectText a').first();
