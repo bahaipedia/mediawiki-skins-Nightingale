@@ -27,29 +27,29 @@ function searchPresults() {
 			document.getElementById( 'citizen-typeahead-group-history' ).hidden = false;
 		},
 		render: function ( templates ) {
+			// Clear any existing placeholder
 			const placeholderEl = document.getElementById( 'citizen-typeahead-placeholder' );
-			placeholderEl.innerHTML = '';
-			placeholderEl.hidden = true;
+			if ( placeholderEl ) {
+				placeholderEl.innerHTML = '';
+				placeholderEl.hidden = true;
+			}
 
+			// Only render history if it exists
 			const historyResults = searchHistory.get();
 			if ( historyResults && historyResults.length > 0 ) {
 				this.renderHistory( historyResults, templates );
-			} else {
-				const data = {
-					icon: 'articlesSearch',
-					title: mw.message( 'searchsuggest-search' ).text(),
-					description: mw.message( 'citizen-search-empty-desc' ).text()
-				};
-				placeholderEl.innerHTML = templates.TypeaheadPlaceholder.render( data ).html();
-				placeholderEl.hidden = false;
 			}
+			
+			// REMOVED: The 'else' block that rendered the "Search Bahaipedia" banner
 		},
 		clear: function () {
-			document.getElementById( 'citizen-typeahead-list-history' ).innerHTML = '';
-			document.getElementById( 'citizen-typeahead-group-history' ).hidden = true;
+			const historyList = document.getElementById( 'citizen-typeahead-list-history' );
+			if ( historyList ) historyList.innerHTML = '';
+			
+			const historyGroup = document.getElementById( 'citizen-typeahead-group-history' );
+			if ( historyGroup ) historyGroup.hidden = true;
 		}
 	};
 }
 
-/** @module searchPresults */
 module.exports = searchPresults;
