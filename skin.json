@@ -34,8 +34,7 @@
 						"skins.ridvan.styles"
 					],
 					"scripts": [
-						"skins.ridvan",
-						"skins.ridvan.search"
+						"skins.ridvan"
 					]
 				}
 			]
@@ -74,26 +73,11 @@
 				"mobile"
 			],
 			"packageFiles": [
-				"resources/skin.js"
-			],
-			"dependencies": [
-				"mediawiki.util"
-			]
-		},
-		"skins.ridvan.search": {
-			"targets": [
-				"desktop",
-				"mobile"
-			],
-			"packageFiles": [
+				"resources/skin.js",
 				"resources/search.js"
 			],
 			"dependencies": [
-				"mediawiki.util",
-				"mediawiki.searchSuggest",
-				"mediawiki.widgets.SearchInputWidget",
-				"mediawiki.api",
-				"jquery.client"
+				"mediawiki.util"
 			]
 		}
 	},
