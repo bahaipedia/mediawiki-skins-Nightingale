@@ -119,30 +119,19 @@
 		}
 	}
 
-	&-image-wrapper {
+	&-image {
 		flex-shrink: 0;
 		width: 60px;
 		height: 60px;
 		overflow: hidden;
+		background-position: center;
+		background-size: cover;
 		border-radius: var( --border-radius-medium );
-		background-color: var( --background-color-base-fixed );
-		
-		/* Placeholder state (grey box) */
-		&.citizen-search-placeholder {
-			/* Styles for the placeholder are handled at the bottom of the file */
-		}
-	}
-
-	&-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover; /* This replicates background-size: cover */
-		display: block;
 
 		&--placeholder {
 			display: grid;
 			place-content: center;
-			/* height: 0px;*/
+			height: 0px;
 		}
 	}
 
