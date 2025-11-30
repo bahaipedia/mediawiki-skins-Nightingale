@@ -61,13 +61,12 @@
 	}
 
     /* --- INPUT STYLING (SIMPLIFIED) --- */
-    /* We removed -group and -overlay, now just style the input directly */
 	&-input {
-		color: var( --color-emphasized ) !important; /* TEXT IS VISIBLE NOW */
-        caret-color: auto; /* Default browser cursor */
+		color: var( --color-emphasized ) !important;
+        caret-color: auto; 
 		height: 100%;
 		width: 100%;
-        padding: 6px 8px; /* Standard padding */
+        padding: 6px 8px;
 		box-sizing: border-box;
 		background: #fff !important; /* White background */
         border: 1px solid var(--border-color-base);
@@ -126,6 +125,7 @@
 		width: 60px;
 		height: 60px;
 		overflow: hidden;
+		background-color: var( --background-color-base-fixed );
 		background-position: center;
 		background-size: cover;
 		border-radius: var( --border-radius-medium );
@@ -133,6 +133,7 @@
 		&--placeholder {
 			display: grid;
 			place-content: center;
+			background-color: var( --color-surface-3 );
 		}
 	}
 
