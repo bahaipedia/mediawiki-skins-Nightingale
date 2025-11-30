@@ -1,0 +1,173 @@
+/* --- COMPATIBILITY LAYER --- */
+/* Maps Citizen variables to standard MediaWiki/Codex variables */
+.citizen-typeahead {
+	--color-base: #202122;
+	--color-emphasized: #000000;
+	--color-subtle: #54595d;
+	--color-surface-3: #eaecf0;
+	--background-color-base-fixed: #fff;
+	--background-color-button-quiet--hover: rgba(0, 24, 73, 0.027);
+	--background-color-button-quiet--active: rgba(0, 24, 73, 0.082);
+	--border-color-base: #a2a9b1;
+	--border-radius-medium: 2px;
+	--font-weight-medium: 500;
+	--font-weight-semi-bold: 700;
+	--space-xxs: 2px;
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 12px;
+	--space-xxl: 24px;
+	--size-icon: 20px;
+	--height-search-bar: 32px;
+}
+
+/* Mixin shim */
+.mixin-citizen-font-styles( @type ) {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+/* --- MAIN STYLES (Ported) --- */
+
+.citizen-typeahead {
+	background: #fff;
+	border: 1px solid var(--border-color-base);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+	
+	/* Styles from skins.citizen.search.less */
+	border-bottom-right-radius: var( --border-radius-medium );
+	border-bottom-left-radius: var( --border-radius-medium );
+	.mixin-citizen-font-styles( 'small' );
+
+	a {
+		color: var( --color-base );
+		text-decoration: none;
+		&:hover, &:focus { text-decoration: none; }
+	}
+
+	&-input {
+		color: transparent !important;
+		caret-color: var( --color-emphasized );
+		background: transparent !important;
+		
+		&-group {
+			position: relative;
+			display: flex;
+			flex-grow: 1;
+		}
+
+		&-overlay {
+			position: absolute;
+			inset: 0 var( --height-search-bar ) 0 0;
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+			white-space: nowrap;
+			pointer-events: none;
+			padding: 0 8px; /* Adjustment for standard inputs */
+
+			&-query { color: var( --color-emphasized ); }
+		}
+	}
+
+	&__highlight {
+		font-weight: var( --font-weight-medium );
+		color: var( --color-subtle );
+	}
+
+	&__labelItem {
+		display: flex;
+		gap: var( --space-xxs );
+		align-items: center;
+		color: var( --color-subtle );
+	}
+}
+
+/* List Styles */
+.citizen-typeahead-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	.citizen-typeahead-group--chips & {
+		display: flex;
+		gap: var( --space-xxs );
+		padding: var( --space-xs ) var( --space-md );
+		overflow-x: auto;
+		scrollbar-width: none;
+		&::-webkit-scrollbar { display: none; }
+	}
+}
+
+/* Item Styles */
+.citizen-typeahead-list-item {
+	&-link {
+		display: flex;
+		gap: var( --space-sm );
+		align-items: center;
+		min-height: 44px;
+		padding: var( --space-xs ) var( --space-md );
+		cursor: pointer;
+
+		&:hover,
+		&[ data-mw-typeahead-selected ] {
+			background-color: var( --background-color-button-quiet--hover );
+		}
+	}
+
+	&-image {
+		flex-shrink: 0;
+		width: 60px;
+		height: 60px;
+		overflow: hidden;
+		background-color: var( --background-color-base-fixed );
+		background-position: center;
+		background-size: cover;
+		border-radius: var( --border-radius-medium );
+
+		&--placeholder {
+			display: grid;
+			place-content: center;
+			background-color: var( --color-surface-3 );
+		}
+	}
+
+	&-text {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+		overflow: hidden;
+		color: var( --color-emphasized );
+	}
+
+	&-title { font-weight: var( --font-weight-semi-bold ); }
+	&-description { color: var( --color-subtle ); font-size: 0.85em;}
+
+	.citizen-typeahead-group--chips & {
+		&-link {
+			gap: var( --space-xs );
+			min-height: 36px;
+			padding: var( --space-xxs ) var( --space-sm );
+			border: 1px solid var( --border-color-base );
+			border-radius: var( --border-radius-medium );
+		}
+	}
+}
+
+/* Placeholder Styles */
+.citizen-typeahead-placeholder {
+	&-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: var( --space-xxl ) var( --space-md );
+		text-align: center;
+	}
+	&-icon { font-size: 3rem; margin-bottom: var( --space-xs ); opacity: 0.5; }
+}
+
+/* Hide default MediaWiki suggestions */
+.suggestions { display: none !important; }
