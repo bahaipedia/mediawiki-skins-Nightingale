@@ -36,31 +36,26 @@ const typeahead = {
 	input: {
 		/** @type {HTMLInputElement | undefined} */
 		element: undefined,
-		displayElement: undefined,
-		// Trigger update only when character is composed (e.g. CJK IME)
+		// REMOVED: displayElement (we don't need the overlay anymore)
+		
 		isComposing: false,
+		
 		init: function ( inputEl ) {
 			const typeaheadInputElement = inputEl;
 			this.element = typeaheadInputElement;
 
-			const wrapper = document.createElement( 'div' );
-			wrapper.classList.add( 'citizen-typeahead-input-group' );
-			typeaheadInputElement.parentNode.insertBefore( wrapper, typeaheadInputElement );
-
-			const overlay = document.createElement( 'div' );
-			overlay.classList.add( 'citizen-typeahead-input-overlay' );
-			this.displayElement = document.createElement( 'span' );
-			this.displayElement.textContent = typeaheadInputElement.value;
-			this.displayElement.classList.add( 'citizen-typeahead-input-overlay-query' );
-			overlay.append( this.displayElement );
-
+			// --- REMOVED: Wrapper and Overlay creation logic ---
+			// We now treat the input as a normal DOM element
+			
 			typeaheadInputElement.classList.add( 'citizen-typeahead-input' );
 			typeaheadInputElement.setAttribute( 'aria-autocomplete', 'list' );
 			typeaheadInputElement.setAttribute( 'aria-controls', typeahead.element.id );
 
-			wrapper.append( overlay, typeaheadInputElement );
+			// Wrapper/Overlay logic deleted here...
+
 			typeaheadInputElement.addEventListener( 'focus', this.onFocus );
 
+			// Auto-focus logic
 			const isVisible = typeaheadInputElement.offsetWidth > 0 ||
 				typeaheadInputElement.offsetHeight > 0;
 			const isFocusable = !typeaheadInputElement.disabled && !typeaheadInputElement.readOnly;
@@ -80,10 +75,11 @@ const typeahead = {
 			typeahead.input.element.dispatchEvent( new Event( 'input' ) );
 		},
 		onFocus: function () {
+			// Standard focus logic
 			const typeaheadInputElement = typeahead.input.element;
-			// Refresh the typeahead since the query will be emptied when blurred
 			typeahead.afterSearchQueryInput();
 			typeahead.form.element.parentElement.classList.add( 'citizen-search__card--expanded' );
+			
 			// FIXME: Should probably clean up this somehow
 			typeahead.element.addEventListener( 'click', typeahead.onClick );
 			typeaheadInputElement.addEventListener( 'keydown', typeahead.input.onKeydown );
@@ -91,13 +87,16 @@ const typeahead = {
 			typeaheadInputElement.addEventListener( 'blur', typeahead.onBlur );
 		},
 		onInput: function () {
+			// --- REMOVED: The line that updated the overlay text ---
+			// typeahead.input.displayElement.textContent = typeaheadInputElement.value; 
+			
 			const typeaheadInputElement = typeahead.input.element;
-			typeahead.input.displayElement.textContent = typeaheadInputElement.value;
 			typeaheadInputElement.addEventListener( 'compositionstart', typeahead.input.onCompositionstart );
 			if ( typeahead.input.isComposing !== true ) {
 				mw.util.debounce( typeahead.afterSearchQueryInput(), 100 );
 			}
 		},
+		// ... (keep onKeydown exactly as it was) ...
 		onKeydown: function ( event ) {
 			if ( event.defaultPrevented ) {
 				return; // Do nothing if the event was already processed
