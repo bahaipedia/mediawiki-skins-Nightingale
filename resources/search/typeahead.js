@@ -60,6 +60,8 @@ const typeahead = {
 			typeahead.input.element.dispatchEvent( new Event( 'input' ) );
 		},
 		onFocus: function () {
+			const formRect = typeahead.form.element.getBoundingClientRect();
+			typeahead.element.style.setProperty( '--mobile-offset-left', -formRect.left + 'px' );
 			typeahead.afterSearchQueryInput();
 			typeahead.element.addEventListener( 'click', typeahead.onClick );
 			typeahead.input.element.addEventListener( 'keydown', typeahead.input.onKeydown );
