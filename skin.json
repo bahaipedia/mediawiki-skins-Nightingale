@@ -34,7 +34,8 @@
 						"skins.ridvan.styles"
 					],
 					"scripts": [
-						"skins.ridvan"
+						"skins.ridvan",
+						"skins.ridvan.search"
 					]
 				}
 			]
@@ -77,6 +78,64 @@
 			],
 			"dependencies": [
 				"mediawiki.util"
+			]
+		},
+		"skins.ridvan.search": {
+			"packageFiles": [
+				"resources/search/main.js",
+				"resources/search/typeahead.js",
+				"resources/search/searchResults.js",
+				"resources/search/searchQuery.js",
+				"resources/search/searchHistory.js",
+				"resources/search/searchPresults.js",
+				"resources/search/searchAction.js",
+				"resources/search/searchClient.js",
+				"resources/search/urlGenerator.js",
+				"resources/search/fetch.js",
+				{
+					"name": "resources/search/config.json",
+					"file": "resources/search/config.json"
+				},
+				{
+					"name": "resources/search/templates/TypeaheadElement.mustache",
+					"file": "resources/search/templates/TypeaheadElement.mustache",
+					"type": "text"
+				},
+				{
+					"name": "resources/search/templates/TypeaheadPlaceholder.mustache",
+					"file": "resources/search/templates/TypeaheadPlaceholder.mustache",
+					"type": "text"
+				},
+				{
+					"name": "resources/search/templates/TypeaheadList.mustache",
+					"file": "resources/search/templates/TypeaheadList.mustache",
+					"type": "text"
+				},
+				{
+					"name": "resources/search/templates/TypeaheadListItem.mustache",
+					"file": "resources/search/templates/TypeaheadListItem.mustache",
+					"type": "text"
+				}
+			],
+			"styles": [
+				"resources/search/search.less"
+			],
+			"messages": [
+				"citizen-search-noresults-title",
+				"citizen-search-noresults-desc",
+				"citizen-search-fulltext",
+				"searchsuggest-search",
+				"citizen-search-advancedsearch",
+				"citizen-search-editpage",
+				"citizen-search-mediasearch",
+				"citizen-search-empty-desc",
+				"search-redirect"
+			],
+			"dependencies": [
+				"mediawiki.storage",
+				"mediawiki.template.mustache",
+				"mediawiki.util",
+				"mediawiki.ui.icon"
 			]
 		}
 	},
