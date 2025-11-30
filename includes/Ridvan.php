@@ -11,6 +11,11 @@ class SkinRidvan extends SkinMustache {
         // Inject redirect status for template logic (e.g. hiding categories)
         $data['is-redirect'] = $this->getTitle()->isRedirect();
 
+        if ( $data['is-redirect'] ) {
+            // Only load this heavy API logic on actual redirect pages
+            $this->getOutput()->addModules( 'skins.ridvan.redirectfixer' );
+        }
+
         // ---------------------------------------------------------
         // PART 2: HEADER BUTTONS (ACTIONS)
         // ---------------------------------------------------------
