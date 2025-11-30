@@ -34,8 +34,7 @@
 						"skins.ridvan.styles"
 					],
 					"scripts": [
-						"skins.ridvan",
-						"skins.ridvan.search"
+						"skins.ridvan"
 					]
 				}
 			]
@@ -156,5 +155,11 @@
 		"remoteSkinPath": "Ridvan"
 	},
 	"ResourceModuleSkinStyles": {},
+	"config": {
+		"SearchSuggestionsReplacement": {
+			"value": true,
+			"description": "Enable the custom Citizen-based search module."
+		}
+	},
 	"manifest_version": 2
 }
