@@ -179,11 +179,11 @@ const typeahead = {
 			TypeaheadListItem: this.mustacheCompiler.compile( templateTypeaheadListItem )
 		} );
 
-		// REMOVED: History from array-lists
 		const data = {
 			'data-placeholder': { hidden: true },
 			'array-lists': [
-				{ type: 'page', hidden: true, keyboardNavigation: true }
+				{ type: 'page', hidden: true, keyboardNavigation: true },
+				{ type: 'action', hidden: true }
 			]
 		};
 		const partials = {
