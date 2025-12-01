@@ -1,4 +1,6 @@
 {
+	"ridvan-no-categories": "无分类。",
+	"ridvan-mobile-links-label": "链接",
 	"czsearch-search-noresults-title": "没有找到关于“$1”的结果",
 	"czsearch-search-noresults-desc": "请检查拼写或尝试不同的搜索词。",
 	"czsearch-search-fulltext": "搜索文本“$1”",
