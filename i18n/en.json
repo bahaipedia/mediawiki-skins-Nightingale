@@ -1,11 +1,4 @@
 {
-	"@metadata": {
-		"authors": [
-			"..."
-		]
-	},
-	"skinname-ridvan": "Ridvan",
-	"ridvan-skin-desc": "A skin created by [https://skins.wmflabs.org skins.wmflabs.org v.3.0]",
 	"ridvan-no-categories": "No categories.",
 	"ridvan-mobile-links-label": "Links",
 	"czsearch-search-noresults-title": "No results for \"$1\"",
