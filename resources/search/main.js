@@ -1,15 +1,19 @@
-console.log( 'Ridvan: search js v3 loaded successfully.' );
+console.log( 'Ridvan: search js v4 loaded successfully.' );
 
 function initSearchLoader() {
 	const searchForm = document.getElementById( 'searchform' );
 	const searchInput = document.getElementById( 'searchInput' );
 
 	if ( searchForm && searchInput ) {
-		// 1. Kill default MediaWiki search suggestions
+		// 1. Kill default MediaWiki search suggestions safely
 		if ( window.jQuery ) {
+			// Remove the event listeners that trigger the default search
 			$( searchInput ).off( 'keydown.suggestions keypress.suggestions keyup.suggestions' );
-			// Depending on MW version, this might also be needed:
-			$( searchInput ).searchSuggest( 'disable' );
+			
+			// Only try to disable the plugin if it actually exists
+			if ( typeof $( searchInput ).searchSuggest === 'function' ) {
+				$( searchInput ).searchSuggest( 'disable' );
+			}
 		}
 
 		// 2. Initialize our custom search
