@@ -66,7 +66,6 @@ const typeahead = {
 			typeahead.input.element.addEventListener( 'blur', typeahead.onBlur );
 		},
 		onInput: function () {
-			console.log('Ridvan: Input event detected');
 			const typeaheadInputElement = typeahead.input.element;
 			if ( typeaheadInputElement.value.length > 0 ) {
                 typeahead.form.setLoadingState( true );
@@ -75,7 +74,6 @@ const typeahead = {
             }
 			typeaheadInputElement.addEventListener( 'compositionstart', typeahead.input.onCompositionstart );
 			if ( typeahead.input.isComposing !== true ) {
-				console.log('Ridvan: Debouncing search...');
 				mw.util.debounce( typeahead.afterSearchQueryInput(), 100 );
 			}
 		},
@@ -183,7 +181,6 @@ const typeahead = {
 		return Promise.resolve( `Search query updated.` );
 	},
 	afterSearchQueryInput: function () {
-		console.log('Ridvan: afterSearchQueryInput triggered');
 		typeahead.updateSearchQuery().then( updateTypeaheadItems ).catch( () => {} );
 	},
 	init: function ( formEl, inputEl ) {
@@ -235,12 +232,12 @@ const typeahead = {
 };
 
 async function getSuggestions() {
-	console.log('Ridvan: getSuggestions called. Query:', searchQuery.value);
 	const renderSuggestions = ( results ) => {
 		const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
 		const listEl = document.getElementById( 'czsearch-typeahead-list-page' );
 		
 		if ( results.length > 0 ) {
+			// CASE A: We have results
 			listEl.outerHTML = searchResults.getResultsHTML(
 				results,
 				searchQuery.valueHtml,
@@ -248,18 +245,35 @@ async function getSuggestions() {
 			);
 			groupEl.hidden = false;
 		} else {
-			listEl.innerHTML = '';
-			groupEl.hidden = true;
+			// CASE B: No results found
+			// Inject a simple list item that says "No results"
+			const noResultHTML = `
+				<li class="citizen-typeahead-list-item">
+					<div class="citizen-typeahead-list-item-link" style="cursor: default;">
+						<div class="citizen-typeahead-list-item-text">
+							<div class="citizen-typeahead-list-item-title" style="color: var(--color-subtle);">
+								${ mw.message( 'czsearch-search-noresults-title', searchQuery.value ).escaped() }
+							</div>
+							<div class="citizen-typeahead-list-item-description">
+								${ mw.message( 'czsearch-search-noresults-desc' ).escaped() }
+							</div>
+						</div>
+					</div>
+				</li>`;
+			
+			listEl.innerHTML = noResultHTML;
+			groupEl.hidden = false; // Show the group so we can see the message
 		}
 
+		// ALWAYS turn off the spinner
 		typeahead.form.setLoadingState( false );
 		typeahead.items.set();
 	};
 
-	// 1. Turn on loading (Shows spinner)
+	// 1. Start Spinner
 	typeahead.form.setLoadingState( true );
 
-	// 2. Hide existing results immediately so we don't see stale data + spinner
+	// 2. Hide current list while searching
 	const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
 	if ( groupEl ) groupEl.hidden = true;
 
@@ -275,7 +289,7 @@ async function getSuggestions() {
 		const response = await fetch;
 		renderSuggestions( response.results );
 	} catch ( error ) {
-		// If aborted or failed, turn off spinner
+		// If error, turn off spinner
 		typeahead.form.setLoadingState( false );
 		if ( error.name !== 'AbortError' ) throw error;
 	}
