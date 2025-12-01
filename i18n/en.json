@@ -10,7 +10,7 @@
 	"ridvan-mobile-links-label": "Links",
 	"czsearch-search-noresults-title": "No results for \"$1\"",
 	"czsearch-search-noresults-desc": "Check your spelling or try a different search term.",
-	"czsearch-search-fulltext": "Search text \"$1\"",
+	"czsearch-search-fulltext": "Search all pages for \"$1\"",
 	"searchsuggest-search": "Search",
 	"czsearch-search-editpage": "Edit or create page \"$1\"",
 	"czsearch-search-mediasearch": "Search for media files matching \"$1\"",
