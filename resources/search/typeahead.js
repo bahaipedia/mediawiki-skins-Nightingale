@@ -67,6 +67,11 @@ const typeahead = {
 		},
 		onInput: function () {
 			const typeaheadInputElement = typeahead.input.element;
+			if ( typeaheadInputElement.value.length > 0 ) {
+                typeahead.form.setLoadingState( true );
+            } else {
+                typeahead.form.setLoadingState( false );
+            }
 			typeaheadInputElement.addEventListener( 'compositionstart', typeahead.input.onCompositionstart );
 			if ( typeahead.input.isComposing !== true ) {
 				mw.util.debounce( typeahead.afterSearchQueryInput(), 100 );
@@ -231,7 +236,6 @@ async function getSuggestions() {
 		const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
 		const listEl = document.getElementById( 'czsearch-typeahead-list-page' );
 		
-		// We don't use placeholder anymore
 		if ( results.length > 0 ) {
 			listEl.outerHTML = searchResults.getResultsHTML(
 				results,
@@ -248,8 +252,15 @@ async function getSuggestions() {
 		typeahead.items.set();
 	};
 
+	// 1. Turn on loading (Shows spinner)
 	typeahead.form.setLoadingState( true );
+
+	// 2. Hide existing results immediately so we don't see stale data + spinner
+	const groupEl = document.getElementById( 'czsearch-typeahead-group-page' );
+	if ( groupEl ) groupEl.hidden = true;
+
 	const { abort, fetch } = searchResults.fetch( searchQuery.value, searchClient.active.client );
+	
 	const inputEventListener = () => {
 		abort();
 		typeahead.input.element.removeEventListener( 'input', inputEventListener );
@@ -260,6 +271,7 @@ async function getSuggestions() {
 		const response = await fetch;
 		renderSuggestions( response.results );
 	} catch ( error ) {
+		// If aborted or failed, turn off spinner
 		typeahead.form.setLoadingState( false );
 		if ( error.name !== 'AbortError' ) throw error;
 	}
