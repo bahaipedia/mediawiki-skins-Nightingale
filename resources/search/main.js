@@ -1,5 +1,3 @@
-console.log( 'Ridvan: search js v4 loaded successfully.' );
-
 function initSearchLoader() {
 	const searchForm = document.getElementById( 'searchform' );
 	const searchInput = document.getElementById( 'searchInput' );
