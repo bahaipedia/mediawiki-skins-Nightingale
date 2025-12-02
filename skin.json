@@ -2,11 +2,13 @@
 	"name": "Ridvan",
 	"version": "1.0.0",
 	"author": [
-		"[https://skins.wmflabs.org skins.wmflabs.org v.3.0]"
+		"Sarah Haslip",
+		"Search module adapted from [https://www.mediawiki.org/wiki/Skin:Citizen Skin:Citizen], skin foundation used [https://skins.wmflabs.org skins.wmflabs.org v.3.0]"
 	],
 	"url": "https://www.mediawiki.org/wiki/Skin:Ridvan",
 	"descriptionmsg": "ridvan-skin-desc",
 	"namemsg": "skinname-ridvan",
+	"license-name": "GPL-3.0-or-later",
 	"type": "skin",
 	"requires": {
 		"MediaWiki": ">= 1.41.0"
