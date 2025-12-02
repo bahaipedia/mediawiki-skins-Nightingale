@@ -132,8 +132,7 @@
 			"dependencies": [
 				"mediawiki.storage",
 				"mediawiki.template.mustache",
-				"mediawiki.util",
-				"mediawiki.ui.icon"
+				"mediawiki.util"
 			]
 		},
 		"skins.ridvan.redirectfixer": {
