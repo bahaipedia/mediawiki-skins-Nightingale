@@ -100,3 +100,21 @@
 #map_leaflet_1 {
 	z-index: 0;	
 }
+
+@media (max-width: @max-width-breakpoint-tablet) {
+    .mw-changeslist-legend {
+        float: none !important;
+        width: auto !important;
+        margin-bottom: 10px;
+    }
+
+    .client-js .mw-changeslist ul, 
+    .client-js .mw-changeslist table.mw-enhanced-rc {
+        margin-left: 0 !important;
+    }
+    
+    .mw-enhanced-rc td, .mw-enhanced-rc th {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+}
