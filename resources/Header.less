@@ -1,28 +1,39 @@
 @import 'mediawiki.skin.variables.less';
 
-/* 1. CONTAINER */
+/* ------------------------------------------------------------------
+   MAIN HEADER CONTAINER
+   ------------------------------------------------------------------ */
 .nightingale-header {
-    background: #fff;
-    border-bottom: 1px solid #ccc;
+    background-color: @background-color-article;
+    width: 100%;
     padding: 0 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; /* Desktop: Single Row */
     gap: 15px; 
     position: relative;
     z-index: 50;
     height: 60px;
 }
 
-/* 2. LOGO & SITENAME */
-#p-logo { flex-shrink: 0; }
+/* 1. LOGO & SITENAME */
+#p-logo {
+    flex-shrink: 0;
+}
 #p-sitename {
     white-space: nowrap;
     font-weight: bold;
     font-size: 1.2em;
+    
+    a {
+        color: @color-base;
+        text-decoration: none;
+    }
 }
 
-/* 3. NAVIGATION */
+/* 2. NAVIGATION (Sidebar Portlets converted to Dropdowns) */
 .nightingale-nav {
     display: flex;
     align-items: center;
@@ -35,16 +46,25 @@
         height: 100%;
         margin-right: 15px;
         
-        input { display: none !important; }
+        input[type="checkbox"] {
+            display: none !important;
+        }
 
+        /* TEXT MENU LABELS (Project, Content, etc.) */
         .mw-checkbox-hack-button {
-            display: contents;
+            display: block; /* Use block to allow padding */
             cursor: pointer;
             font-weight: normal;
             color: #333;
             user-select: none;
+            padding: 10px 5px; /* Touch target */
+            
+            &:hover {
+                color: @color-link;
+            }
         }
 
+        /* MENU BODY */
         .mw-portlet-body {
             display: none;
             position: absolute;
@@ -59,24 +79,46 @@
             padding: 5px 0;
             margin-top: -1px;
             
-            ul { list-style: none; margin: 0; padding: 0; display: block; }
-            li { padding: 0; margin: 0; display: block; }
-            a {
-                display: flex;
-                align-items: center;
-                padding: 8px 15px;
-                color: #0645ad;
-                text-decoration: none;
-                white-space: nowrap;
-                &:hover { background-color: #f8f9fa; }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: block;
+            }
+            
+            li {
+                padding: 0;
+                margin: 0;
+                display: block;
+                
+                a {
+                    display: flex;
+                    align-items: center;
+                    padding: 8px 15px;
+                    color: #0645ad;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    font-size: 0.95em;
+                    
+                    &:hover {
+                        background-color: #eaecf0;
+                        text-decoration: none;
+                    }
+                }
             }
         }
-        input:checked ~ .mw-portlet-body { display: block; }
+
+        input:checked ~ .mw-portlet-body {
+            display: block;
+        }
     }
 }
 
-/* 4. ICONS (Dropdowns) */
-.list-item- { display: none !important; }
+/* 3. ICON HANDLING (Inside the dropdowns) */
+.list-item- {
+    display: none !important;
+}
+
 span[class^="list-item-"]:not(.list-item-) {
     display: inline-block;
     width: 20px;
@@ -88,14 +130,22 @@ span[class^="list-item-"]:not(.list-item-) {
     flex-shrink: 0;
 }
 
-/* 5. SEARCH */
+/* 4. SEARCH (Flexible) */
 #p-search {
     flex-grow: 1; 
     min-width: 200px;
     margin: 0;
+    
+    /* Ridvan Search Styles */
+    #searchform {
+        margin: 0;
+        #searchInput {
+            width: 100%;
+        }
+    }
 }
 
-/* 6. TOOLS (RIGHT SIDE) */
+/* 5. TOOLS (Right Side) */
 .nightingale-header-tools {
     flex-shrink: 0;
     display: flex;
@@ -106,54 +156,54 @@ span[class^="list-item-"]:not(.list-item-) {
 .nightingale-icon-menus {
     display: flex;
     align-items: center;
-    gap: 15px; /* Spacing between icons */
+    gap: 4px; /* Matches Ridvan spacing */
 }
 
-/* Edit & Talk Icons */
+/* --- STANDARD ICON STYLES (Ported from Ridvan) --- */
 .nightingale-edit-button,
 .nightingale-talk-button {
-    display: block;
+    display: inline-block;
     width: 20px;
     height: 20px;
+    font-size: 0;
+    color: transparent;
+    position: relative;
+    vertical-align: middle;      
     background-color: #385b82; 
-    
-    /* Masks for the Icons */
+    margin: 0px 4px;
+    cursor: pointer;
+
+    /* Mask settings */
     -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: contain;
     mask-repeat: no-repeat;
+    -webkit-mask-position: center;
     mask-position: center;
+    -webkit-mask-size: contain;
     mask-size: contain;
 
-    a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        text-indent: -9999px; /* Hide Text */
-        overflow: hidden;
+    &:hover {
+        background-color: @color-link; 
     }
     
-    &:hover { background-color: #0645ad; }
+    a {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }
 
+/* Specific Icons */
 .nightingale-edit-button {
     -webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8a/OOjs_UI_icon_edit-ltr.svg');
     mask-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8a/OOjs_UI_icon_edit-ltr.svg');
 }
+
 .nightingale-talk-button {
     -webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/7/73/OOjs_UI_icon_message.svg');
     mask-image: url('https://upload.wikimedia.org/wikipedia/commons/7/73/OOjs_UI_icon_message.svg');
-}
-
-/* Notifications */
-.mw-echo-notifications-badge {
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-size: contain;
-    text-indent: -9999px;
-    opacity: 0.7;
-    &:hover { opacity: 1; }
 }
 
 /* Dropdown Wrappers (More/Personal) */
@@ -161,56 +211,113 @@ span[class^="list-item-"]:not(.list-item-) {
     display: flex;
     align-items: center;
     position: relative;
+    margin-left: 4px;
 
+    /* Override the generic dropdown styles for these specific icon-based menus if needed */
     .mw-portlet-dropdown {
-        position: static;
+        position: static; 
         margin: 0;
+        
+        input { display: none !important; }
         
         .mw-checkbox-hack-button {
             display: block;
-            font-weight: bold;
             cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            padding: 0 5px;
         }
 
-        /* Right-aligned dropdown body */
         .mw-portlet-body {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            left: auto; 
-            min-width: 160px;
-            background: white;
-            border: 1px solid #ccc;
-            padding: 5px 0;
-            z-index: 102;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            
-            li { display: block; margin: 0; }
-            a { 
-                display: block; 
-                padding: 8px 15px; 
-                color: #0645ad;
-                text-decoration: none;
-                &:hover { background: #f8f9fa; }
-            }
+            right: 0; 
+            left: auto;
         }
         
-        input:checked ~ .mw-portlet-body { display: block; }
+        input:checked ~ .mw-portlet-body {
+            display: block;
+        }
     }
 }
 
-/* Mobile */
+/* Notification Badge */
+.mw-echo-notifications-badge {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    text-indent: -9999px;
+    opacity: 0.7;
+    margin: 0 4px;
+    &:hover { opacity: 1; }
+}
+
+/* Personal Menu (User Name) */
+#p-personal h3 {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0 0 0 5px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block; 
+}
+
+
+/* ==================================================================
+   MOBILE LAYOUT (Max-width: 1000px)
+   ================================================================== */
 @media (max-width: 1000px) {
     .nightingale-header {
         flex-wrap: wrap; 
-        height: auto;
         padding: 10px;
+        height: auto;
+        gap: 10px;
     }
+
+    /* 1. Hide Logo */
     #p-logo { display: none; }
-    #p-sitename { order: 1; margin-right: 0; }
-    #p-search { order: 2; width: auto; flex-grow: 1; min-width: 0; }
-    .nightingale-header::after { content: ""; display: block; width: 100%; order: 2; }
-    .nightingale-nav { order: 3; flex-grow: 1; height: auto; flex-wrap: wrap; }
-    .nightingale-header-tools { order: 4; margin-left: auto; }
+
+    /* 2. Sitename (Row 1 Left) */
+    #p-sitename {
+        order: 1;
+        margin-right: 0;
+    }
+
+    /* 3. Search (Row 1 Right) */
+    #p-search {
+        order: 2;
+        width: auto; 
+        flex-grow: 1; 
+        min-width: 0; 
+    }
+
+    /* Break */
+    .nightingale-header::after {
+        content: "";
+        display: block;
+        width: 100%;
+        order: 2; 
+    }
+
+    /* 4. Nav Menus (Row 2 Left) */
+    .nightingale-nav {
+        order: 3;
+        flex-grow: 1; 
+        height: auto;
+        flex-wrap: wrap; 
+        
+        .mw-portlet-dropdown {
+            margin-right: 15px;
+            margin-bottom: 5px;
+            
+            .mw-checkbox-hack-button {
+                padding: 5px 0; /* Tighter vertical padding */
+            }
+        }
+    }
+
+    /* 5. Tools (Row 2 Right) */
+    .nightingale-header-tools {
+        order: 4;
+        margin-left: auto; 
+    }
 }
