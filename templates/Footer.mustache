@@ -1,12 +1,26 @@
 {{! `role` is unnecessary but kept to support selectors in any gadgets or user styles and
 	to mitigate a VoiceOver bug. }}
 <footer id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
-	{{#data-footer}}
-	{{!}}{{#data-icons}}{{>FooterList}}{{/data-icons}}
-	{{!}}<div id="footer-list">
-	{{#data-last-modified}}{{>LastModifiedLine}}{{/data-last-modified}}
-	<div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
-	{{!}}{{#data-places}}{{>FooterList}}{{/data-places}}
-	{{!}}</div>
-	{{/data-footer}}
+    <div class="nightingale-footer-tools">
+        {{#nightingale-footer-portlets}}
+             <div class="mw-portlet mw-portlet-dropdown nightingale-dropup">
+                <input type="checkbox" id="cb-foot-{{id}}" class="mw-checkbox-hack-checkbox">
+                <label for="cb-foot-{{id}}" class="mw-checkbox-hack-button">{{label}} ▴</label>
+                <div class="mw-portlet-body">
+                    <ul>
+                        {{#array-items}}{{>ListItem}}{{/array-items}}
+                    </ul>
+                </div>
+            </div>
+        {{/nightingale-footer-portlets}}
+    </div>
+
+    {{#data-footer}}
+    {{!}}{{#data-icons}}{{>FooterList}}{{/data-icons}}
+    {{!}}<div id="footer-list">
+    {{#data-last-modified}}{{>LastModifiedLine}}{{/data-last-modified}}
+    <div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
+    {{!}}{{#data-places}}{{>FooterList}}{{/data-places}}
+    {{!}}</div>
+    {{/data-footer}}
 </footer>
