@@ -1,23 +1,45 @@
 @import 'mediawiki.skin.variables.less';
 
 .mw-footer {
-	grid-area: footer;
-	border-top: solid 1px #54595d;
-	color: #ffffff;
-	background: #72777d;
-	box-shadow: inset 0 7px 2px -4px rgba(0, 0, 0, 0.1);
+    grid-area: footer;
+    border-top: solid 1px #54595d;
+    color: #ffffff;
+    background: #72777d;
+    padding: 1em;
+    position: relative; /* Context for dropups */
+    
+    li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+}
 
-	> div,
-	> ul {
-		margin: 1em;
+.nightingale-footer-tools {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 1em;
+    padding-bottom: 1em;
 
-		ul {
-			margin: 0;
-		}
-	}
+    .mw-portlet-dropdown {
+        margin: 0 15px;
+        position: relative;
+    }
 
-	li {
-		display: inline-block;
-		margin-right: 20px;
-	}
+    .mw-checkbox-hack-button {
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+
+/* DROP-UP Specifics */
+.nightingale-dropup {
+    .mw-portlet-body {
+        bottom: 100%; /* Go UP */
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%); /* Center align */
+        margin-bottom: 10px;
+    }
 }
