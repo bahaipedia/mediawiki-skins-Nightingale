@@ -1,185 +1,90 @@
 @import 'mediawiki.skin.variables.less';
 
-/* DESKTOP HEADER LAYOUT */
-.mw-header {
-    background-color: @background-color-article;
-    width: 100%;
+.nightingale-header {
+    background: #fff;
+    border-bottom: 1px solid #ccc;
     padding: 0 20px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
-
-    /* MOBILE HEADER LAYOUT */
-    @media ( max-width: @max-width-breakpoint-tablet ) {
-        padding: 10px;
-        flex-wrap: wrap; /* Allow items to flow to next line */
-
-        /* 1. Hide the Logo Image (Keep Sitename) */
-        #p-logo {
-            display: none;
-        }
-
-        /* 2. Sitename adjustments */
-        #p-sitename {
-            margin-right: 10px;
-        }
-
-        /* 3. Search bar takes remaining space on Top Row */
-        #p-search {
-            flex-grow: 1;
-            padding: 0;
-        }
-
-        /* 4. The Tools Wrapper (New Line) */
-        .ridvan-header-tools {
-            width: 100%;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allows rows on mobile */
 }
 
-/* --- GROUPS OF LINKS --- */
-/* Mobile Only drop-down menus (Sidebar links, Tools, Interwiki/Interlanguage Links) */
-.ridvan-text-menus {
-    display: none; /* Default Hidden for desktop */
+/* Row Wrappers: On Desktop, they act as flex items side-by-side */
+.nightingale-header-row-primary,
+.nightingale-header-row-secondary {
+    display: flex;
+    align-items: center;
+}
+
+.nightingale-header-row-secondary {
+    flex-grow: 1;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+/* Navigation Menu Styles */
+.nightingale-nav {
+    display: flex;
     
-    @media ( max-width: @max-width-breakpoint-tablet ) {
-        display: flex;
-        gap: 15px;
-        margin-left: 15px;
-    }
-}
-
-/* RIGHT GROUP Mobile and Desktop: Icons (Edit, Talk, Hybrid, Notif, Personal */
-.ridvan-menu-wrapper {
-    display: flex;
-    align-items: center;
-}
-.ridvan-icon-menus {
-    display: flex;
-    align-items: center;
-}
-.mw-echo-ui-overlay {
-    z-index: 15;
-}
-
-/* --- STANDARD ICON STYLES (Edit, Talk, etc) --- */
-.ridvan-edit-button,
-.ridvan-talk-button,
-.mw-checkbox-hack-button {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    font-size: 0;
-    color: transparent;
-    position: relative;
-    vertical-align: middle;     
-    background-color: #385b82; 
-    margin: 0px 4px;
-    cursor: pointer;
-
-    /* Mask settings */
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-
-    &:hover {
-        background-color: @color-link; 
-    }
-}
-
-.ridvan-edit-button a,
-.ridvan-talk-button a {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* --- MOBILE DROPDOWN STYLING --- */
-@media ( max-width: @max-width-breakpoint-tablet ) {
-
-    /* RESET BUTTON STYLES FOR MOBILE TEXT MENUS */
-    .ridvan-mobile-dropdown .mw-checkbox-hack-button {
-        width: auto;
-        height: auto;
-        padding: 0;
-        margin: 0;
-        background: transparent;
-        border: none;
-        color: @color-base;
-        font-size: 1rem;
-        font-weight: normal;
-        text-indent: 0;
-        -webkit-mask-image: none;
-        mask-image: none;
-        cursor: pointer;
-
-        &:hover {
-            color: @color-link;
-            background: transparent;
-        }
-    }
-
-    /* DROPDOWN MECHANISM */
-    .ridvan-mobile-dropdown {
+    .mw-portlet-dropdown {
+        margin-right: 15px;
         position: relative;
-
-        input {
-            display: none;
+        
+        .mw-checkbox-hack-button {
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            padding: 10px 0;
+            display: block;
+            white-space: nowrap;
         }
 
         .mw-portlet-body {
-            display: none;
-            position: absolute;
+            top: 40px; 
             left: 0;
-            top: 100%;
-            z-index: 100;
-            background: #ffffff;
-            border: 1px solid #a2a9b1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            min-width: 230px;
-            padding: 5px 0;
-            margin-top: 5px;
         }
+    }
+}
 
-        input:checked ~ .mw-portlet-body {
-            display: block;
-        }
+/* MOBILE LAYOUT */
+@media (max-width: 1000px) {
+    .nightingale-header {
+        padding: 10px;
+        flex-direction: column; /* Stack rows */
+        align-items: stretch;
+    }
 
-        /* LIST STYLING */
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+    /* Row 1: Sitename + Search */
+    .nightingale-header-row-primary {
+        width: 100%;
+        margin-bottom: 10px;
+        
+        #p-logo { display: none; } /* Hide Logo */
+        
+        #p-sitename { 
+            margin-right: 10px; 
+            white-space: nowrap;
         }
         
-        li {
-            display: block;
+        #p-search {
+            flex-grow: 1; /* Search fills remaining space */
             margin: 0;
-            padding: 0px 0px 0px 20px;
+        }
+    }
 
-            a {
-                display: block;
-                padding: 6px 15px;
-                color: #0645ad;
-                text-decoration: none;
-                font-size: 0.95em;
-
-                &:hover {
-                    background-color: #eaecf0;
-                    text-decoration: none;
-                }
-            }
+    /* Row 2: Menus + Tools */
+    .nightingale-header-row-secondary {
+        width: 100%;
+        margin-left: 0;
+        justify-content: space-between;
+    }
+    
+    /* Ensure nav items don't overflow */
+    .nightingale-nav {
+        flex-wrap: wrap;
+        .mw-portlet-dropdown {
+             margin-right: 10px;
         }
     }
 }
