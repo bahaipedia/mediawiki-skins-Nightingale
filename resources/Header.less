@@ -13,7 +13,7 @@
     gap: 15px; 
     position: relative;
     z-index: 50;
-    height: 60px; /* Force a standard height to align items */
+    height: 60px;
 }
 
 /* 1. LOGO & SITENAME */
@@ -33,47 +33,43 @@
     height: 100%; 
     
     .mw-portlet-dropdown {
-        /* This container MUST be the relative anchor */
         position: relative;
         display: flex; 
         align-items: center;
         height: 100%;
         margin-right: 15px;
         
-        /* HIDE INPUT */
         input[type="checkbox"] {
             display: none !important;
         }
 
-        /* LABEL: Use contents as requested to fix rendering */
         .mw-checkbox-hack-button {
-            display: contents;
+            display: contents; /* Keeps label text clean */
             cursor: pointer;
             font-weight: normal;
             color: #333;
             user-select: none;
         }
 
-        /* MENU BODY */
         .mw-portlet-body {
             display: none;
             position: absolute;
             top: 100%; 
             left: 0;
             min-width: 200px;
-            width: max-content; /* Ensure it expands to fit text */
+            width: max-content;
             background: #ffffff;
             border: 1px solid #a2a9b1;
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             z-index: 101;
             padding: 5px 0;
-            margin-top: -1px; /* Overlap border slightly */
+            margin-top: -1px;
             
             ul {
                 list-style: none;
                 margin: 0;
                 padding: 0;
-                display: block; /* Ensure list takes space */
+                display: block;
             }
             
             li {
@@ -97,7 +93,6 @@
             }
         }
 
-        /* SHOW MENU WHEN CHECKED */
         input:checked ~ .mw-portlet-body {
             display: block;
         }
@@ -107,12 +102,10 @@
 /* ------------------------------------------------------------------
    ICON HANDLING
    ------------------------------------------------------------------ */
-/* 1. HIDE EMPTY ICONS */
 .list-item- {
     display: none !important;
 }
 
-/* 2. SHOW REAL ICONS */
 span[class^="list-item-"]:not(.list-item-) {
     display: inline-block;
     width: 20px;
@@ -121,11 +114,11 @@ span[class^="list-item-"]:not(.list-item-) {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    flex-shrink: 0; /* Prevent icon from squishing */
+    flex-shrink: 0;
 }
 
 /* ------------------------------------------------------------------
-   SEARCH & TOOLS
+   SEARCH
    ------------------------------------------------------------------ */
 #p-search {
     flex-grow: 1; 
@@ -133,8 +126,101 @@ span[class^="list-item-"]:not(.list-item-) {
     margin: 0;
 }
 
+/* ------------------------------------------------------------------
+   TOOLS (RIGHT SIDE) - FIXED
+   ------------------------------------------------------------------ */
 .nightingale-header-tools {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nightingale-icon-menus {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icons */
+}
+
+/* Wrapper for Notifications, Hybrid, Personal to align them */
+.nightingale-menu-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Fix for Portlets inside the tools area to be inline */
+.nightingale-icon-menus .mw-portlet {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Hide checkboxes for tool icons */
+.nightingale-icon-menus input[type="checkbox"] {
+    display: none !important;
+}
+
+/* Ensure Notification Icon is visible */
+.mw-echo-notifications-badge {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    text-indent: -9999px; /* Hide "Alerts (0)" text */
+    overflow: hidden;
+    opacity: 0.7;
+    
+    &:hover {
+        opacity: 1;
+    }
+}
+
+/* "More" Button (Hybrid) & Personal Menu Styling */
+#p-hybrid .mw-checkbox-hack-button,
+#p-personal .mw-checkbox-hack-button {
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+}
+
+/* Personal Menu: Ensure User Name is visible and aligned */
+#p-personal {
+    h3 {
+        display: block; /* Force show the header/username */
+        font-size: 1rem;
+        margin: 0;
+        padding: 0 0 0 5px; /* Spacing from icon if needed */
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+
+/* Ensure Tool Dropdowns appear correctly */
+.nightingale-icon-menus .mw-portlet-body {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; /* Align to right edge */
+    left: auto;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 150px;
+    z-index: 102;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    li {
+        display: block;
+        margin-bottom: 5px;
+        white-space: nowrap;
+    }
+}
+
+/* Show Tool Dropdowns on Check */
+.nightingale-icon-menus input:checked ~ .mw-portlet-body {
+    display: block;
 }
 
 /* ==================================================================
@@ -178,12 +264,6 @@ span[class^="list-item-"]:not(.list-item-) {
         .mw-portlet-dropdown {
             margin-right: 15px;
             margin-bottom: 5px;
-            
-            /* Reset display for mobile if needed, or keep contents */
-             .mw-checkbox-hack-button {
-                /* On mobile, 'contents' might make touch target too small 
-                   if text is small. Adding padding to parent helps. */
-            }
         }
     }
 
