@@ -35,7 +35,7 @@ $(function () {
     });
 
     function renderFixButton(badTarget, goodTarget, currentTitle) {
-        var $container = $('<div class="ridvan-double-redirect-alert"></div>')
+        var $container = $('<div class="nightingale-double-redirect-alert"></div>')
             .css({
                 'margin-top': '10px',
                 'padding': '10px',
@@ -71,7 +71,7 @@ $(function () {
             action: 'edit',
             title: pageTitle,
             text: '#REDIRECT [[' + newTarget + ']]',
-            summary: 'Fixing double redirect to [[' + newTarget + ']] via Ridvan Skin',
+            summary: 'Fixing double redirect to [[' + newTarget + ']] via nightingale Skin',
             minor: 1
         }).done(function () {
             // Reload the page to show the fix
