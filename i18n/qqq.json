@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"..."
+			"Sarah Haslip"
 		]
 	},
-	"skinname-ridvan": "Ridvan",
-	"ridvan-skin-desc": "Description of the skin, shown on [[Special:Version]]. Mentions that it is a rewrite of the Chameleon skin and was created for Bahaipedia.",
-	"ridvan-no-categories": "Message to show when no categories available",
-	"ridvan-mobile-links-label": "Label for the mobile dropdown menu containing interwiki and language links.",
+	"skinname-ridvan": "Nightingale",
+	"nightingale-skin-desc": "Description of the skin, shown on [[Special:Version]]. Mentions that it is a rewrite of the Chameleon skin and was created for Bahai.works.",
+	"nightingale-no-categories": "Message to show when no categories available",
+	"nightingale-mobile-links-label": "Label for the mobile dropdown menu containing interwiki and language links.",
 	"czsearch-search-noresults-title": "Title shown in the search dropdown when no results are found. $1 is the user's search query.",
 	"czsearch-search-noresults-desc": "Description shown in the search dropdown when no results are found, advising the user to check spelling.",
 	"czsearch-search-fulltext": "Label for the button that takes the user to the Special:Search page for a full text search. $1 is the user's search query.",
