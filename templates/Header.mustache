@@ -8,41 +8,29 @@
         <div class="nightingale-text-menus">
             
             {{#nightingale-sidebar-menus}}
-            <div class="mw-portlet nightingale-dropdown" id="{{html-id}}">
+            <div class="mw-portlet nightingale-mobile-dropdown" id="{{html-id}}">
                 <input type="checkbox" id="cb-{{html-id}}" class="mw-checkbox-hack-checkbox">
                 <label for="cb-{{html-id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#array-items}}
-                            {{>ListItem}}
-                        {{/array-items}}
-                    </ul>
+                    <ul>{{#array-items}}{{>ListItem}}{{/array-items}}</ul>
                 </div>
             </div>
             {{/nightingale-sidebar-menus}}
 
-            <div class="mw-portlet nightingale-dropdown nightingale-mobile-only">
+            <div class="mw-portlet nightingale-mobile-dropdown nightingale-mobile-only">
                 <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-tools" class="mw-checkbox-hack-button">{{nightingale-mobile-tools-label}} ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#nightingale-mobile-tools}}
-                            {{>ListItem}}
-                        {{/nightingale-mobile-tools}}
-                    </ul>
+                    <ul>{{#nightingale-mobile-tools}}{{>ListItem}}{{/nightingale-mobile-tools}}</ul>
                 </div>
             </div>
 
             {{#nightingale-has-mobile-links}}
-            <div class="mw-portlet nightingale-dropdown nightingale-mobile-only">
+            <div class="mw-portlet nightingale-mobile-dropdown nightingale-mobile-only">
                 <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-links" class="mw-checkbox-hack-button">{{nightingale-mobile-links-label}} ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>
-                        {{#nightingale-mobile-links}}
-                            {{>ListItem}}
-                        {{/nightingale-mobile-links}}
-                    </ul>
+                    <ul>{{#nightingale-mobile-links}}{{>ListItem}}{{/nightingale-mobile-links}}</ul>
                 </div>
             </div>
             {{/nightingale-has-mobile-links}}
