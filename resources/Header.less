@@ -9,10 +9,11 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap; /* Desktop: Single Row */
+    flex-wrap: nowrap;
     gap: 15px; 
     position: relative;
-    z-index: 50; /* Ensure header sits above content */
+    z-index: 50;
+    height: 60px; /* Force a standard height to align items */
 }
 
 /* 1. LOGO & SITENAME */
@@ -31,48 +32,48 @@
     align-items: center;
     height: 100%; 
     
-    /* Reset the Portlet wrapper */
     .mw-portlet-dropdown {
-        margin-right: 15px;
+        /* This container MUST be the relative anchor */
         position: relative;
-        display: flex;
+        display: flex; 
         align-items: center;
         height: 100%;
+        margin-right: 15px;
         
-        /* FIX: Ensure the input doesn't overlay incorrectly */
+        /* HIDE INPUT */
         input[type="checkbox"] {
             display: none !important;
         }
 
-        /* LABEL (THE BUTTON) - Fixed visibility & weight */
+        /* LABEL: Use contents as requested to fix rendering */
         .mw-checkbox-hack-button {
-            font-weight: normal; /* User requested no bold */
-            color: #333;
+            display: contents;
             cursor: pointer;
-            display: inline-block; /* Fixes the 'pixels' issue */
-            white-space: nowrap;
+            font-weight: normal;
+            color: #333;
             user-select: none;
-            padding: 15px 0; /* Add touch target height */
-            line-height: 1.5;
         }
 
-        /* MENU BODY (HIDDEN BY DEFAULT) */
+        /* MENU BODY */
         .mw-portlet-body {
             display: none;
             position: absolute;
-            top: 100%; /* Drops directly below label */
+            top: 100%; 
             left: 0;
-            min-width: 220px; /* Wider to accommodate text */
+            min-width: 200px;
+            width: max-content; /* Ensure it expands to fit text */
             background: #ffffff;
             border: 1px solid #a2a9b1;
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            z-index: 101; /* Above everything */
+            z-index: 101;
             padding: 5px 0;
+            margin-top: -1px; /* Overlap border slightly */
             
             ul {
                 list-style: none;
                 margin: 0;
                 padding: 0;
+                display: block; /* Ensure list takes space */
             }
             
             li {
@@ -81,7 +82,7 @@
                 display: block;
                 
                 a {
-                    display: flex; /* Flexbox for Icon + Text alignment */
+                    display: flex;
                     align-items: center;
                     padding: 8px 15px;
                     color: #0645ad;
@@ -97,7 +98,6 @@
         }
 
         /* SHOW MENU WHEN CHECKED */
-        /* Note: We rely on the input ID matching the label 'for' attribute */
         input:checked ~ .mw-portlet-body {
             display: block;
         }
@@ -107,13 +107,12 @@
 /* ------------------------------------------------------------------
    ICON HANDLING
    ------------------------------------------------------------------ */
-/* 1. HIDE EMPTY ICONS (The "placeholder" issue) */
+/* 1. HIDE EMPTY ICONS */
 .list-item- {
-    display: none;
+    display: none !important;
 }
 
 /* 2. SHOW REAL ICONS */
-/* Target spans that have a class starting with 'list-item-' but are NOT 'list-item-' */
 span[class^="list-item-"]:not(.list-item-) {
     display: inline-block;
     width: 20px;
@@ -122,10 +121,8 @@ span[class^="list-item-"]:not(.list-item-) {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    vertical-align: middle;
-    /* Icons.css will supply the background-image URL via the class */
+    flex-shrink: 0; /* Prevent icon from squishing */
 }
-
 
 /* ------------------------------------------------------------------
    SEARCH & TOOLS
@@ -136,7 +133,7 @@ span[class^="list-item-"]:not(.list-item-) {
     margin: 0;
 }
 
-.ridvan-header-tools {
+.nightingale-header-tools {
     flex-shrink: 0;
 }
 
@@ -148,6 +145,7 @@ span[class^="list-item-"]:not(.list-item-) {
         flex-wrap: wrap; 
         padding: 10px;
         gap: 10px;
+        height: auto;
     }
 
     #p-logo { display: none; }
@@ -164,7 +162,6 @@ span[class^="list-item-"]:not(.list-item-) {
         min-width: 0; 
     }
 
-    /* Force break */
     .nightingale-header::after {
         content: "";
         display: block;
@@ -176,19 +173,21 @@ span[class^="list-item-"]:not(.list-item-) {
         order: 3;
         flex-grow: 1; 
         height: auto;
-        flex-wrap: wrap; /* Wrap menu items if many */
+        flex-wrap: wrap; 
         
         .mw-portlet-dropdown {
             margin-right: 15px;
             margin-bottom: 5px;
             
-            .mw-checkbox-hack-button {
-                padding: 10px 0; /* Smaller padding on mobile */
+            /* Reset display for mobile if needed, or keep contents */
+             .mw-checkbox-hack-button {
+                /* On mobile, 'contents' might make touch target too small 
+                   if text is small. Adding padding to parent helps. */
             }
         }
     }
 
-    .ridvan-header-tools {
+    .nightingale-header-tools {
         order: 4;
         margin-left: auto; 
     }
