@@ -1,8 +1,8 @@
 {
-	"skinname-ridvan": "Ridvan",
-	"ridvan-skin-desc": "A rewrite of Skin:Chameleon using modern standards, initially developed for Bahaipedia.org.",
-	"ridvan-no-categories": "No categories.",
-	"ridvan-mobile-links-label": "Links",
+	"skinname-ridvan": "Nightingale",
+	"nightingale-skin-desc": "A rewrite of Skin:Chameleon using modern standards, initially developed for Bahai.works.",
+	"nightingale-no-categories": "No categories.",
+	"nightingale-mobile-links-label": "Links",
 	"czsearch-search-noresults-title": "No results for \"$1\"",
 	"czsearch-search-noresults-desc": "Check your spelling or try a different search term.",
 	"czsearch-search-fulltext": "Search all pages for \"$1\"",
