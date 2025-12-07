@@ -7,15 +7,17 @@
 
         <div class="nightingale-text-menus">
             
-            <div class="mw-portlet nightingale-mobile-dropdown">
-                <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-menu" class="mw-checkbox-hack-button">{{nightingale-mobile-menu-label}} ▾</label>
+            {{#nightingale-sidebar-menus}}
+            <div class="mw-portlet nightingale-mobile-dropdown" id="{{html-id}}">
+                <input type="checkbox" id="cb-{{html-id}}" class="mw-checkbox-hack-checkbox">
+                <label for="cb-{{html-id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
                 <div class="mw-portlet-body">
-                    <ul>{{#nightingale-mobile-menu}}{{>ListItem}}{{/nightingale-mobile-menu}}</ul>
+                    <ul>{{#array-items}}{{>ListItem}}{{/array-items}}</ul>
                 </div>
             </div>
+            {{/nightingale-sidebar-menus}}
 
-            <div class="mw-portlet nightingale-mobile-dropdown">
+            <div class="mw-portlet nightingale-mobile-dropdown nightingale-mobile-only">
                 <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-tools" class="mw-checkbox-hack-button">{{nightingale-mobile-tools-label}} ▾</label>
                 <div class="mw-portlet-body">
@@ -24,7 +26,7 @@
             </div>
 
             {{#nightingale-has-mobile-links}}
-            <div class="mw-portlet nightingale-mobile-dropdown">
+            <div class="mw-portlet nightingale-mobile-dropdown nightingale-mobile-only">
                 <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
                 <label for="cb-mob-links" class="mw-checkbox-hack-button">{{nightingale-mobile-links-label}} ▾</label>
                 <div class="mw-portlet-body">
