@@ -6,26 +6,24 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allows rows on mobile */
+    flex-wrap: nowrap; /* Desktop: Single Row */
+    gap: 15px; /* Spacing between all items */
 }
 
-/* Row Wrappers: On Desktop, they act as flex items side-by-side */
-.nightingale-header-row-primary,
-.nightingale-header-row-secondary {
-    display: flex;
-    align-items: center;
+/* 1. LOGO & SITENAME */
+#p-logo {
+    flex-shrink: 0;
+}
+#p-sitename {
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
-.nightingale-header-row-secondary {
-    flex-grow: 1;
-    justify-content: space-between;
-    margin-left: 20px;
-}
-
-/* Navigation Menu Styles */
+/* 2. NAVIGATION (Dropdowns) */
 .nightingale-nav {
     display: flex;
+    align-items: center;
     
     .mw-portlet-dropdown {
         margin-right: 15px;
@@ -35,56 +33,84 @@
             font-weight: bold;
             color: #333;
             cursor: pointer;
-            padding: 10px 0;
             display: block;
             white-space: nowrap;
         }
 
         .mw-portlet-body {
-            top: 40px; 
+            top: 30px; 
             left: 0;
+            min-width: 150px;
         }
     }
 }
 
-/* MOBILE LAYOUT */
+/* 3. SEARCH (Flexible) */
+#p-search {
+    flex-grow: 1; /* Takes up available space in the middle */
+    min-width: 200px;
+    margin: 0;
+}
+
+/* 4. TOOLS (Right side) */
+.ridvan-header-tools {
+    flex-shrink: 0;
+}
+
+/* ==================================================================
+   MOBILE LAYOUT (Max-width: 1000px)
+   Goal: 
+   Row 1: Sitename | Search
+   Row 2: Nav Menus | Tools
+   ================================================================== */
 @media (max-width: 1000px) {
     .nightingale-header {
+        flex-wrap: wrap; /* Allow wrapping for 2 rows */
         padding: 10px;
-        flex-direction: column; /* Stack rows */
-        align-items: stretch;
+        gap: 10px;
     }
 
-    /* Row 1: Sitename + Search */
-    .nightingale-header-row-primary {
-        width: 100%;
-        margin-bottom: 10px;
-        
-        #p-logo { display: none; } /* Hide Logo */
-        
-        #p-sitename { 
-            margin-right: 10px; 
-            white-space: nowrap;
-        }
-        
-        #p-search {
-            flex-grow: 1; /* Search fills remaining space */
-            margin: 0;
-        }
+    /* ITEM 1: Logo (Hidden) */
+    #p-logo {
+        display: none;
     }
 
-    /* Row 2: Menus + Tools */
-    .nightingale-header-row-secondary {
-        width: 100%;
-        margin-left: 0;
-        justify-content: space-between;
+    /* ITEM 2: Sitename (Row 1, Left) */
+    #p-sitename {
+        order: 1;
+        margin-right: 0;
     }
-    
-    /* Ensure nav items don't overflow */
+
+    /* ITEM 3: Search (Row 1, Right - Fills space) */
+    #p-search {
+        order: 2;
+        width: auto; 
+        flex-grow: 1; 
+        min-width: 0; /* Allow shrinking if needed */
+    }
+
+    /* BREAK: Force the next items to a new line */
+    .nightingale-header::after {
+        content: "";
+        display: block;
+        width: 100%;
+        order: 2; /* Inject break after Search */
+    }
+
+    /* ITEM 4: Navigation (Row 2, Left) */
     .nightingale-nav {
-        flex-wrap: wrap;
+        order: 3;
+        flex-grow: 1; /* Takes left side space */
+        
+        /* Adjust spacing for tighter mobile view */
         .mw-portlet-dropdown {
-             margin-right: 10px;
+            margin-right: 10px;
         }
+    }
+
+    /* ITEM 5: Tools (Row 2, Right) */
+    .ridvan-header-tools {
+        order: 4;
+        margin-left: auto; /* Pushes to far right if Nav doesn't fill */
     }
 }
