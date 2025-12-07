@@ -5,25 +5,19 @@ class SkinNightingale extends SkinMustache {
     public function getDefaultModules(): array {
         $modules = parent::getDefaultModules();
         $modules['scripts'][] = 'skins.nightingale.search';
-
         return $modules;
     }
 
     public function getTemplateData() {
         $data = parent::getTemplateData();
 
-        // ---------------------------------------------------------
-        // PART 1: GLOBAL FLAGS & METADATA
-        // ---------------------------------------------------------
+        // 1. Redirect Fixer
         $data['is-redirect'] = $this->getTitle()->isRedirect();
-
         if ( $data['is-redirect'] ) {
             $this->getOutput()->addModules( 'skins.nightingale.redirectfixer' );
         }
 
-        // ---------------------------------------------------------
-        // PART 2: HEADER BUTTONS (RIGHT SIDE)
-        // ---------------------------------------------------------
+        // 2. Header Buttons (Edit/Talk/Hybrid)
         $allPortlets = array_merge(
             $data['data-portlets']['data-namespaces']['array-items'] ?? [],
             $data['data-portlets']['data-views']['array-items'] ?? [],
@@ -47,13 +41,12 @@ class SkinNightingale extends SkinMustache {
             }
         }
 
-        $data['ridvan-content-edit'] = $editButton ? [ $editButton ] : [];
-        $data['ridvan-content-talk'] = $talkButton ? [ $talkButton ] : [];
-        $data['ridvan-content-hybrid'] = $hybridMenu;
+        // RENAMED KEYS
+        $data['nightingale-content-edit'] = $editButton ? [ $editButton ] : [];
+        $data['nightingale-content-talk'] = $talkButton ? [ $talkButton ] : [];
+        $data['nightingale-content-hybrid'] = $hybridMenu;
 
-        // ---------------------------------------------------------
-        // PART 3: CLEANUP LANGUAGES
-        // ---------------------------------------------------------
+        // 3. Language Cleanup
         if ( isset( $data['data-portlets']['data-languages']['array-items'] ) ) {
             $langItems = $data['data-portlets']['data-languages']['array-items'];
             $realLanguages = array_filter( $langItems, function( $item ) {
@@ -66,12 +59,8 @@ class SkinNightingale extends SkinMustache {
             unset( $data['data-portlets']['data-languages'] );
         }
 
-        // ---------------------------------------------------------
-        // PART 4: SPLIT SIDEBAR (HEADER vs FOOTER)
-        // ---------------------------------------------------------
-        
+        // 4. Split Sidebar (Header vs Footer)
         $allSidebarPortlets = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
-        
         if ( isset($data['data-portlets-sidebar']['data-portlets-first']) ) {
             array_unshift($allSidebarPortlets, $data['data-portlets-sidebar']['data-portlets-first']);
         }
@@ -83,7 +72,7 @@ class SkinNightingale extends SkinMustache {
             $id = $portlet['id'] ?? '';
             
             if ( $id === 'p-tb' || strpos($id, 'p-wikibase') !== false ) {
-                
+                // Inject SpecialPages into Toolbox
                 if ( $id === 'p-tb' ) {
                      if ( !isset( $portlet['array-items'] ) ) { $portlet['array-items'] = []; }
                      $hasSpecial = false;
@@ -113,9 +102,7 @@ class SkinNightingale extends SkinMustache {
         $data['nightingale-header-portlets'] = $headerPortlets;
         $data['nightingale-footer-portlets'] = $footerPortlets;
 
-        // ---------------------------------------------------------
-        // PART 5: USER MENU
-        // ---------------------------------------------------------
+        // 5. User Menu
         $user = $this->getSkin()->getUser();
         if ( isset($data['data-portlets']['data-user-menu']) ) {
             $userMenu = &$data['data-portlets']['data-user-menu'];
