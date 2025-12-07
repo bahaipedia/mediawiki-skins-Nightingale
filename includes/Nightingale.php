@@ -52,23 +52,18 @@ class SkinNightingale extends SkinMustache {
         // ---------------------------------------------------------
         // PART 3: PREPARE SIDEBAR DATA
         // ---------------------------------------------------------
-        // We need to merge "First" (Navigation) and "Rest" (everything else)
-        // so we can loop through them all and categorize them.
-        
         $sidebarFirst = $data['data-portlets-sidebar']['data-portlets-first'] ?? null;
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
-        // Start with the first block if it exists (usually "Navigation")
         $allSidebar = [];
         if ( $sidebarFirst ) {
             $allSidebar[] = $sidebarFirst;
         }
         $allSidebar = array_merge( $allSidebar, $sidebarRest );
 
-        // Buckets
-        $sidebarMenus = []; // Valid sidebar menus (Navigation, Community, etc)
-        $mobileTools = [];  // Toolbox items
-        $mobileLinks = [];  // Wikibase, Interwiki, etc.
+        $sidebarMenus = []; 
+        $mobileTools = [];  
+        $mobileLinks = [];  
         
         $mobileToolsLabel = $this->msg('toolbox')->text();
 
@@ -81,33 +76,53 @@ class SkinNightingale extends SkinMustache {
                 continue;
             }
 
-            // A. WIKIBASE & LANG -> LINKS
+            // 1. SKIP UNWANTED NAVIGATION
+            // This allows p-Project, p-Content etc. to pass, but kills the default nav.
+            if ( $id === 'p-navigation' ) {
+                continue;
+            }
+
+            // 2. WIKIBASE & LANG -> LINKS
             if ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
                 $mobileLinks = array_merge( $mobileLinks, $items );
             }
-            // B. TOOLBOX -> TOOLS
+            // 3. TOOLBOX -> TOOLS
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
                 }
             }
-            // C. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
+            // 4. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
             else {
                 if ( empty($id) ) {
                     $id = 'p-' . Sanitizer::escapeIdForAttribute( $label );
                 }
-                $portlet['html-id'] = $id; // Pass ID to template
+                $portlet['html-id'] = $id; 
                 $sidebarMenus[] = $portlet;
             }
         }
 
-        // --- FIX: MANUALLY ADD SPECIAL PAGES TO TOOLS ---
+        // --- FIX: MANUALLY ADD SPECIAL PAGES TO TOOLS (CORRECT STRUCTURE) ---
+        // We use the complex 'array-links' structure so ListItem.mustache renders it correctly.
         $mobileTools[] = [
             'id' => 't-specialpages',
-            'text' => $this->msg( 'specialpages' )->text(),
-            'href' => \SpecialPage::getTitleFor( 'Specialpages' )->getLocalURL(),
-            'class' => ''
+            'class' => 'mw-list-item',
+            'array-links' => [
+                [
+                    'text' => $this->msg( 'specialpages' )->text(),
+                    'array-attributes' => [
+                        [
+                            'key' => 'href',
+                            'value' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL()
+                        ],
+                        [
+                            'key' => 'title',
+                            'value' => $this->msg( 'specialpages' )->text()
+                        ]
+                    ]
+                ]
+            ]
         ];
         // ------------------------------------------------
 
@@ -121,15 +136,11 @@ class SkinNightingale extends SkinMustache {
         // ---------------------------------------------------------
         // PART 4: ASSIGN TO TEMPLATE
         // ---------------------------------------------------------
-        
-        // 1. Sidebar Menus (The "Main" menus)
         $data['nightingale-sidebar-menus'] = $sidebarMenus;
 
-        // 2. Tools (Mobile Only)
         $data['nightingale-mobile-tools'] = $mobileTools;
         $data['nightingale-mobile-tools-label'] = $mobileToolsLabel;
 
-        // 3. Links (Mobile Only)
         $data['nightingale-mobile-links'] = $mobileLinks;
         $data['nightingale-mobile-links-label'] = $this->msg('nightingale-mobile-links-label')->text();
         $data['nightingale-has-mobile-links'] = !empty($mobileLinks);
