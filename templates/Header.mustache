@@ -1,45 +1,24 @@
-<header class="mw-header">
+<header class="mw-header nightingale-header">
     {{>Logo}}
     {{>Sitename}}
+    
+    <nav class="nightingale-nav">
+        {{#data-portlets-sidebar}}
+            <div class="mw-portlet mw-portlet-dropdown">
+                <input type="checkbox" id="cb-nav-{{id}}" class="mw-checkbox-hack-checkbox">
+                <label for="cb-nav-{{id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
+                <div class="mw-portlet-body">
+                    <ul>
+                        {{#array-items}}{{>ListItem}}{{/array-items}}
+                    </ul>
+                </div>
+            </div>
+        {{/data-portlets-sidebar}}
+    </nav>
+
     {{>Search}}
 
     <div class="ridvan-header-tools">
-
-        <!-- LEFT GROUP: Text Menus (Mobile Only) -->
-        <div class="ridvan-text-menus">
-            
-            <!-- 1. MENU (Always renders) -->
-            <div class="mw-portlet ridvan-mobile-dropdown">
-                <input type="checkbox" id="cb-mob-menu" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-menu" class="mw-checkbox-hack-button">{{ridvan-mobile-menu-label}} ▾</label>
-                <div class="mw-portlet-body">
-                    <ul>{{#ridvan-mobile-menu}}{{>ListItem}}{{/ridvan-mobile-menu}}</ul>
-                </div>
-            </div>
-
-            <!-- 2. TOOLS (Always renders) -->
-            <div class="mw-portlet ridvan-mobile-dropdown">
-                <input type="checkbox" id="cb-mob-tools" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-tools" class="mw-checkbox-hack-button">{{ridvan-mobile-tools-label}} ▾</label>
-                <div class="mw-portlet-body">
-                    <ul>{{#ridvan-mobile-tools}}{{>ListItem}}{{/ridvan-mobile-tools}}</ul>
-                </div>
-            </div>
-
-            <!-- 3. LINKS (Conditional) -->
-            {{#ridvan-has-mobile-links}}
-            <div class="mw-portlet ridvan-mobile-dropdown">
-                <input type="checkbox" id="cb-mob-links" class="mw-checkbox-hack-checkbox">
-                <label for="cb-mob-links" class="mw-checkbox-hack-button">{{ridvan-mobile-links-label}} ▾</label>
-                <div class="mw-portlet-body">
-                    <ul>{{#ridvan-mobile-links}}{{>ListItem}}{{/ridvan-mobile-links}}</ul>
-                </div>
-            </div>
-            {{/ridvan-has-mobile-links}}
-            
-        </div>
-
-        <!-- RIGHT GROUP: Icons (Edit, Talk, Hybrid, Notif, Personal) -->
         <div class="ridvan-icon-menus">
             {{>ContentEdit}}
             {{>ContentTalk}}
