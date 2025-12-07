@@ -1,40 +1,34 @@
 <header class="mw-header nightingale-header">
-    
-    <div class="nightingale-header-row-primary">
-        {{>Logo}}
-        {{>Sitename}}
-        {{>Search}}
-    </div>
+    {{>Logo}}
+    {{>Sitename}}
 
-    <div class="nightingale-header-row-secondary">
-        
-        <nav class="nightingale-nav">
-            {{#nightingale-header-portlets}}
-                <div class="mw-portlet mw-portlet-dropdown">
-                    <input type="checkbox" id="cb-nav-{{id}}" class="mw-checkbox-hack-checkbox">
-                    <label for="cb-nav-{{id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
-                    <div class="mw-portlet-body">
-                        <ul>
-                            {{#array-items}}{{>ListItem}}{{/array-items}}
-                        </ul>
-                    </div>
-                </div>
-            {{/nightingale-header-portlets}}
-        </nav>
-
-        <div class="ridvan-header-tools">
-            <div class="ridvan-icon-menus">
-                {{>ContentEdit}}
-                {{>ContentTalk}}
-                {{>Notifications}}
-                <div class="ridvan-menu-wrapper">
-                    {{>Dropdown}}{{>ContentHybrid}}
-                </div>
-                <div class="ridvan-menu-wrapper ridvan-personal-wrapper">
-                    {{>Dropdown}}{{>PersonalMenu}}
+    <nav class="nightingale-nav">
+        {{#nightingale-header-portlets}}
+            <div class="mw-portlet mw-portlet-dropdown">
+                <input type="checkbox" id="cb-nav-{{id}}" class="mw-checkbox-hack-checkbox">
+                <label for="cb-nav-{{id}}" class="mw-checkbox-hack-button">{{label}} ▾</label>
+                <div class="mw-portlet-body">
+                    <ul>
+                        {{#array-items}}{{>ListItem}}{{/array-items}}
+                    </ul>
                 </div>
             </div>
-        </div>
+        {{/nightingale-header-portlets}}
+    </nav>
 
+    {{>Search}}
+
+    <div class="ridvan-header-tools">
+        <div class="ridvan-icon-menus">
+            {{>ContentEdit}}
+            {{>ContentTalk}}
+            {{>Notifications}}
+            <div class="ridvan-menu-wrapper">
+                {{>Dropdown}}{{>ContentHybrid}}
+            </div>
+            <div class="ridvan-menu-wrapper ridvan-personal-wrapper">
+                {{>Dropdown}}{{>PersonalMenu}}
+            </div>
+        </div>
     </div>
 </header>
