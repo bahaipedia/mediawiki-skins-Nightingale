@@ -1,160 +1,159 @@
 {
-	"name": "Nightingale",
-	"version": "1.0.0",
-	"author": [
-		"Sarah Haslip",
-		"Forked from Ridvan"
-	],
-	"url": "https://github.com/bahaipedia/mediawiki-skins-Nightingale",
-	"descriptionmsg": "nightingale-skin-desc",
-	"namemsg": "skinname-nightingale",
-	"license-name": "GPL-3.0-or-later",
-	"type": "skin",
-	"requires": {
-		"MediaWiki": ">= 1.41.0"
-	},
-	"AutoloadClasses": {
-		"SkinNightingale": "includes/Nightingale.php"
-	},
-	"ValidSkinNames": {
-		"nightingale": {
-			"class": "SkinNightingale",
-			"args": [
-				{
-					"name": "nightingale",
-					"responsive": true,
-					"toc": true,
-					"messages": [
-						"nightingale-no-categories",
-						"otherlanguages",
-						"sitetitle",
-						"search",
-						"tagline"
-					],
-					"styles": [
-						"codex-styles",
-						"skins.nightingale.styles"
-					],
-					"scripts": [
-						"skins.nightingale"
-					]
-				}
-			]
-		}
-	},
-	"MessagesDirs": {
-		"Nightingale": [
-			"i18n"
-		]
-	},
-	"ResourceModules": {
-		"skins.nightingale.styles": {
-			"class": "MediaWiki\\ResourceLoader\\SkinModule",
-			"features": {
-				"normalize": true,
-				"elements": true,
-				"content-tables": true,
-				"content-links": true,
-				"content-media": true,
-				"content-links-external": false,
-				"interface-message-box": false,
-				"interface-category": true,
-				"toc": true
-			},
-			"targets": [
-				"desktop",
-				"mobile"
-			],
-			"styles": [
-				"resources/skin.less"
-			]
-		},
-		"skins.nightingale": {
-			"targets": [
-				"desktop",
-				"mobile"
-			],
-			"packageFiles": [
-				"resources/skin.js"
-			],
-			"dependencies": [
-				"mediawiki.util",
-				"mediawiki.Uri"
-			]
-		},
-		"skins.nightingale.search": {
-			"packageFiles": [
-				"resources/search/main.js",
-				"resources/search/typeahead.js",
-				"resources/search/searchResults.js",
-				"resources/search/searchQuery.js",
-				"resources/search/searchAction.js",
-				"resources/search/searchClient.js",
-				"resources/search/urlGenerator.js",
-				"resources/search/fetch.js",
-				{
-					"name": "resources/search/config.json",
-					"file": "resources/search/config.json"
-				},
-				{
-					"name": "resources/search/templates/TypeaheadElement.mustache",
-					"file": "resources/search/templates/TypeaheadElement.mustache",
-					"type": "text"
-				},
-				{
-					"name": "resources/search/templates/TypeaheadPlaceholder.mustache",
-					"file": "resources/search/templates/TypeaheadPlaceholder.mustache",
-					"type": "text"
-				},
-				{
-					"name": "resources/search/templates/TypeaheadList.mustache",
-					"file": "resources/search/templates/TypeaheadList.mustache",
-					"type": "text"
-				},
-				{
-					"name": "resources/search/templates/TypeaheadListItem.mustache",
-					"file": "resources/search/templates/TypeaheadListItem.mustache",
-					"type": "text"
-				}
-			],
-			"styles": [
-				"resources/search/search.less"
-			],
-			"messages": [
-				"czsearch-search-noresults-title",
-				"czsearch-search-noresults-desc",
-				"czsearch-search-fulltext",
-				"searchsuggest-search",
-				"czsearch-search-editpage",
-				"czsearch-search-mediasearch",
-				"czsearch-search-empty-desc",
-				"search-redirect"
-			],
-			"dependencies": [
-				"mediawiki.storage",
-				"mediawiki.template.mustache",
-				"mediawiki.util"
-			]
-		},
-		"skins.nightingale.redirectfixer": {
-			"scripts": [
-				"resources/redirect-fixer.js"
-			],
-			"dependencies": [
-				"mediawiki.api",
-				"mediawiki.util",
-				"mediawiki.jqueryMsg"
-			],
-			"targets": [
-				"desktop",
-				"mobile"
-			]
-		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteSkinPath": "Nightingale"
-	},
-	"ResourceModuleSkinStyles": {},
-	"manifest_version": 2
+    "name": "Nightingale",
+    "version": "1.0.0",
+    "author": [
+        "[https://bahaipedia.org/User:Sarah Sarah Haslip]",
+        "Search module adapted from [https://www.mediawiki.org/wiki/Skin:Citizen Skin:Citizen], uses [https://skins.wmflabs.org skins.wmflabs.org v.3.0]"
+    ],
+    "url": "https://github.com/bahaipedia/mediawiki-skins-Nightingale",
+    "descriptionmsg": "nightingale-skin-desc",
+    "namemsg": "skinname-nightingale",
+    "license-name": "GPL-3.0-or-later",
+    "type": "skin",
+    "requires": {
+        "MediaWiki": ">= 1.41.0"
+    },
+    "AutoloadClasses": {
+        "SkinNightingale": "includes/Nightingale.php"
+    },
+    "ValidSkinNames": {
+        "nightingale": {
+            "class": "SkinNightingale",
+            "args": [
+                {
+                    "name": "nightingale",
+                    "responsive": true,
+                    "toc": true,
+                    "messages": [
+                        "nightingale-no-categories",
+                        "otherlanguages",
+                        "sitetitle",
+                        "search",
+                        "tagline"
+                    ],
+                    "styles": [
+                        "codex-styles",
+                        "skins.nightingale.styles"
+                    ],
+                    "scripts": [
+                        "skins.nightingale"
+                    ]
+                }
+            ]
+        }
+    },
+    "MessagesDirs": {
+        "Nightingale": [
+            "i18n"
+        ]
+    },
+    "ResourceModules": {
+        "skins.nightingale.styles": {
+            "class": "MediaWiki\\ResourceLoader\\SkinModule",
+            "features": {
+                "normalize": true,
+                "elements": true,
+                "content-tables": true,
+                "content-links": true,
+                "content-media": true,
+                "content-links-external": false,
+                "interface-message-box": false,
+                "interface-category": true,
+                "toc": true
+            },
+            "targets": [
+                "desktop",
+                "mobile"
+            ],
+            "styles": [
+                "resources/skin.less"
+            ]
+        },
+        "skins.nightingale": {
+            "targets": [
+                "desktop",
+                "mobile"
+            ],
+            "packageFiles": [
+                "resources/skin.js"
+            ],
+            "dependencies": [
+                "mediawiki.util"
+            ]
+        },
+        "skins.nightingale.search": {
+            "packageFiles": [
+                "resources/search/main.js",
+                "resources/search/typeahead.js",
+                "resources/search/searchResults.js",
+                "resources/search/searchQuery.js",
+                "resources/search/searchAction.js",
+                "resources/search/searchClient.js",
+                "resources/search/urlGenerator.js",
+                "resources/search/fetch.js",
+                {
+                    "name": "resources/search/config.json",
+                    "file": "resources/search/config.json"
+                },
+                {
+                    "name": "resources/search/templates/TypeaheadElement.mustache",
+                    "file": "resources/search/templates/TypeaheadElement.mustache",
+                    "type": "text"
+                },
+                {
+                    "name": "resources/search/templates/TypeaheadPlaceholder.mustache",
+                    "file": "resources/search/templates/TypeaheadPlaceholder.mustache",
+                    "type": "text"
+                },
+                {
+                    "name": "resources/search/templates/TypeaheadList.mustache",
+                    "file": "resources/search/templates/TypeaheadList.mustache",
+                    "type": "text"
+                },
+                {
+                    "name": "resources/search/templates/TypeaheadListItem.mustache",
+                    "file": "resources/search/templates/TypeaheadListItem.mustache",
+                    "type": "text"
+                }
+            ],
+            "styles": [
+                "resources/search/search.less"
+            ],
+            "messages": [
+                "czsearch-search-noresults-title",
+                "czsearch-search-noresults-desc",
+                "czsearch-search-fulltext",
+                "searchsuggest-search",
+                "czsearch-search-editpage",
+                "czsearch-search-mediasearch",
+                "czsearch-search-empty-desc",
+                "search-redirect"
+            ],
+            "dependencies": [
+                "mediawiki.storage",
+                "mediawiki.template.mustache",
+                "mediawiki.util"
+            ]
+        },
+        "skins.nightingale.redirectfixer": {
+            "scripts": [
+                "resources/redirect-fixer.js"
+            ],
+            "dependencies": [
+                "mediawiki.api",
+                "mediawiki.util",
+                "mediawiki.jqueryMsg"
+            ],
+            "targets": [
+                "desktop",
+                "mobile"
+            ]
+        }
+    },
+    "ResourceFileModulePaths": {
+        "localBasePath": "",
+        "remoteSkinPath": "Nightingale"
+    },
+    "ResourceModuleSkinStyles": {},
+    "manifest_version": 2
 }
