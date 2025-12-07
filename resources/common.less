@@ -8,141 +8,103 @@ html {
 }
 
 body {
-    background: #e6e6e6;
-    color: @color-base;
-    margin: 0;
-    font-family: @font-family;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* FIXED WIDTH CONTAINER */
-#nightingale-page-container {
-    width: 900px; /* Fixed width as requested */
+    max-width: 100%;
     margin: 0 auto;
-    background: #ffffff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    padding: 20px 40px;
-    position: relative; /* Context for absolute positioning if needed */
-    flex-grow: 1;
-    
-    @media (max-width: 1000px) {
-        width: 100%;
-        padding: 10px;
+    font-family: @font-family;
+    line-height: 1.5;
+}
+
+main {
+    padding: 1em;
+
+    & ~ nav,
+    & ~ footer {
+        padding: 1em;
     }
 }
 
-/* STICKY RAIL (Right side) */
-#nightingale-sticky-rail {
-    position: fixed;
-    top: 60px; /* Below header */
-    left: 50%;
-    margin-left: 470px; /* 900px / 2 + 20px padding */
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    z-index: 100;
-    
-    @media (max-width: 1250px) {
-        display: none; /* Hide if screen is too narrow to support the margins */
+@media screen {
+    html {
+        background: @background-color-base;
     }
-}
 
-#sticky-page-indicator {
-    font-weight: bold;
-    margin-bottom: 5px;
-    background: #eee;
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
-#sticky-image-container {
-    position: relative;
-    border: 1px solid #ccc;
-    background: white;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
-
-#sticky-image {
-    max-width: 200px;
-    display: block;
-}
-
-/* THE GREEN READING GUIDE */
-#sticky-reading-guide {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 255, 0, 0.2);
-    border-top: 2px solid rgba(0, 255, 0, 0.6);
-    border-bottom: 2px solid rgba(0, 255, 0, 0.6);
-    pointer-events: none; /* Let clicks pass through */
-    transition: top 0.1s linear, height 0.1s linear;
-}
-
-/* Legacy Float Styles for Mobile / Non-JS fallback */
-.opage {
-    float: left;
-    margin-left: -100px;
-    font-size: small;
-}
-
-.otright {
-    float: left;
-    position: relative;
-    margin-left: 105%;
-    height: 0px;
-}
-
-@media screen and (max-width: 1000px) {
-    .opage, .otright {
-        float: none;
-        position: static;
-        margin-left: 0;
-        display: inline-table;
-        width: 48%;
-        vertical-align: top;
+    body {
+        background: @background-color-base;
+        color: @color-base;
+        margin: 0 auto;
+        min-height: 100vh;
+        /* CHANGE: Body is now a vertical Flex stack, NOT a Grid */
+        display: flex;
+        flex-direction: column;
     }
-    .otright {
-        height: auto;
-    }
-}
 
-/* Header Adjustments for Nightingale */
-.nightingale-header {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-    padding: 0 20px;
-    justify-content: center; /* Center content inside */
-    
-    > * {
-        margin-right: 15px;
-    }
-}
+    /* CHANGE: The Grid logic moves to this new container */
+    #nightingale-page-container {
+        display: grid;
+        flex-grow: 1; /* This forces the middle section to expand and push footer down */
 
-.nightingale-nav {
-    display: flex;
-    
-    .mw-portlet-dropdown {
-        margin-right: 15px;
-        position: relative;
-        
-        .mw-checkbox-hack-button {
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-            padding: 10px 0;
-            display: block;
+        /* DESKTOP */
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: "sidebar content-column";
+
+        /* MOBILE */
+        @media (max-width: @max-width-breakpoint-tablet) {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            grid-template-areas:
+                "content-column";
         }
-        
-        /* Specific override for header dropdowns */
-        .mw-portlet-body {
-            top: 40px; 
-            left: 0;
+    }
+
+    #nightingale-content-column {
+        grid-area: content-column;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    /* Sidebar IS in the grid (inside nightingale-page-container), so it keeps its area */
+    .nightingale-sidebar {
+        grid-area: sidebar;
+        align-self: start;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: normal;
+        color: @color-base;
+        font-family: 'Linux Libertine', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman', 'Noto Serif', 'Times', serif;
+    }
+
+    a {
+        color: @color-link;
+
+        &:visited {
+            color: @color-link--visited;
         }
+
+        &.new,
+        &.new:visited {
+            color: @color-link-new;
+        }
+    }
+
+    main {
+        background: @background-color-article;
+        padding: 5px 30px;
+        margin-right: 23px;
+
+        /* MOBILE OVERRIDE */
+        @media (max-width: @max-width-breakpoint-tablet) {
+            margin-right: 0;
+        }
+    }
+    #sitenotice {
+        margin-bottom: 10px;
     }
 }
