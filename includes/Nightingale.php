@@ -41,7 +41,6 @@ class SkinNightingale extends SkinMustache {
             }
         }
 
-        // RENAMED KEYS
         $data['nightingale-content-edit'] = $editButton ? [ $editButton ] : [];
         $data['nightingale-content-talk'] = $talkButton ? [ $talkButton ] : [];
         $data['nightingale-content-hybrid'] = $hybridMenu;
@@ -71,6 +70,12 @@ class SkinNightingale extends SkinMustache {
         foreach ( $allSidebarPortlets as $portlet ) {
             $id = $portlet['id'] ?? '';
             
+            // FIX: Explicitly skip p-navigation so it is removed from the UI.
+            // "Special Pages" is injected into p-tb below.
+            if ( $id === 'p-navigation' ) {
+                continue;
+            }
+
             if ( $id === 'p-tb' || strpos($id, 'p-wikibase') !== false ) {
                 // Inject SpecialPages into Toolbox
                 if ( $id === 'p-tb' ) {
