@@ -1,8 +1,8 @@
 @import 'mediawiki.skin.variables.less';
 
-/* ==================================================================
-   1. MAIN HEADER CONTAINER
-   ================================================================== */
+/* ------------------------------------------------------------------
+   MAIN HEADER CONTAINER
+   ------------------------------------------------------------------ */
 .nightingale-header {
     background-color: @background-color-article;
     width: 100%;
@@ -11,14 +11,17 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; /* Desktop: Single Row */
     gap: 15px; 
     position: relative;
     z-index: 50;
     height: 60px;
 }
 
-#p-logo { flex-shrink: 0; }
+/* 1. LOGO & SITENAME */
+#p-logo {
+    flex-shrink: 0;
+}
 #p-sitename {
     white-space: nowrap;
     font-weight: bold;
@@ -26,16 +29,7 @@
     a { color: @color-base; text-decoration: none; }
 }
 
-#p-search {
-    flex-grow: 1; 
-    min-width: 200px;
-    margin: 0;
-    #searchform #searchInput { width: 100%; }
-}
-
-/* ==================================================================
-   2. TEXT NAVIGATION (Sidebar Menus in Header)
-   ================================================================== */
+/* 2. NAVIGATION (Text Dropdowns) */
 .nightingale-nav {
     display: flex;
     align-items: center;
@@ -50,16 +44,20 @@
         
         input { display: none !important; }
 
-        /* LABEL: display: contents fixes the rendering issue */
+        /* OVERRIDE: This specific button must be text, not an icon */
         .mw-checkbox-hack-button {
-            display: contents;
-            cursor: pointer;
-            font-weight: normal;
+            display: contents; /* YOUR REQUEST: Fixes the pixel issue */
+            width: auto;
+            height: auto;
+            background: transparent;
             color: #333;
+            font-size: 1rem;
+            cursor: pointer;
             user-select: none;
+            
+            &:hover { color: @color-link; }
         }
 
-        /* MENU BODY */
         .mw-portlet-body {
             display: none;
             position: absolute;
@@ -75,7 +73,7 @@
             margin-top: -1px;
             
             ul { list-style: none; margin: 0; padding: 0; display: block; }
-            li { padding: 0; margin: 0; display: block; border: none; }
+            li { padding: 0; margin: 0; display: block; }
             
             a {
                 display: flex;
@@ -92,7 +90,7 @@
     }
 }
 
-/* ICONS inside Text Navigation */
+/* 3. ICON HANDLING (Inside Nav Dropdowns) */
 .list-item- { display: none !important; }
 span[class^="list-item-"]:not(.list-item-) {
     display: inline-block;
@@ -105,9 +103,15 @@ span[class^="list-item-"]:not(.list-item-) {
     flex-shrink: 0;
 }
 
-/* ==================================================================
-   3. TOOLS AREA (Right Side Icons)
-   ================================================================== */
+/* 4. SEARCH */
+#p-search {
+    flex-grow: 1; 
+    min-width: 200px;
+    margin: 0;
+    #searchform #searchInput { width: 100%; }
+}
+
+/* 5. TOOLS (Right Side) */
 .nightingale-header-tools {
     flex-shrink: 0;
     display: flex;
@@ -120,9 +124,12 @@ span[class^="list-item-"]:not(.list-item-) {
     align-items: center;
 }
 
-/* STRUCTURAL STYLES ONLY - Icons.css handles the URLs */
+/* THE WORKING RIDVAN BLOCK
+   This sets up the base icon style for Edit, Talk, and generic checkboxes (Like "More") 
+*/
 .nightingale-edit-button,
-.nightingale-talk-button {
+.nightingale-talk-button,
+.mw-checkbox-hack-button {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -134,7 +141,7 @@ span[class^="list-item-"]:not(.list-item-) {
     margin: 0px 4px;
     cursor: pointer;
 
-    /* Common mask settings */
+    /* Mask settings */
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -143,45 +150,29 @@ span[class^="list-item-"]:not(.list-item-) {
     mask-size: contain;
 
     &:hover { background-color: @color-link; }
-    
-    a {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    
-    .mw-portlet-body {
-        display: block; 
-        width: 100%;
-        height: 100%;
-    }
 }
 
-/* DROPDOWN WRAPPERS (More / Personal) */
+.nightingale-edit-button a,
+.nightingale-talk-button a {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dropdown Wrappers (More/Personal) */
 .nightingale-menu-wrapper {
     display: flex;
     align-items: center;
     position: relative;
-    margin-left: 4px;
 
     .mw-portlet-dropdown {
         position: static; 
         margin: 0;
-        
         input { display: none !important; }
         
-        /* These buttons must be block/bold */
-        .mw-checkbox-hack-button {
-            display: block;
-            cursor: pointer;
-            font-weight: bold;
-            color: #333;
-            padding: 0 5px;
-        }
-
         .mw-portlet-body {
             right: 0; 
             left: auto;
@@ -192,8 +183,8 @@ span[class^="list-item-"]:not(.list-item-) {
             border: 1px solid #ccc;
             padding: 5px 0;
             z-index: 102;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             
             li { display: block; margin: 0; }
             a { 
@@ -204,31 +195,39 @@ span[class^="list-item-"]:not(.list-item-) {
                 &:hover { background: #f8f9fa; }
             }
         }
-        
         input:checked ~ .mw-portlet-body { display: block; }
     }
 }
 
-/* PERSONAL MENU OVERRIDE */
+/* PERSONAL MENU OVERRIDE 
+   The 'Ridvan block' above makes it an icon. We need to reset it for the User Name.
+*/
 #p-personal {
-    /* Reset icon styling if inherited */
+    /* Reset the icon styling inherited from .mw-checkbox-hack-button if applied to wrapper, 
+       but here it's usually on the label. */
+    
     .mw-checkbox-hack-button {
         width: auto;
         height: auto;
         background: transparent;
         color: #333;
+        font-size: 1rem;
+        font-weight: bold;
+        text-indent: 0;
+        padding: 0 5px;
+        
+        /* Remove mask if inherited */
+        -webkit-mask-image: none;
+        mask-image: none;
     }
+
     h3 {
         display: block;
         margin: 0;
-        font-size: 1rem;
-        font-weight: bold;
-        padding: 0 5px;
-        cursor: pointer;
     }
 }
 
-/* NOTIFICATIONS */
+/* Notification Badge */
 .mw-echo-notifications-badge {
     display: block;
     width: 20px;
@@ -241,7 +240,7 @@ span[class^="list-item-"]:not(.list-item-) {
 }
 
 /* ==================================================================
-   4. MOBILE LAYOUT
+   MOBILE LAYOUT
    ================================================================== */
 @media (max-width: 1000px) {
     .nightingale-header {
@@ -265,6 +264,7 @@ span[class^="list-item-"]:not(.list-item-) {
         .mw-portlet-dropdown {
             margin-right: 15px;
             margin-bottom: 5px;
+            /* Reset for mobile touch targets if needed */
         }
     }
 
