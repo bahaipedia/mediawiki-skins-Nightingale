@@ -33,49 +33,29 @@ main {
         color: @color-base;
         margin: 0 auto;
         min-height: 100vh;
-        /* CHANGE: Body is now a vertical Flex stack, NOT a Grid */
         display: flex;
         flex-direction: column;
     }
 
-    /* CHANGE: The Grid logic moves to this new container */
+    /* CHANGE: Fixed width container, centered, no sidebar grid */
     #nightingale-page-container {
-        display: grid;
-        flex-grow: 1; /* This forces the middle section to expand and push footer down */
+        width: 100%;
+        max-width: 1100px; /* Adjust this value for wider/narrower fixed width */
+        margin: 0 auto;    /* Centers the container */
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 1em;    /* Small gutter on small screens */
+        box-sizing: border-box;
 
-        /* DESKTOP */
-        grid-template-columns: 250px 1fr;
-        grid-template-rows: 1fr;
-        grid-template-areas: "sidebar content-column";
-
-        /* MOBILE */
+        /* MOBILE OVERRIDE */
         @media (max-width: @max-width-breakpoint-tablet) {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto;
-            grid-template-areas:
-                "content-column";
+            max-width: 100%;
+            padding: 0;
         }
     }
 
-    #nightingale-content-column {
-        grid-area: content-column;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-    }
-
-    /* Sidebar IS in the grid (inside nightingale-page-container), so it keeps its area */
-    .nightingale-sidebar {
-        grid-area: sidebar;
-        align-self: start;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-weight: normal;
         color: @color-base;
         font-family: 'Linux Libertine', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman', 'Noto Serif', 'Times', serif;
@@ -96,14 +76,14 @@ main {
 
     main {
         background: @background-color-article;
-        padding: 5px 30px;
-        margin-right: 23px;
-
+        padding: 1.5em 3em; /* Adjusted padding for better fixed-width look */
+        
         /* MOBILE OVERRIDE */
         @media (max-width: @max-width-breakpoint-tablet) {
-            margin-right: 0;
+            padding: 1em;
         }
     }
+
     #sitenotice {
         margin-bottom: 10px;
     }
