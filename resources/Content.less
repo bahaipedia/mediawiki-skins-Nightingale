@@ -1,60 +1,60 @@
 @import 'mediawiki.skin.variables.less';
 
 .content {
-	&__header {
-		position: relative;
-	}
+    &__header {
+        position: relative;
+    }
 
-	&__heading {
-		padding: 0 50px 0 0;
-		margin: 0;
-		border-bottom: 0;
-		float: left;
-	}
+    &__heading {
+        padding: 0 50px 0 0;
+        margin: 0;
+        border-bottom: 0;
+        float: left;
+    }
 
-	&__language-btn {
-		float: right;
-		align-items: center;
-	}
+    &__language-btn {
+        float: right;
+        align-items: center;
+    }
 
-	&__indicators {
-		position: absolute;
-		top: 10px;
-		right: 0;
-	}
+    &__indicators {
+        position: absolute;
+        top: 10px;
+        right: 0;
+    }
 
-	&__tagline {
-		clear: both;
-		color: @color-base;
-		font-size: 0.85em;
-		margin-bottom: 12px;
-		line-height: 1;
+    &__tagline {
+        clear: both;
+        color: @color-base;
+        font-size: 0.85em;
+        margin-bottom: 12px;
+        line-height: 1;
 
-		&:empty {
-			display: none;
-		}
-	}
+        &:empty {
+            display: none;
+        }
+    }
 
-	&__actions {
-		display: flex;
-	}
+    &__actions {
+        display: flex;
+    }
 
-	.thumbimage {
-		background: transparent;
-		border: 0;
-	}
+    .thumbimage {
+        background: transparent;
+        border: 0;
+    }
 
-	.toc,
-	div.thumbinner {
-		border-color: @color-gray;
-		background-color: @background-color-thumb;
-		color: @color-thumb;
+    .toc,
+    div.thumbinner {
+        border-color: @color-gray;
+        background-color: @background-color-thumb;
+        color: @color-thumb;
 
-		.toctogglelabel,
-		a {
-			color: @color-thumb;
-		}
-	}
+        .toctogglelabel,
+        a {
+            color: @color-thumb;
+        }
+    }
 }
 
 .mw-body {
@@ -62,22 +62,22 @@
     border: solid #eaecf0;
     border-width: 1px 1px 0.2em;
     background: #ffffff;
-    padding: 0em 2em 1em;
     margin-bottom: 0;
     overflow: auto;
     word-wrap: break-word;
 }
 
 .mw-editsection {
-	font-size: 0.85em;
-	margin-left: 8px;
+    font-size: 0.85em;
+    margin-left: 8px;
 }
 
 .mw-notification-area-overlay {
     margin-top: 2em;
 }
+
 .postedit {
-	margin-top: 3em;
+    margin-top: 3em;
 }
 
 .page-Main_Page #catlinks {
@@ -101,18 +101,8 @@
     padding: 1em 2em 1em;
     margin-top: 1em;
     margin-bottom: 1em;
-    margin-right: 23px;
     overflow: visible;
     word-wrap: break-word;
-
-    @media (max-width: @max-width-breakpoint-tablet) {
-        margin-right: 0;
-    }
-}
-
-/* Prevent Extension:Maps map from being on top of notifications dropdown */
-#map_leaflet_1 {
-	z-index: 0;	
 }
 
 @media (max-width: @max-width-breakpoint-tablet) {
