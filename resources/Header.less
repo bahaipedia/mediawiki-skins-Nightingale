@@ -1,5 +1,8 @@
 @import 'mediawiki.skin.variables.less';
 
+/* ------------------------------------------------------------------
+   MAIN HEADER CONTAINER
+   ------------------------------------------------------------------ */
 .nightingale-header {
     background: #fff;
     border-bottom: 1px solid #ccc;
@@ -7,7 +10,9 @@
     display: flex;
     align-items: center;
     flex-wrap: nowrap; /* Desktop: Single Row */
-    gap: 15px; /* Spacing between all items */
+    gap: 15px; 
+    position: relative;
+    z-index: 50; /* Ensure header sits above content */
 }
 
 /* 1. LOGO & SITENAME */
@@ -24,37 +29,44 @@
 .nightingale-nav {
     display: flex;
     align-items: center;
+    height: 100%; 
     
+    /* Reset the Portlet wrapper */
     .mw-portlet-dropdown {
         margin-right: 15px;
         position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
         
-        /* HIDE THE CHECKBOX */
+        /* FIX: Ensure the input doesn't overlay incorrectly */
         input[type="checkbox"] {
-            display: none;
+            display: none !important;
         }
 
-        /* LABEL (THE BUTTON) */
+        /* LABEL (THE BUTTON) - Fixed visibility & weight */
         .mw-checkbox-hack-button {
-            font-weight: bold;
+            font-weight: normal; /* User requested no bold */
             color: #333;
             cursor: pointer;
-            display: block;
+            display: inline-block; /* Fixes the 'pixels' issue */
             white-space: nowrap;
             user-select: none;
+            padding: 15px 0; /* Add touch target height */
+            line-height: 1.5;
         }
 
         /* MENU BODY (HIDDEN BY DEFAULT) */
         .mw-portlet-body {
-            display: none; /* Critical: Hide it! */
+            display: none;
             position: absolute;
-            top: 100%; /* Push below label */
+            top: 100%; /* Drops directly below label */
             left: 0;
-            min-width: 180px;
+            min-width: 220px; /* Wider to accommodate text */
             background: #ffffff;
             border: 1px solid #a2a9b1;
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            z-index: 100;
+            z-index: 101; /* Above everything */
             padding: 5px 0;
             
             ul {
@@ -69,10 +81,12 @@
                 display: block;
                 
                 a {
-                    display: block;
+                    display: flex; /* Flexbox for Icon + Text alignment */
+                    align-items: center;
                     padding: 8px 15px;
                     color: #0645ad;
                     text-decoration: none;
+                    white-space: nowrap;
                     
                     &:hover {
                         background-color: #f8f9fa;
@@ -83,20 +97,45 @@
         }
 
         /* SHOW MENU WHEN CHECKED */
+        /* Note: We rely on the input ID matching the label 'for' attribute */
         input:checked ~ .mw-portlet-body {
             display: block;
         }
     }
 }
 
-/* 3. SEARCH (Flexible) */
+/* ------------------------------------------------------------------
+   ICON HANDLING
+   ------------------------------------------------------------------ */
+/* 1. HIDE EMPTY ICONS (The "placeholder" issue) */
+.list-item- {
+    display: none;
+}
+
+/* 2. SHOW REAL ICONS */
+/* Target spans that have a class starting with 'list-item-' but are NOT 'list-item-' */
+span[class^="list-item-"]:not(.list-item-) {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    vertical-align: middle;
+    /* Icons.css will supply the background-image URL via the class */
+}
+
+
+/* ------------------------------------------------------------------
+   SEARCH & TOOLS
+   ------------------------------------------------------------------ */
 #p-search {
     flex-grow: 1; 
     min-width: 200px;
     margin: 0;
 }
 
-/* 4. TOOLS (Right side) */
 .ridvan-header-tools {
     flex-shrink: 0;
 }
@@ -106,23 +145,18 @@
    ================================================================== */
 @media (max-width: 1000px) {
     .nightingale-header {
-        flex-wrap: wrap; /* Allow wrapping for 2 rows */
+        flex-wrap: wrap; 
         padding: 10px;
         gap: 10px;
     }
 
-    /* ITEM 1: Logo (Hidden) */
-    #p-logo {
-        display: none;
-    }
+    #p-logo { display: none; }
 
-    /* ITEM 2: Sitename (Row 1, Left) */
     #p-sitename {
         order: 1;
         margin-right: 0;
     }
 
-    /* ITEM 3: Search (Row 1, Right - Fills space) */
     #p-search {
         order: 2;
         width: auto; 
@@ -130,7 +164,7 @@
         min-width: 0; 
     }
 
-    /* BREAK: Force the next items to a new line */
+    /* Force break */
     .nightingale-header::after {
         content: "";
         display: block;
@@ -138,17 +172,22 @@
         order: 2; 
     }
 
-    /* ITEM 4: Navigation (Row 2, Left) */
     .nightingale-nav {
         order: 3;
         flex-grow: 1; 
+        height: auto;
+        flex-wrap: wrap; /* Wrap menu items if many */
         
         .mw-portlet-dropdown {
-            margin-right: 10px;
+            margin-right: 15px;
+            margin-bottom: 5px;
+            
+            .mw-checkbox-hack-button {
+                padding: 10px 0; /* Smaller padding on mobile */
+            }
         }
     }
 
-    /* ITEM 5: Tools (Row 2, Right) */
     .ridvan-header-tools {
         order: 4;
         margin-left: auto; 
