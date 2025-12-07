@@ -1,9 +1,7 @@
 @import 'mediawiki.skin.variables.less';
 
-/* ------------------------------------------------------------------
-   MAIN HEADER CONTAINER
-   ------------------------------------------------------------------ */
-.nightingale-header {
+/* DESKTOP HEADER LAYOUT */
+.mw-header {
     background-color: @background-color-article;
     width: 100%;
     padding: 0 20px;
@@ -11,122 +9,65 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap; /* Desktop: Single Row */
-    gap: 15px; 
-    position: relative;
-    z-index: 50;
-    height: 60px;
-}
 
-/* 1. LOGO & SITENAME */
-#p-logo {
-    flex-shrink: 0;
-}
-#p-sitename {
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 1.2em;
-    a { color: @color-base; text-decoration: none; }
-}
+    /* MOBILE HEADER LAYOUT */
+    @media ( max-width: @max-width-breakpoint-tablet ) {
+        padding: 10px;
+        flex-wrap: wrap; /* Allow items to flow to next line */
 
-/* 2. NAVIGATION (Text Dropdowns) */
-.nightingale-nav {
-    display: flex;
-    align-items: center;
-    height: 100%; 
-    
-    .mw-portlet-dropdown {
-        position: relative;
-        display: flex; 
-        align-items: center;
-        height: 100%;
-        margin-right: 15px;
-        
-        input { display: none !important; }
-
-        /* OVERRIDE: This specific button must be text, not an icon */
-        .mw-checkbox-hack-button {
-            display: contents; /* YOUR REQUEST: Fixes the pixel issue */
-            width: auto;
-            height: auto;
-            background: transparent;
-            color: #333;
-            font-size: 1rem;
-            cursor: pointer;
-            user-select: none;
-            
-            &:hover { color: @color-link; }
-        }
-
-        .mw-portlet-body {
+        /* 1. Hide the Logo Image (Keep Sitename) */
+        #p-logo {
             display: none;
-            position: absolute;
-            top: 100%; 
-            left: 0;
-            min-width: 200px;
-            width: max-content;
-            background: #ffffff;
-            border: 1px solid #a2a9b1;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            z-index: 101;
-            padding: 5px 0;
-            margin-top: -1px;
-            
-            ul { list-style: none; margin: 0; padding: 0; display: block; }
-            li { padding: 0; margin: 0; display: block; }
-            
-            a {
-                display: flex;
-                align-items: center;
-                padding: 8px 15px;
-                color: #0645ad;
-                text-decoration: none;
-                white-space: nowrap;
-                font-size: 0.95em;
-                &:hover { background-color: #eaecf0; text-decoration: none; }
-            }
         }
-        input:checked ~ .mw-portlet-body { display: block; }
+
+        /* 2. Sitename adjustments */
+        #p-sitename {
+            margin-right: 10px;
+        }
+
+        /* 3. Search bar takes remaining space on Top Row */
+        #p-search {
+            flex-grow: 1;
+            padding: 0;
+        }
+
+        /* 4. The Tools Wrapper (New Line) */
+        .nightingale-header-tools {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 }
 
-/* 3. ICON HANDLING (Inside Nav Dropdowns) */
-.list-item- { display: none !important; }
-span[class^="list-item-"]:not(.list-item-) {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    flex-shrink: 0;
+/* --- GROUPS OF LINKS --- */
+/* Mobile Only drop-down menus (Sidebar links, Tools, Interwiki/Interlanguage Links) */
+.nightingale-text-menus {
+    display: none; /* Default Hidden for desktop */
+    
+    @media ( max-width: @max-width-breakpoint-tablet ) {
+        display: flex;
+        gap: 15px;
+        margin-left: 15px;
+    }
 }
 
-/* 4. SEARCH */
-#p-search {
-    flex-grow: 1; 
-    min-width: 200px;
-    margin: 0;
-    #searchform #searchInput { width: 100%; }
-}
-
-/* 5. TOOLS (Right Side) */
-.nightingale-header-tools {
-    flex-shrink: 0;
+/* RIGHT GROUP Mobile and Desktop: Icons (Edit, Talk, Hybrid, Notif, Personal */
+.nightingale-menu-wrapper {
     display: flex;
     align-items: center;
-    height: 100%;
 }
-
 .nightingale-icon-menus {
     display: flex;
     align-items: center;
 }
+.mw-echo-ui-overlay {
+    z-index: 15;
+}
 
-/* THE WORKING RIDVAN BLOCK
-   This sets up the base icon style for Edit, Talk, and generic checkboxes (Like "More") 
-*/
+/* --- STANDARD ICON STYLES (Edit, Talk, etc) --- */
 .nightingale-edit-button,
 .nightingale-talk-button,
 .mw-checkbox-hack-button {
@@ -136,7 +77,7 @@ span[class^="list-item-"]:not(.list-item-) {
     font-size: 0;
     color: transparent;
     position: relative;
-    vertical-align: middle;      
+    vertical-align: middle;     
     background-color: #385b82; 
     margin: 0px 4px;
     cursor: pointer;
@@ -149,7 +90,9 @@ span[class^="list-item-"]:not(.list-item-) {
     -webkit-mask-size: contain;
     mask-size: contain;
 
-    &:hover { background-color: @color-link; }
+    &:hover {
+        background-color: @color-link; 
+    }
 }
 
 .nightingale-edit-button a,
@@ -162,111 +105,81 @@ span[class^="list-item-"]:not(.list-item-) {
     height: 100%;
 }
 
-/* Dropdown Wrappers (More/Personal) */
-.nightingale-menu-wrapper {
-    display: flex;
-    align-items: center;
-    position: relative;
+/* --- MOBILE DROPDOWN STYLING --- */
+@media ( max-width: @max-width-breakpoint-tablet ) {
 
-    .mw-portlet-dropdown {
-        position: static; 
-        margin: 0;
-        input { display: none !important; }
-        
-        .mw-portlet-body {
-            right: 0; 
-            left: auto;
-            position: absolute;
-            top: 100%;
-            min-width: 160px;
-            background: white;
-            border: 1px solid #ccc;
-            padding: 5px 0;
-            z-index: 102;
-            display: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            
-            li { display: block; margin: 0; }
-            a { 
-                display: block; 
-                padding: 8px 15px; 
-                color: #0645ad;
-                text-decoration: none;
-                &:hover { background: #f8f9fa; }
-            }
-        }
-        input:checked ~ .mw-portlet-body { display: block; }
-    }
-}
-
-/* PERSONAL MENU OVERRIDE 
-   The 'Ridvan block' above makes it an icon. We need to reset it for the User Name.
-*/
-#p-personal {
-    /* Reset the icon styling inherited from .mw-checkbox-hack-button if applied to wrapper, 
-       but here it's usually on the label. */
-    
-    .mw-checkbox-hack-button {
+    /* RESET BUTTON STYLES FOR MOBILE TEXT MENUS */
+    .nightingale-mobile-dropdown .mw-checkbox-hack-button {
         width: auto;
         height: auto;
+        padding: 0;
+        margin: 0;
         background: transparent;
-        color: #333;
+        border: none;
+        color: @color-base;
         font-size: 1rem;
-        font-weight: bold;
+        font-weight: normal;
         text-indent: 0;
-        padding: 0 5px;
-        
-        /* Remove mask if inherited */
         -webkit-mask-image: none;
         mask-image: none;
-    }
+        cursor: pointer;
 
-    h3 {
-        display: block;
-        margin: 0;
-    }
-}
-
-/* Notification Badge */
-.mw-echo-notifications-badge {
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-size: contain;
-    text-indent: -9999px;
-    opacity: 0.7;
-    margin: 0 4px;
-    &:hover { opacity: 1; }
-}
-
-/* ==================================================================
-   MOBILE LAYOUT
-   ================================================================== */
-@media (max-width: 1000px) {
-    .nightingale-header {
-        flex-wrap: wrap; 
-        height: auto;
-        padding: 10px;
-        gap: 10px;
-    }
-
-    #p-logo { display: none; }
-    #p-sitename { order: 1; margin-right: 0; }
-    #p-search { order: 2; width: auto; flex-grow: 1; min-width: 0; }
-    .nightingale-header::after { content: ""; display: block; width: 100%; order: 2; }
-    
-    .nightingale-nav { 
-        order: 3; 
-        flex-grow: 1; 
-        height: auto; 
-        flex-wrap: wrap; 
-        
-        .mw-portlet-dropdown {
-            margin-right: 15px;
-            margin-bottom: 5px;
-            /* Reset for mobile touch targets if needed */
+        &:hover {
+            color: @color-link;
+            background: transparent;
         }
     }
 
-    .nightingale-header-tools { order: 4; margin-left: auto; }
+    /* DROPDOWN MECHANISM */
+    .nightingale-mobile-dropdown {
+        position: relative;
+
+        input {
+            display: none;
+        }
+
+        .mw-portlet-body {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 100;
+            background: #ffffff;
+            border: 1px solid #a2a9b1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 230px;
+            padding: 5px 0;
+            margin-top: 5px;
+        }
+
+        input:checked ~ .mw-portlet-body {
+            display: block;
+        }
+
+        /* LIST STYLING */
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            display: block;
+            margin: 0;
+            padding: 0px 0px 0px 20px;
+
+            a {
+                display: block;
+                padding: 6px 15px;
+                color: #0645ad;
+                text-decoration: none;
+                font-size: 0.95em;
+
+                &:hover {
+                    background-color: #eaecf0;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
 }
