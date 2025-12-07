@@ -1,7 +1,15 @@
 {{>Header}}
-<div id="ridvan-page-container">
-    {{>Sidebar}}
-    <div id="ridvan-content-column">
+<div id="nightingale-page-container">
+    
+    <div id="nightingale-sticky-rail">
+        <div id="sticky-page-indicator"></div>
+        <div id="sticky-image-container">
+            <div id="sticky-reading-guide"></div>
+            <img id="sticky-image" src="" alt="" />
+        </div>
+    </div>
+
+    <div id="nightingale-content-column">
         {{>Notices}}
         {{>Content}}
         {{^is-mainpage}}
