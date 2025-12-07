@@ -26,14 +26,10 @@
     white-space: nowrap;
     font-weight: bold;
     font-size: 1.2em;
-    
-    a {
-        color: @color-base;
-        text-decoration: none;
-    }
+    a { color: @color-base; text-decoration: none; }
 }
 
-/* 2. NAVIGATION (Sidebar Portlets converted to Dropdowns) */
+/* 2. NAVIGATION (Text Dropdowns) */
 .nightingale-nav {
     display: flex;
     align-items: center;
@@ -46,25 +42,22 @@
         height: 100%;
         margin-right: 15px;
         
-        input[type="checkbox"] {
-            display: none !important;
-        }
+        input { display: none !important; }
 
-        /* TEXT MENU LABELS (Project, Content, etc.) */
+        /* OVERRIDE: This specific button must be text, not an icon */
         .mw-checkbox-hack-button {
-            display: block; /* Use block to allow padding */
-            cursor: pointer;
-            font-weight: normal;
+            display: contents; /* YOUR REQUEST: Fixes the pixel issue */
+            width: auto;
+            height: auto;
+            background: transparent;
             color: #333;
+            font-size: 1rem;
+            cursor: pointer;
             user-select: none;
-            padding: 10px 5px; /* Touch target */
             
-            &:hover {
-                color: @color-link;
-            }
+            &:hover { color: @color-link; }
         }
 
-        /* MENU BODY */
         .mw-portlet-body {
             display: none;
             position: absolute;
@@ -79,46 +72,26 @@
             padding: 5px 0;
             margin-top: -1px;
             
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                display: block;
-            }
+            ul { list-style: none; margin: 0; padding: 0; display: block; }
+            li { padding: 0; margin: 0; display: block; }
             
-            li {
-                padding: 0;
-                margin: 0;
-                display: block;
-                
-                a {
-                    display: flex;
-                    align-items: center;
-                    padding: 8px 15px;
-                    color: #0645ad;
-                    text-decoration: none;
-                    white-space: nowrap;
-                    font-size: 0.95em;
-                    
-                    &:hover {
-                        background-color: #eaecf0;
-                        text-decoration: none;
-                    }
-                }
+            a {
+                display: flex;
+                align-items: center;
+                padding: 8px 15px;
+                color: #0645ad;
+                text-decoration: none;
+                white-space: nowrap;
+                font-size: 0.95em;
+                &:hover { background-color: #eaecf0; text-decoration: none; }
             }
         }
-
-        input:checked ~ .mw-portlet-body {
-            display: block;
-        }
+        input:checked ~ .mw-portlet-body { display: block; }
     }
 }
 
-/* 3. ICON HANDLING (Inside the dropdowns) */
-.list-item- {
-    display: none !important;
-}
-
+/* 3. ICON HANDLING (Inside Nav Dropdowns) */
+.list-item- { display: none !important; }
 span[class^="list-item-"]:not(.list-item-) {
     display: inline-block;
     width: 20px;
@@ -130,19 +103,12 @@ span[class^="list-item-"]:not(.list-item-) {
     flex-shrink: 0;
 }
 
-/* 4. SEARCH (Flexible) */
+/* 4. SEARCH */
 #p-search {
     flex-grow: 1; 
     min-width: 200px;
     margin: 0;
-    
-    /* Ridvan Search Styles */
-    #searchform {
-        margin: 0;
-        #searchInput {
-            width: 100%;
-        }
-    }
+    #searchform #searchInput { width: 100%; }
 }
 
 /* 5. TOOLS (Right Side) */
@@ -156,12 +122,14 @@ span[class^="list-item-"]:not(.list-item-) {
 .nightingale-icon-menus {
     display: flex;
     align-items: center;
-    gap: 4px; /* Matches Ridvan spacing */
 }
 
-/* --- STANDARD ICON STYLES (Ported from Ridvan) --- */
+/* THE WORKING RIDVAN BLOCK
+   This sets up the base icon style for Edit, Talk, and generic checkboxes (Like "More") 
+*/
 .nightingale-edit-button,
-.nightingale-talk-button {
+.nightingale-talk-button,
+.mw-checkbox-hack-button {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -181,18 +149,17 @@ span[class^="list-item-"]:not(.list-item-) {
     -webkit-mask-size: contain;
     mask-size: contain;
 
-    &:hover {
-        background-color: @color-link; 
-    }
-    
-    a {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+    &:hover { background-color: @color-link; }
+}
+
+.nightingale-edit-button a,
+.nightingale-talk-button a {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* Dropdown Wrappers (More/Personal) */
@@ -200,31 +167,63 @@ span[class^="list-item-"]:not(.list-item-) {
     display: flex;
     align-items: center;
     position: relative;
-    margin-left: 4px;
 
-    /* Override the generic dropdown styles for these specific icon-based menus if needed */
     .mw-portlet-dropdown {
         position: static; 
         margin: 0;
-        
         input { display: none !important; }
         
-        .mw-checkbox-hack-button {
-            display: block;
-            cursor: pointer;
-            font-weight: bold;
-            color: #333;
-            padding: 0 5px;
-        }
-
         .mw-portlet-body {
             right: 0; 
             left: auto;
+            position: absolute;
+            top: 100%;
+            min-width: 160px;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 5px 0;
+            z-index: 102;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            
+            li { display: block; margin: 0; }
+            a { 
+                display: block; 
+                padding: 8px 15px; 
+                color: #0645ad;
+                text-decoration: none;
+                &:hover { background: #f8f9fa; }
+            }
         }
+        input:checked ~ .mw-portlet-body { display: block; }
+    }
+}
+
+/* PERSONAL MENU OVERRIDE 
+   The 'Ridvan block' above makes it an icon. We need to reset it for the User Name.
+*/
+#p-personal {
+    /* Reset the icon styling inherited from .mw-checkbox-hack-button if applied to wrapper, 
+       but here it's usually on the label. */
+    
+    .mw-checkbox-hack-button {
+        width: auto;
+        height: auto;
+        background: transparent;
+        color: #333;
+        font-size: 1rem;
+        font-weight: bold;
+        text-indent: 0;
+        padding: 0 5px;
         
-        input:checked ~ .mw-portlet-body {
-            display: block;
-        }
+        /* Remove mask if inherited */
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    h3 {
+        display: block;
+        margin: 0;
     }
 }
 
@@ -240,73 +239,34 @@ span[class^="list-item-"]:not(.list-item-) {
     &:hover { opacity: 1; }
 }
 
-/* Personal Menu (User Name) */
-#p-personal h3 {
-    font-size: 1rem;
-    margin: 0;
-    padding: 0 0 0 5px;
-    font-weight: bold;
-    cursor: pointer;
-    display: block; 
-}
-
-
 /* ==================================================================
-   MOBILE LAYOUT (Max-width: 1000px)
+   MOBILE LAYOUT
    ================================================================== */
 @media (max-width: 1000px) {
     .nightingale-header {
         flex-wrap: wrap; 
-        padding: 10px;
         height: auto;
+        padding: 10px;
         gap: 10px;
     }
 
-    /* 1. Hide Logo */
     #p-logo { display: none; }
-
-    /* 2. Sitename (Row 1 Left) */
-    #p-sitename {
-        order: 1;
-        margin-right: 0;
-    }
-
-    /* 3. Search (Row 1 Right) */
-    #p-search {
-        order: 2;
-        width: auto; 
+    #p-sitename { order: 1; margin-right: 0; }
+    #p-search { order: 2; width: auto; flex-grow: 1; min-width: 0; }
+    .nightingale-header::after { content: ""; display: block; width: 100%; order: 2; }
+    
+    .nightingale-nav { 
+        order: 3; 
         flex-grow: 1; 
-        min-width: 0; 
-    }
-
-    /* Break */
-    .nightingale-header::after {
-        content: "";
-        display: block;
-        width: 100%;
-        order: 2; 
-    }
-
-    /* 4. Nav Menus (Row 2 Left) */
-    .nightingale-nav {
-        order: 3;
-        flex-grow: 1; 
-        height: auto;
+        height: auto; 
         flex-wrap: wrap; 
         
         .mw-portlet-dropdown {
             margin-right: 15px;
             margin-bottom: 5px;
-            
-            .mw-checkbox-hack-button {
-                padding: 5px 0; /* Tighter vertical padding */
-            }
+            /* Reset for mobile touch targets if needed */
         }
     }
 
-    /* 5. Tools (Row 2 Right) */
-    .nightingale-header-tools {
-        order: 4;
-        margin-left: auto; 
-    }
+    .nightingale-header-tools { order: 4; margin-left: auto; }
 }
