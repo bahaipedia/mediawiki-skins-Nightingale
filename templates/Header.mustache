@@ -20,12 +20,29 @@
 
     <div class="nightingale-header-tools">
         <div class="nightingale-icon-menus">
-            {{>ContentEdit}}
-            {{>ContentTalk}}
+            
+            {{#nightingale-content-edit}}
+            <div id="{{id}}" class="mw-portlet nightingale-edit-button">
+                <div class="mw-portlet-body">
+                    {{#array-links}}<a href="{{href}}" {{#array-attributes}}{{key}}="{{value}}" {{/array-attributes}}>{{text}}</a>{{/array-links}}
+                </div>
+            </div>
+            {{/nightingale-content-edit}}
+
+            {{#nightingale-content-talk}}
+            <div id="{{id}}" class="mw-portlet nightingale-talk-button">
+                <div class="mw-portlet-body">
+                    {{#array-links}}<a href="{{href}}" {{#array-attributes}}{{key}}="{{value}}" {{/array-attributes}}>{{text}}</a>{{/array-links}}
+                </div>
+            </div>
+            {{/nightingale-content-talk}}
+
             {{>Notifications}}
+
             <div class="nightingale-menu-wrapper">
                 {{>Dropdown}}{{>ContentHybrid}}
             </div>
+
             <div class="nightingale-menu-wrapper nightingale-personal-wrapper">
                 {{>Dropdown}}{{>PersonalMenu}}
             </div>
