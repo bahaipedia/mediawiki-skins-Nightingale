@@ -4,7 +4,7 @@ class SkinNightingale extends SkinMustache {
 
     public function getDefaultModules(): array {
         $modules = parent::getDefaultModules();
-        $config = $this->getConfig();
+        $modules['scripts'][] = 'skins.nightingale.search';
 
         return $modules;
     }
@@ -70,10 +70,8 @@ class SkinNightingale extends SkinMustache {
         // PART 4: SPLIT SIDEBAR (HEADER vs FOOTER)
         // ---------------------------------------------------------
         
-        // 1. Gather all potential sidebar portlets into one flat array
         $allSidebarPortlets = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
-        // Include the "First" portlet (usually Navigation) if it exists
         if ( isset($data['data-portlets-sidebar']['data-portlets-first']) ) {
             array_unshift($allSidebarPortlets, $data['data-portlets-sidebar']['data-portlets-first']);
         }
@@ -84,13 +82,10 @@ class SkinNightingale extends SkinMustache {
         foreach ( $allSidebarPortlets as $portlet ) {
             $id = $portlet['id'] ?? '';
             
-            // Logic: Tools and Wikibase go to Footer. Everything else stays in Header.
             if ( $id === 'p-tb' || strpos($id, 'p-wikibase') !== false ) {
                 
-                // Inject Special Pages into p-tb if missing (standard MW behavior override)
                 if ( $id === 'p-tb' ) {
                      if ( !isset( $portlet['array-items'] ) ) { $portlet['array-items'] = []; }
-                     // Check if it already exists to avoid duplicates
                      $hasSpecial = false;
                      foreach($portlet['array-items'] as $item) {
                          if (($item['id'] ?? '') === 't-specialpages') { $hasSpecial = true; break; }
@@ -111,7 +106,6 @@ class SkinNightingale extends SkinMustache {
                 }
                 $footerPortlets[] = $portlet;
             } else {
-                // This is a standard Sidebar menu (Project, Content, Help, etc.)
                 $headerPortlets[] = $portlet;
             }
         }
