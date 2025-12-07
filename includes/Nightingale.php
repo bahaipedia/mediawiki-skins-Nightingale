@@ -93,15 +93,7 @@ class SkinNightingale extends SkinMustache {
                 }
             }
             // C. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
-            // (e.g. p-navigation, p-community, or custom blocks)
             else {
-                // --- FIX: REMOVE NAVIGATION DROPDOWN ---
-                if ( $id === 'p-navigation' ) {
-                    continue;
-                }
-                // ---------------------------------------
-
-                // Ensure every menu has a valid ID for the checkbox hack
                 if ( empty($id) ) {
                     $id = 'p-' . Sanitizer::escapeIdForAttribute( $label );
                 }
