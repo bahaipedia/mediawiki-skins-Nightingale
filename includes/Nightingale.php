@@ -1,17 +1,17 @@
 <?php
 
-class SkinRidvan extends SkinMustache {
+class SkinNightingale extends SkinMustache {
 
     public function getDefaultModules(): array {
-		$modules = parent::getDefaultModules();
-		$config = $this->getConfig();
+        $modules = parent::getDefaultModules();
+        $config = $this->getConfig();
 
-		if ( $config->get( 'SearchSuggestionsReplacement' ) ) {
-			$modules['scripts'][] = 'skins.ridvan.search';
-		}
+        if ( $config->get( 'SearchSuggestionsReplacement' ) ) {
+            $modules['scripts'][] = 'skins.nightingale.search';
+        }
 
-		return $modules;
-	}
+        return $modules;
+    }
 
     public function getTemplateData() {
         $data = parent::getTemplateData();
@@ -19,17 +19,17 @@ class SkinRidvan extends SkinMustache {
         // ---------------------------------------------------------
         // PART 1: GLOBAL FLAGS & METADATA
         // ---------------------------------------------------------
-        // Inject redirect status for template logic (e.g. hiding categories)
         $data['is-redirect'] = $this->getTitle()->isRedirect();
 
         if ( $data['is-redirect'] ) {
-            // Only load this heavy API logic on actual redirect pages
-            $this->getOutput()->addModules( 'skins.ridvan.redirectfixer' );
+            $this->getOutput()->addModules( 'skins.nightingale.redirectfixer' );
         }
 
         // ---------------------------------------------------------
         // PART 2: HEADER BUTTONS (ACTIONS)
         // ---------------------------------------------------------
+        // We keep the 'ridvan-' keys here so we don't break existing 
+        // mustache templates (ContentEdit, etc.) that you copied over.
         $allPortlets = array_merge(
             $data['data-portlets']['data-namespaces']['array-items'] ?? [],
             $data['data-portlets']['data-views']['array-items'] ?? [],
@@ -42,7 +42,6 @@ class SkinRidvan extends SkinMustache {
 
         foreach ( $allPortlets as $item ) {
             $id = $item['id'] ?? '';
-            // Skip "View" tab as it is redundant in this design
             if ( $id === 'ca-view' ) {
                 continue;
             }
@@ -62,14 +61,12 @@ class SkinRidvan extends SkinMustache {
         // ---------------------------------------------------------
         // PART 3: CLEANUP LANGUAGES
         // ---------------------------------------------------------
-        // Filter out Wikibase/Wikidata edit links from the language list
         if ( isset( $data['data-portlets']['data-languages']['array-items'] ) ) {
             $langItems = $data['data-portlets']['data-languages']['array-items'];
             $realLanguages = array_filter( $langItems, function( $item ) {
                 return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
             });
             
-            // If no real languages remain, remove the portlet entirely
             if ( empty( $realLanguages ) ) {
                 unset( $data['data-portlets']['data-languages'] );
             }
@@ -78,7 +75,7 @@ class SkinRidvan extends SkinMustache {
         }
 
         // ---------------------------------------------------------
-        // PART 4: SIDEBAR MODIFICATION (INJECT & REMOVE)
+        // PART 4: SIDEBAR MODIFICATION
         // ---------------------------------------------------------
         if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
             foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
@@ -109,11 +106,9 @@ class SkinRidvan extends SkinMustache {
                         ]
                     ];
                 }
-
-                // 2. REMOVE FALLBACK NAVIGATION (p-navigation)
-                if ( $id === 'p-navigation' ) {
-                    unset( $data['data-portlets-sidebar']['array-portlets-rest'][$key] );
-                }
+                
+                // DELETED: The block that removed 'p-navigation'. 
+                // We want to keep the main navigation menu now.
             }
             unset($portlet); 
 
@@ -136,37 +131,47 @@ class SkinRidvan extends SkinMustache {
                     $bucketWikibase[] = $item;
                 } 
                 else {
-                    // This catches standard MediaWiki:Sidebar menus
                     $bucketSidebar[] = $item;
                 }
             }
 
-            // MERGE IN SPECIFIC ORDER: Sidebar -> Wikibase -> Tools
             $data['data-portlets-sidebar']['array-portlets-rest'] = array_merge(
                 $bucketSidebar, 
                 $bucketWikibase, 
                 $bucketTools
             );
-
-            // Re-index array
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
         }
+
+        // ---------------------------------------------------------
+        // NEW PART: COMBINE ALL PORTLETS FOR HEADER DROPDOWNS
+        // ---------------------------------------------------------
+        // This flattens the structure so {{#nightingale-nav-portlets}} works easily in Mustache
+        $navItems = [];
+        
+        // 1. Add the Main Navigation (Data First)
+        if ( isset($data['data-portlets-sidebar']['data-portlets-first']) ) {
+            $navItems[] = $data['data-portlets-sidebar']['data-portlets-first'];
+        }
+        
+        // 2. Add the Rest (Toolbox, etc)
+        if ( isset($data['data-portlets-sidebar']['array-portlets-rest']) ) {
+            $navItems = array_merge($navItems, $data['data-portlets-sidebar']['array-portlets-rest']);
+        }
+        
+        $data['nightingale-nav-portlets'] = $navItems;
+
 
         // ---------------------------------------------------------
         // PART 5: MOBILE DATA PREPARATION
         // ---------------------------------------------------------
-
-        // 1. MOBILE MENU 
+        // (Kept as is to support mobile menu fallback if needed)
         $navPortlet = $data['data-portlets-sidebar']['data-portlets-first'] ?? [];
         $mobileMenu = $navPortlet['array-items'] ?? [];
         $mobileMenuLabel = $navPortlet['label'] ?? $this->msg('navigation')->text();
 
-        // 2. SORT SIDEBAR "REST" -> TOOLS vs LINKS
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
-        
         $mobileTools = [];
         $mobileLinks = [];
-        
         $mobileToolsLabel = $this->msg('toolbox')->text(); 
 
         foreach ( $sidebarRest as $portlet ) {
@@ -174,44 +179,29 @@ class SkinRidvan extends SkinMustache {
             $items = $portlet['array-items'] ?? [];
             $label = $portlet['label'] ?? '';
 
-            if ( empty( $items ) ) {
-                continue;
-            }
+            if ( empty( $items ) ) continue;
 
-            // A. WIKIBASE -> LINKS
             if ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
                 $mobileLinks = array_merge( $mobileLinks, $items );
             } 
-            // B. TOOLBOX -> TOOLS (STRICT: Only p-tb)
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
                 }
             } 
-            // C. EVERYTHING ELSE -> DROPPED
-            else {
-                continue;
-            }
         }
 
-        // 3. ADD LANGUAGES TO LINKS
-        // Note: Part 3 may have unset this key if empty, so we check for existence.
         $langRaw = $data['data-portlets']['data-languages']['array-items'] ?? [];
-        
-        // Filter again just to be safe (though Part 3 usually handles the unset)
         $langClean = array_filter( $langRaw, function( $item ) {
             return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
         });
         $mobileLinks = array_merge( $mobileLinks, $langClean );
 
-        // ASSIGN TO TEMPLATE
         $data['ridvan-mobile-menu'] = $mobileMenu;
         $data['ridvan-mobile-menu-label'] = $mobileMenuLabel;
-        
         $data['ridvan-mobile-tools'] = $mobileTools;
         $data['ridvan-mobile-tools-label'] = $mobileToolsLabel;
-        
         $data['ridvan-mobile-links'] = $mobileLinks;
         $data['ridvan-mobile-links-label'] = $this->msg('ridvan-mobile-links-label')->text();
         $data['ridvan-has-mobile-links'] = !empty($mobileLinks);
@@ -226,11 +216,9 @@ class SkinRidvan extends SkinMustache {
             if ( !isset($userMenu['class']) ) { $userMenu['class'] = ''; }
 
             if ( $user->isNamed() ) {
-                // LOGGED IN
                 $userMenu['label'] = $user->getName();
                 $userMenu['class'] .= ' is-loggedin';
             } else {
-                // ANONYMOUS
                 $userMenu['class'] .= ' is-anon';
             }
         }
