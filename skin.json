@@ -1,31 +1,31 @@
 {
-	"name": "Ridvan",
+	"name": "Nightingale",
 	"version": "1.0.0",
 	"author": [
-		"[https://bahaipedia.org/User:Sarah Sarah Haslip]",
-		"Search module adapted from [https://www.mediawiki.org/wiki/Skin:Citizen Skin:Citizen], uses [https://skins.wmflabs.org skins.wmflabs.org v.3.0]"
+		"Sarah Haslip",
+		"Forked from Ridvan"
 	],
-	"url": "https://github.com/bahaipedia/mediawiki-skins-Ridvan",
-	"descriptionmsg": "ridvan-skin-desc",
-	"namemsg": "skinname-ridvan",
+	"url": "https://github.com/bahaipedia/mediawiki-skins-Nightingale",
+	"descriptionmsg": "nightingale-skin-desc",
+	"namemsg": "skinname-nightingale",
 	"license-name": "GPL-3.0-or-later",
 	"type": "skin",
 	"requires": {
 		"MediaWiki": ">= 1.41.0"
 	},
 	"AutoloadClasses": {
-		"SkinRidvan": "includes/Ridvan.php"
+		"SkinNightingale": "includes/Nightingale.php"
 	},
 	"ValidSkinNames": {
-		"ridvan": {
-			"class": "SkinRidvan",
+		"nightingale": {
+			"class": "SkinNightingale",
 			"args": [
 				{
-					"name": "ridvan",
+					"name": "nightingale",
 					"responsive": true,
 					"toc": true,
 					"messages": [
-						"ridvan-no-categories",
+						"nightingale-no-categories",
 						"otherlanguages",
 						"sitetitle",
 						"search",
@@ -33,22 +33,22 @@
 					],
 					"styles": [
 						"codex-styles",
-						"skins.ridvan.styles"
+						"skins.nightingale.styles"
 					],
 					"scripts": [
-						"skins.ridvan"
+						"skins.nightingale"
 					]
 				}
 			]
 		}
 	},
 	"MessagesDirs": {
-		"Ridvan": [
+		"Nightingale": [
 			"i18n"
 		]
 	},
 	"ResourceModules": {
-		"skins.ridvan.styles": {
+		"skins.nightingale.styles": {
 			"class": "MediaWiki\\ResourceLoader\\SkinModule",
 			"features": {
 				"normalize": true,
@@ -69,7 +69,7 @@
 				"resources/skin.less"
 			]
 		},
-		"skins.ridvan": {
+		"skins.nightingale": {
 			"targets": [
 				"desktop",
 				"mobile"
@@ -78,10 +78,11 @@
 				"resources/skin.js"
 			],
 			"dependencies": [
-				"mediawiki.util"
+				"mediawiki.util",
+				"mediawiki.Uri"
 			]
 		},
-		"skins.ridvan.search": {
+		"skins.nightingale.search": {
 			"packageFiles": [
 				"resources/search/main.js",
 				"resources/search/typeahead.js",
@@ -135,7 +136,7 @@
 				"mediawiki.util"
 			]
 		},
-		"skins.ridvan.redirectfixer": {
+		"skins.nightingale.redirectfixer": {
 			"scripts": [
 				"resources/redirect-fixer.js"
 			],
@@ -152,7 +153,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteSkinPath": "Ridvan"
+		"remoteSkinPath": "Nightingale"
 	},
 	"ResourceModuleSkinStyles": {},
 	"config": {
