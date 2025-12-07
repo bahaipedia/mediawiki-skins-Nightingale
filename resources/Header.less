@@ -10,6 +10,38 @@
     display: flex;
     align-items: center;
 
+    /* REORDERING FOR DESKTOP (Logo | Sitename | Sidebar | Search | Tools) */
+    
+    /* 1. Logo (Natural Order: 0) */
+
+    /* 2. Sitename (Natural Order: 0, effectively 1) */
+    
+    /* 3. Sidebar Menus (Force before search) */
+    .nightingale-text-menus {
+        order: 1; 
+        display: flex; /* Always visible now */
+        gap: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    /* 4. Search Bar (Force after sidebar) */
+    #p-search {
+        order: 2;
+        /* margin-right: auto; /* Optional: pushes icons to far right if desired */
+    }
+
+    /* 5. Icons (Force last) */
+    .nightingale-icon-menus {
+        order: 3;
+    }
+
+    /* 6. Wrapper Magic: effectively unwraps the tools container on desktop so children can be reordered */
+    .nightingale-header-tools {
+        display: contents;
+    }
+
+
     /* MOBILE HEADER LAYOUT */
     @media ( max-width: @max-width-breakpoint-tablet ) {
         padding: 10px;
@@ -29,28 +61,24 @@
         #p-search {
             flex-grow: 1;
             padding: 0;
+            order: unset; /* Reset desktop order */
         }
 
         /* 4. The Tools Wrapper (New Line) */
         .nightingale-header-tools {
+            display: flex; /* Restore block/flex behavior for wrapper */
             width: 100%;
             margin-top: 10px;
-            display: flex;
             justify-content: space-between;
             align-items: center;
+            order: unset; /* Reset any ordering */
         }
-    }
-}
-
-/* --- GROUPS OF LINKS --- */
-/* Mobile Only drop-down menus (Sidebar links, Tools, Interwiki/Interlanguage Links) */
-.nightingale-text-menus {
-    display: none; /* Default Hidden for desktop */
-    
-    @media ( max-width: @max-width-breakpoint-tablet ) {
-        display: flex;
-        gap: 15px;
-        margin-left: 15px;
+        
+        /* Reset Child Orders for Mobile */
+        .nightingale-text-menus,
+        .nightingale-icon-menus {
+            order: unset;
+        }
     }
 }
 
@@ -105,80 +133,79 @@
     height: 100%;
 }
 
-/* --- MOBILE DROPDOWN STYLING --- */
-@media ( max-width: @max-width-breakpoint-tablet ) {
+/* --- DROPDOWN STYLING (GLOBAL - DESKTOP & MOBILE) --- */
+/* Moved out of media query so menus work on Desktop */
 
-    /* RESET BUTTON STYLES FOR MOBILE TEXT MENUS */
-    .nightingale-mobile-dropdown .mw-checkbox-hack-button {
-        width: auto;
-        height: auto;
-        padding: 0;
-        margin: 0;
+/* RESET BUTTON STYLES FOR TEXT MENUS */
+.nightingale-mobile-dropdown .mw-checkbox-hack-button {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    color: @color-base;
+    font-size: 1rem;
+    font-weight: normal;
+    text-indent: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+    cursor: pointer;
+
+    &:hover {
+        color: @color-link;
         background: transparent;
-        border: none;
-        color: @color-base;
-        font-size: 1rem;
-        font-weight: normal;
-        text-indent: 0;
-        -webkit-mask-image: none;
-        mask-image: none;
-        cursor: pointer;
+    }
+}
 
-        &:hover {
-            color: @color-link;
-            background: transparent;
-        }
+/* DROPDOWN MECHANISM */
+.nightingale-mobile-dropdown {
+    position: relative;
+
+    input {
+        display: none;
     }
 
-    /* DROPDOWN MECHANISM */
-    .nightingale-mobile-dropdown {
-        position: relative;
+    .mw-portlet-body {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 100;
+        background: #ffffff;
+        border: 1px solid #a2a9b1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        min-width: 230px;
+        padding: 5px 0;
+        margin-top: 5px;
+    }
 
-        input {
-            display: none;
-        }
+    input:checked ~ .mw-portlet-body {
+        display: block;
+    }
 
-        .mw-portlet-body {
-            display: none;
-            position: absolute;
-            left: 0;
-            top: 100%;
-            z-index: 100;
-            background: #ffffff;
-            border: 1px solid #a2a9b1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            min-width: 230px;
-            padding: 5px 0;
-            margin-top: 5px;
-        }
+    /* LIST STYLING */
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        display: block;
+        margin: 0;
+        padding: 0px 0px 0px 20px;
 
-        input:checked ~ .mw-portlet-body {
+        a {
             display: block;
-        }
+            padding: 6px 15px;
+            color: #0645ad;
+            text-decoration: none;
+            font-size: 0.95em;
 
-        /* LIST STYLING */
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        li {
-            display: block;
-            margin: 0;
-            padding: 0px 0px 0px 20px;
-
-            a {
-                display: block;
-                padding: 6px 15px;
-                color: #0645ad;
+            &:hover {
+                background-color: #eaecf0;
                 text-decoration: none;
-                font-size: 0.95em;
-
-                &:hover {
-                    background-color: #eaecf0;
-                    text-decoration: none;
-                }
             }
         }
     }
