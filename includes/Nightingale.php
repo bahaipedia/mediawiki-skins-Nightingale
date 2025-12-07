@@ -87,7 +87,6 @@ class SkinNightingale extends SkinMustache {
             }
             // B. TOOLBOX -> TOOLS
             elseif ( $id === 'p-tb' ) {
-                // Inject Special Pages link manually if needed, or rely on core
                 $mobileTools = array_merge( $mobileTools, $items );
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
@@ -96,6 +95,12 @@ class SkinNightingale extends SkinMustache {
             // C. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
             // (e.g. p-navigation, p-community, or custom blocks)
             else {
+                // --- FIX: REMOVE NAVIGATION DROPDOWN ---
+                if ( $id === 'p-navigation' ) {
+                    continue;
+                }
+                // ---------------------------------------
+
                 // Ensure every menu has a valid ID for the checkbox hack
                 if ( empty($id) ) {
                     $id = 'p-' . Sanitizer::escapeIdForAttribute( $label );
@@ -104,6 +109,15 @@ class SkinNightingale extends SkinMustache {
                 $sidebarMenus[] = $portlet;
             }
         }
+
+        // --- FIX: MANUALLY ADD SPECIAL PAGES TO TOOLS ---
+        $mobileTools[] = [
+            'id' => 't-specialpages',
+            'text' => $this->msg( 'specialpages' )->text(),
+            'href' => \SpecialPage::getTitleFor( 'Specialpages' )->getLocalURL(),
+            'class' => ''
+        ];
+        // ------------------------------------------------
 
         // Add Language links to "Links" bucket
         $langRaw = $data['data-portlets']['data-languages']['array-items'] ?? [];
