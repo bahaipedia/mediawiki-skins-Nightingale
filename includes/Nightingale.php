@@ -6,10 +6,6 @@ class SkinNightingale extends SkinMustache {
         $modules = parent::getDefaultModules();
         $config = $this->getConfig();
 
-        if ( $config->get( 'SearchSuggestionsReplacement' ) ) {
-            $modules['scripts'][] = 'skins.nightingale.search';
-        }
-
         return $modules;
     }
 
