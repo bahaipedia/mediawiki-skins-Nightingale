@@ -156,11 +156,5 @@
 		"remoteSkinPath": "Nightingale"
 	},
 	"ResourceModuleSkinStyles": {},
-	"config": {
-		"SearchSuggestionsReplacement": {
-			"value": true,
-			"description": "Enable the custom Citizen-based search module."
-		}
-	},
 	"manifest_version": 2
 }
