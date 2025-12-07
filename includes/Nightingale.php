@@ -4,10 +4,7 @@ class SkinNightingale extends SkinMustache {
 
     public function getDefaultModules(): array {
         $modules = parent::getDefaultModules();
-
-        // Always load the custom search module
         $modules['scripts'][] = 'skins.nightingale.search';
-
         return $modules;
     }
 
@@ -18,7 +15,6 @@ class SkinNightingale extends SkinMustache {
         // PART 1: GLOBAL FLAGS & METADATA
         // ---------------------------------------------------------
         $data['is-redirect'] = $this->getTitle()->isRedirect();
-
         if ( $data['is-redirect'] ) {
             $this->getOutput()->addModules( 'skins.nightingale.redirectfixer' );
         }
@@ -38,10 +34,8 @@ class SkinNightingale extends SkinMustache {
 
         foreach ( $allPortlets as $item ) {
             $id = $item['id'] ?? '';
-            // Skip "View" tab
-            if ( $id === 'ca-view' ) {
-                continue;
-            }
+            if ( $id === 'ca-view' ) continue;
+            
             if ( $id === 'ca-edit' || $id === 'ca-viewsource' ) {
                 $editButton = $item;
             } elseif ( $id === 'ca-talk' || $id === 'ca-nstab-talk' ) {
@@ -56,111 +50,29 @@ class SkinNightingale extends SkinMustache {
         $data['nightingale-content-hybrid'] = $hybridMenu;
 
         // ---------------------------------------------------------
-        // PART 3: CLEANUP LANGUAGES
+        // PART 3: PREPARE SIDEBAR DATA
         // ---------------------------------------------------------
-        if ( isset( $data['data-portlets']['data-languages']['array-items'] ) ) {
-            $langItems = $data['data-portlets']['data-languages']['array-items'];
-            $realLanguages = array_filter( $langItems, function( $item ) {
-                return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
-            });
-            
-            if ( empty( $realLanguages ) ) {
-                unset( $data['data-portlets']['data-languages'] );
-            }
-        } else {
-            unset( $data['data-portlets']['data-languages'] );
-        }
-
-        // ---------------------------------------------------------
-        // PART 4: SIDEBAR MODIFICATION (INJECT & REMOVE)
-        // ---------------------------------------------------------
-        if ( isset( $data['data-portlets-sidebar']['array-portlets-rest'] ) ) {
-            foreach ( $data['data-portlets-sidebar']['array-portlets-rest'] as $key => &$portlet ) {
-                $id = $portlet['id'] ?? '';
-
-                // 1. INJECT SPECIAL PAGES INTO TOOLBOX (p-tb)
-                if ( $id === 'p-tb' ) {
-                    if ( !isset( $portlet['array-items'] ) ) {
-                        $portlet['array-items'] = [];
-                    }
-                    $portlet['array-items'][] = [
-                        'id' => 't-specialpages',
-                        'class' => 'mw-list-item',
-                        'array-links' => [
-                            [
-                                'text' => $this->msg( 'specialpages' )->text(),
-                                'array-attributes' => [
-                                    [
-                                        'key' => 'href',
-                                        'value' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL()
-                                    ],
-                                    [
-                                        'key' => 'title',
-                                        'value' => $this->msg( 'specialpages' )->text()
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ];
-                }
-
-                // 2. REMOVE FALLBACK NAVIGATION (p-navigation)
-                if ( $id === 'p-navigation' ) {
-                    unset( $data['data-portlets-sidebar']['array-portlets-rest'][$key] );
-                }
-            }
-            unset($portlet); 
-
-            // -----------------------------------------------------
-            // RE-ORDER THE SIDEBAR
-            // -----------------------------------------------------
-            $currentRest = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
-            
-            $bucketTools = [];
-            $bucketWikibase = [];
-            $bucketSidebar = [];
-
-            foreach ( $currentRest as $item ) {
-                $id = $item['id'] ?? '';
-
-                if ( $id === 'p-tb' ) {
-                    $bucketTools[] = $item;
-                } 
-                elseif ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
-                    $bucketWikibase[] = $item;
-                } 
-                else {
-                    $bucketSidebar[] = $item;
-                }
-            }
-
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_merge(
-                $bucketSidebar, 
-                $bucketWikibase, 
-                $bucketTools
-            );
-
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_values( $data['data-portlets-sidebar']['array-portlets-rest'] );
-        }
-
-        // ---------------------------------------------------------
-        // PART 5: MOBILE DATA PREPARATION (Also used for Desktop in Nightingale)
-        // ---------------------------------------------------------
-
-        // 1. MOBILE MENU 
-        $navPortlet = $data['data-portlets-sidebar']['data-portlets-first'] ?? [];
-        $mobileMenu = $navPortlet['array-items'] ?? [];
-        $mobileMenuLabel = $navPortlet['label'] ?? $this->msg('navigation')->text();
-
-        // 2. SORT SIDEBAR "REST" -> TOOLS vs LINKS
+        // We need to merge "First" (Navigation) and "Rest" (everything else)
+        // so we can loop through them all and categorize them.
+        
+        $sidebarFirst = $data['data-portlets-sidebar']['data-portlets-first'] ?? null;
         $sidebarRest = $data['data-portlets-sidebar']['array-portlets-rest'] ?? [];
         
-        $mobileTools = [];
-        $mobileLinks = [];
-        
-        $mobileToolsLabel = $this->msg('toolbox')->text(); 
+        // Start with the first block if it exists (usually "Navigation")
+        $allSidebar = [];
+        if ( $sidebarFirst ) {
+            $allSidebar[] = $sidebarFirst;
+        }
+        $allSidebar = array_merge( $allSidebar, $sidebarRest );
 
-        foreach ( $sidebarRest as $portlet ) {
+        // Buckets
+        $sidebarMenus = []; // Valid sidebar menus (Navigation, Community, etc)
+        $mobileTools = [];  // Toolbox items
+        $mobileLinks = [];  // Wikibase, Interwiki, etc.
+        
+        $mobileToolsLabel = $this->msg('toolbox')->text();
+
+        foreach ( $allSidebar as $portlet ) {
             $id = $portlet['id'] ?? '';
             $items = $portlet['array-items'] ?? [];
             $label = $portlet['label'] ?? '';
@@ -169,57 +81,65 @@ class SkinNightingale extends SkinMustache {
                 continue;
             }
 
-            // A. WIKIBASE -> LINKS
+            // A. WIKIBASE & LANG -> LINKS
             if ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
                 $mobileLinks = array_merge( $mobileLinks, $items );
-            } 
-            // B. TOOLBOX -> TOOLS (STRICT: Only p-tb)
+            }
+            // B. TOOLBOX -> TOOLS
             elseif ( $id === 'p-tb' ) {
+                // Inject Special Pages link manually if needed, or rely on core
                 $mobileTools = array_merge( $mobileTools, $items );
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
                 }
-            } 
-            // C. EVERYTHING ELSE -> DROPPED
+            }
+            // C. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
+            // (e.g. p-navigation, p-community, or custom blocks)
             else {
-                continue;
+                // Ensure every menu has a valid ID for the checkbox hack
+                if ( empty($id) ) {
+                    $id = 'p-' . Sanitizer::escapeIdForAttribute( $label );
+                }
+                $portlet['html-id'] = $id; // Pass ID to template
+                $sidebarMenus[] = $portlet;
             }
         }
 
-        // 3. ADD LANGUAGES TO LINKS
+        // Add Language links to "Links" bucket
         $langRaw = $data['data-portlets']['data-languages']['array-items'] ?? [];
-        
         $langClean = array_filter( $langRaw, function( $item ) {
             return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
         });
         $mobileLinks = array_merge( $mobileLinks, $langClean );
 
-        // ASSIGN TO TEMPLATE
-        $data['nightingale-mobile-menu'] = $mobileMenu;
-        $data['nightingale-mobile-menu-label'] = $mobileMenuLabel;
+        // ---------------------------------------------------------
+        // PART 4: ASSIGN TO TEMPLATE
+        // ---------------------------------------------------------
         
+        // 1. Sidebar Menus (The "Main" menus)
+        $data['nightingale-sidebar-menus'] = $sidebarMenus;
+
+        // 2. Tools (Mobile Only)
         $data['nightingale-mobile-tools'] = $mobileTools;
         $data['nightingale-mobile-tools-label'] = $mobileToolsLabel;
-        
+
+        // 3. Links (Mobile Only)
         $data['nightingale-mobile-links'] = $mobileLinks;
         $data['nightingale-mobile-links-label'] = $this->msg('nightingale-mobile-links-label')->text();
         $data['nightingale-has-mobile-links'] = !empty($mobileLinks);
 
         // ---------------------------------------------------------
-        // PART 6: USER MENU & STATE
+        // PART 5: USER MENU
         // ---------------------------------------------------------
         $user = $this->getSkin()->getUser();
-        
         if ( isset($data['data-portlets']['data-user-menu']) ) {
             $userMenu = &$data['data-portlets']['data-user-menu'];
             if ( !isset($userMenu['class']) ) { $userMenu['class'] = ''; }
-
+            
             if ( $user->isNamed() ) {
-                // LOGGED IN
                 $userMenu['label'] = $user->getName();
                 $userMenu['class'] .= ' is-loggedin';
             } else {
-                // ANONYMOUS
                 $userMenu['class'] .= ' is-anon';
             }
         }
