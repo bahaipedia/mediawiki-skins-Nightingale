@@ -42,7 +42,7 @@
                 // Regex Pattern for URL          // Default Columns
                 { pattern: /^World_Order/,        cols: 2 },
                 { pattern: /^Star_of_the_West/,   cols: 2 },
-                { pattern: /^Bahai_News/,         cols: 2 },
+                { pattern: /^Bahá’í_News/,        cols: 2 },
                 // Add more publications here as needed
             ];
 
