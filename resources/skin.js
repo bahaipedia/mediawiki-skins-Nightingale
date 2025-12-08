@@ -53,14 +53,7 @@
         var $stickyRight = $('#sticky-right');
         
         // Ensure the green box exists in memory to be appended later
-        var $indicator = $('<div id="reading-indicator"></div>').css({
-            'position': 'absolute',
-            'background': 'rgba(0, 128, 0, 0.2)', // Semi-transparent green
-            'border': '2px solid green',
-            'z-index': '101',
-            'pointer-events': 'none',
-            'display': 'none'
-        });
+        var $indicator = $('<div id="reading-indicator"></div>');
 
         var $markers = $('.mw-parser-output .opage');
         var lastActiveIndex = -1;
