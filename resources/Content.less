@@ -88,6 +88,31 @@
     display: none;
 }
 
+/* Settings that control how page numbers and images   */
+/* are displayed outside the the main content area     */
+.opage {
+    float: left;
+    width: 80px; 
+    margin-left: -100px; 
+    text-align: right; 
+    height: 0;
+    overflow: visible;
+}
+.otright {
+    float: left;
+    margin-left: calc(100% + 20px); 
+    height: 0;
+    width: 200px;
+    overflow: visible;
+}
+.otright-text {
+    float: left;
+    position: relative;
+    margin-left: 106%;
+    height: 0px;
+    white-space: nowrap;
+}
+
 .catlinks select {
     font-size: 1rem;
     padding: 4px;
@@ -121,5 +146,13 @@
     .mw-enhanced-rc td, .mw-enhanced-rc th {
         padding-left: 2px;
         padding-right: 2px;
+    }
+
+    .opage, .otright {
+        float: none;
+        margin-left: 0;
+        width: 48%;
+        height: auto;
+        text-align: left;
     }
 }
