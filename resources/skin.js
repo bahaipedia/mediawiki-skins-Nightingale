@@ -36,6 +36,9 @@
             var pageName = mw.config.get('wgPageName');
 
             var config = [
+                // EXCLUSIONS (Complex layouts)
+                { pattern: /^The_American_Bahá’í/, cols: 0 },
+
                 // Regex Pattern for URL          // Default Columns
                 { pattern: /^World_Order/,        cols: 2 },
                 { pattern: /^Star_of_the_West/,   cols: 2 },
@@ -109,7 +112,17 @@
                         $stickyRight.html(imgHtml).append($indicator); 
                     }
 
-                    // --- C. PROGRESS CALCULATION ---
+                    // --- C. COLUMN MAPPING & CHECK ---
+                    var attrCols = $currentMarker.attr('data-cols');
+                    var cols = attrCols ? parseInt(attrCols) : globalPageColumns;
+
+                    // IF COLS IS 0, HIDE INDICATOR AND STOP
+                    if (cols <= 0) {
+                        $indicator.hide();
+                        return; 
+                    }
+
+                    // --- D. PROGRESS CALCULATION ---
                     var startY = $currentMarker.offset().top;
                     
                     // If no next marker, use bottom of content area
@@ -125,13 +138,6 @@
                     
                     // Clamp values to stay inside bounds
                     progress = Math.min(Math.max(progress, 0), 1);
-
-
-                    // --- D. COLUMN MAPPING ---
-                    // 1. Check for manual override on the span (e.g., covers)
-                    // 2. Fallback to global config based on URL
-                    var attrCols = $currentMarker.attr('data-cols');
-                    var cols = attrCols ? parseInt(attrCols) : globalPageColumns;
 
                     // Map linear progress to grid coordinates
                     // e.g. 50% through a 2-col page = Top of Column 2
