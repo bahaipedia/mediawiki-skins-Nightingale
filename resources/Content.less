@@ -131,7 +131,23 @@
         pointer-events: auto;
         margin-top: 10px;
         z-index: 100;
+        height: auto;
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
     }
+}
+#reading-indicator {
+    position: absolute;
+    z-index: 101;
+    pointer-events: none;
+    display: none;
+    background: rgba(0, 128, 0, 0.2); 
+    border: 2px solid green;
+    transition: top 0.1s linear, left 0.1s steps(1);
 }
 
 .catlinks select {
