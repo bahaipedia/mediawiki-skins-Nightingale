@@ -110,6 +110,29 @@
     height: 0px;
     white-space: nowrap;
 }
+#sticky-page-tracker {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    right: 0;
+    max-width: 79%; 
+    margin: 0 auto;
+    padding: 1.5em 3em; 
+    box-sizing: border-box; 
+    z-index: 99;
+    pointer-events: none;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+    .opage, .otright {
+        position: relative;
+        pointer-events: auto;
+        margin-top: 10px;
+        z-index: 100;
+    }
+}
 
 .catlinks select {
     font-size: 1rem;
@@ -135,22 +158,22 @@
         width: auto !important;
         margin-bottom: 10px;
     }
-
     .client-js .mw-changeslist ul, 
     .client-js .mw-changeslist table.mw-enhanced-rc {
         margin-left: 0 !important;
     }
-    
     .mw-enhanced-rc td, .mw-enhanced-rc th {
         padding-left: 2px;
         padding-right: 2px;
     }
-
     .opage, .otright {
         float: none;
         margin-left: 0;
         width: 48%;
         height: auto;
         text-align: left;
+    }
+    #sticky-page-tracker {
+        display: none !important;
     }
 }
