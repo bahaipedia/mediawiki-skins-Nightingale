@@ -24,49 +24,26 @@
         });
 
         /* ==================================================================
-           2. COLUMN CONFIGURATION (Enhanced)
-           Now supports dynamic logic based on Issue Number
+           2. COLUMN CONFIGURATION
            ================================================================== */
         function getPageColumnCount() {
             var pageName = mw.config.get('wgPageName');
-
             var config = [
-                // 1. COMPLEX PUBLICATIONS (Function-based logic)
-                { 
-                    pattern: /^Bahá’í_News/, 
-                    cols: function(name) {
-                        // Extract issue number (e.g. "Issue_499")
-                        var match = name.match(/Issue_(\d+)/);
-                        if (match && match[1]) {
-                            var issueNum = parseInt(match[1], 10);
-                            
-                            // User Rule: First 300 issues = 3 columns. Afterwards = 2.
-                            return (issueNum <= 300) ? 3 : 2; 
-                        }
-                        return 2; // Fallback if no issue number found
-                    }
-                },
-
-                // 2. STANDARD PUBLICATIONS (Static counts)
                 { pattern: /^The_American_Bahá’í/, cols: 0 },
-                { pattern: /^World_Order/,          cols: 2 },
-                { pattern: /^Star_of_the_West/,     cols: 2 },
-                
-                // Fallback for sub-pages or unknown variations
-                { pattern: /^Bahá’í_News/,          cols: 2 } 
+                { pattern: /^World_Order/, cols: 2 },
+                { pattern: /^Star_of_the_West/, cols: 2 },
+                { pattern: /^Bahá’í_News/, cols: 2 }
             ];
 
             for (var i = 0; i < config.length; i++) {
                 if (config[i].pattern.test(pageName)) {
-                    // Check if 'cols' is a fixed number or a function
-                    if (typeof config[i].cols === 'function') {
-                        return config[i].cols(pageName);
-                    }
                     return config[i].cols;
                 }
             }
-            return 1; // Default for books/unknown
+            return 0; // Set to 1 to enable by default
         }
+
+        var globalPageColumns = getPageColumnCount();
 
         /* ==================================================================
            3. STICKY TRACKER & GREEN BOX LOGIC
