@@ -28,22 +28,28 @@
            ================================================================== */
         function getPageColumnCount() {
             var pageName = mw.config.get('wgPageName');
-            var config = [
-                { pattern: /^The_American_Bahá’í/, cols: 0 },
-                { pattern: /^World_Order/, cols: 2 },
-                { pattern: /^Star_of_the_West/, cols: 2 },
-                { pattern: /^Bahá’í_News/, cols: 2 }
-            ];
 
-            for (var i = 0; i < config.length; i++) {
-                if (config[i].pattern.test(pageName)) {
-                    return config[i].cols;
+            // 1. Bahá’í News: Issues 1-321 are 3 cols, 322+ are 2 cols.
+            if (/^Bahá’í_News/.test(pageName)) {
+                var match = pageName.match(/Issue_(\d+)/);
+                if (match) {
+                    // Javascript correctly compares string "321" <= number 321
+                    return (match[1] <= 321) ? 3 : 2; 
                 }
+                return 2; // Fallback for pages without issue numbers
             }
-            return 1;
-        }
 
-        var globalPageColumns = getPageColumnCount();
+            // 2. Other Multi-Column Publications
+            if (/^World_Order/.test(pageName)) return 2;
+            if (/^Star_of_the_West/.test(pageName)) return 2;
+            
+            // 3. Exclusions
+            if (/^The_American_Bahá’í/.test(pageName)) return 0;
+
+            // 4. Default for standard books
+            // Set to 1 if you want the tracker ENABLED by default.
+            return 0; 
+        }
 
         /* ==================================================================
            3. STICKY TRACKER & GREEN BOX LOGIC
