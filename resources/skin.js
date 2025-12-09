@@ -119,7 +119,6 @@
                     }
 
                     var startY = $currentMarker.offset().top;
-                    // End Y is either the next marker or the end of the content block
                     var endY = $nextMarker.length ? 
                                $nextMarker.offset().top : 
                                $('.mw-parser-output').offset().top + $('.mw-parser-output').outerHeight();
@@ -128,40 +127,49 @@
                     
                     // 2. Calculate Progress (0.0 to 1.0)
                     var progressRaw = (scrollTop - startY) / sectionHeight;
-                    // We want to track the *middle* of the viewport for reading, roughly
-                    // But for the green box to encompass what is ON SCREEN, we need the viewport ratio.
-                    
-                    // Clamp progress
-                    var progress = Math.min(Math.max(progressRaw, 0), 0.9999);
+                    var progress = Math.min(Math.max(progressRaw, 0), 1); // Clamp 0-1
 
                     // 3. Map to Columns
                     var totalGeoProgress = progress * cols;
                     var colIndex = Math.floor(totalGeoProgress);
+                    
+                    // Edge case: if exactly 100%, clamp to last column
+                    if (colIndex >= cols) colIndex = cols - 1;
+
                     var verticalProgress = totalGeoProgress - colIndex; // 0.0 to 1.0 within the column
 
-                    // 4. Calculate Height of the Green Box (From Alpha Logic)
-                    // How much of the section fits in the viewport?
-                    // If section is 2000px and viewport is 1000px, we see 50% at a time.
-                    // Divided by columns, because the image represents the WHOLE height compressed into columns.
+                    // 4. PIXEL MATH (The Fix)
+                    // Get the actual height of the image displayed in the sticky tracker
+                    var $img = $stickyRight.find('img');
+                    var imgHeight = $img.height();
                     
-                    // Effective height of one column of text
-                    var columnHeight = sectionHeight / cols;
-                    var ratioVisible = Math.min(viewportHeight / columnHeight, 1);
+                    // If image isn't loaded yet, fallback to container height
+                    if (!imgHeight) imgHeight = $stickyRight.height();
+
+                    // USER SETTING: Fixed Green Box Height
+                    var boxHeightPx = 100; 
                     
-                    // The box height as a percentage of the thumbnail height
-                    var boxHeightPercent = ratioVisible * 100;
+                    // Calculate the maximum "Top" value allowed
+                    // (Image Height - Box Height). This ensures the bottom of the box 
+                    // never goes past the bottom of the image.
+                    var maxTopPx = imgHeight - boxHeightPx;
                     
+                    // Allow negative maxTop if image is tiny (prevents broken math), 
+                    // though usually image > 100px.
+                    if (maxTopPx < 0) maxTopPx = 0; 
+
+                    var boxTopPx = verticalProgress * maxTopPx;
+
                     // 5. Apply CSS
                     var boxWidth = 100 / cols;
                     var boxLeft = colIndex * boxWidth;
-                    var boxTop = verticalProgress * 100;
 
                     $indicator.css({
                         'display': 'block',
                         'width': boxWidth + '%',
-                        'height': boxHeightPercent + '%',
+                        'height': boxHeightPx + 'px', // Fixed 100px
                         'left': boxLeft + '%',
-                        'top': boxTop + '%'
+                        'top': boxTopPx + 'px'        // Pixel positioned
                     });
 
                 } else {
