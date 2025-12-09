@@ -24,23 +24,46 @@
         });
 
         /* ==================================================================
-           2. COLUMN CONFIGURATION
+           2. COLUMN CONFIGURATION (Robust Array Method)
            ================================================================== */
         function getPageColumnCount() {
             var pageName = mw.config.get('wgPageName');
+
             var config = [
-                { pattern: /^The_American_Bahá’í/, cols: 0 },
-                { pattern: /^World_Order/, cols: 2 },
-                { pattern: /^Star_of_the_West/, cols: 2 },
-                { pattern: /^Bahá’í_News/, cols: 2 }
+                // 1. Bahá’í News: Special Logic for 3-Column Issues
+                { 
+                    pattern: /^Bahá’í_News/, 
+                    cols: function(name) {
+                        // Look for Issue Number
+                        var match = name.match(/Issue_(\d+)/);
+                        if (match) {
+                            // Issues 1-321 are 3 columns. 322+ are 2 columns.
+                            return (parseInt(match[1], 10) <= 321) ? 3 : 2; 
+                        }
+                        return 2; // Fallback
+                    }
+                },
+                
+                // 2. Standard Periodicals
+                { pattern: /^World_Order/,          cols: 2 },
+                { pattern: /^Star_of_the_West/,     cols: 2 },
+                
+                // 3. Exclusions
+                { pattern: /^The_American_Bahá’í/, cols: 0 }
             ];
 
             for (var i = 0; i < config.length; i++) {
                 if (config[i].pattern.test(pageName)) {
+                    // Support both static numbers and dynamic functions
+                    if (typeof config[i].cols === 'function') {
+                        return config[i].cols(pageName);
+                    }
                     return config[i].cols;
                 }
             }
-            return 0; // Set to 1 to enable by default
+            
+            // DEFAULT: 0 (Disabled for standard books)
+            return 0; 
         }
 
         var globalPageColumns = getPageColumnCount();
@@ -51,9 +74,8 @@
         var $window = $(window);
         var $tracker = $('#sticky-page-tracker');
         var $stickyRight = $('#sticky-right');
+        var $indicator = $('<div id="reading-indicator"></div>'); // Styling in CSS
         
-        var $indicator = $('<div id="reading-indicator"></div>'); // Styling moved to CSS
-
         var $markers = $('.mw-parser-output .opage');
         var lastActiveIndex = -1;
 
@@ -61,74 +83,66 @@
 
             function updateStickyHeader() {
                 var scrollTop = $window.scrollTop();
-                var viewportHeight = $window.height();
                 var activeIndex = -1;
 
                 // --- A. FIND ACTIVE PAGE ---
                 $markers.each(function (index) {
-                    var $this = $(this);
-                    if ($this.offset().top < scrollTop + 150) {
+                    if ($(this).offset().top < scrollTop + 150) {
                         activeIndex = index;
                     }
                 });
 
-                // --- B. ACTIVATION LOGIC (SKIP FIRST PAGE) ---
-                // We only activate if we are past the first page (Index > 0).
-                // This prevents the "Jump" at the top and ignores the Cover Page.
-                if (activeIndex > 0) {
+                // --- PRE-CALCULATE COLS ---
+                // We must know cols BEFORE deciding to activate the tracker
+                var cols = 0;
+                if (activeIndex > -1) {
+                    var $tempMarker = $markers.eq(activeIndex);
+                    var attrCols = $tempMarker.attr('data-cols');
+                    cols = attrCols ? parseInt(attrCols) : globalPageColumns;
+                }
+
+                // --- B. ACTIVATION LOGIC ---
+                // Rule 1: Must be past the cover page (Index > 0)
+                // Rule 2: Must have valid columns (cols > 0)
+                if (activeIndex > 0 && cols > 0) {
+                    
                     var $currentMarker = $markers.eq(activeIndex);
                     var $nextMarker = $markers.eq(activeIndex + 1);
 
-                    // If we just switched to a new page (or entered sticky mode)
+                    // If we just switched pages
                     if (activeIndex !== lastActiveIndex) {
-                        
-                        // 1. Unhide the previous marker (if valid)
+                        // 1. Restore previous static image
                         if (lastActiveIndex > -1) {
-                            var $oldMarker = $markers.eq(lastActiveIndex);
-                            $oldMarker.next('.otright').css('visibility', 'visible');
+                            $markers.eq(lastActiveIndex).next('.otright').css('visibility', 'visible');
                         }
 
-                        // 2. Hide the CURRENT static image (so sticky takes over)
+                        // 2. Hide current static image
                         $currentMarker.next('.otright').css('visibility', 'hidden');
 
-                        // 3. Clone content into Sticky Header
+                        // 3. Update Sticky Content
                         var $imgContainer = $currentMarker.next('.otright');
                         var imgHtml = $imgContainer.length ? $imgContainer.html() : '';
-                        
                         $stickyRight.html(imgHtml).append($indicator);
 
-                        // 4. Show the tracker
                         $tracker.addClass('active');
                         lastActiveIndex = activeIndex;
                     }
 
-                    // --- C. CALCULATE GREEN BOX (With Timing Fix) ---
-                    
-                    // CONFIG:
-                    var scanMarginY = 0.07; // 7% vertical margins
-                    var splitThreshold = 0.39; // Switch columns at 39% progress
-
-                    // 1. Get Geometry
-                    var attrCols = $currentMarker.attr('data-cols');
-                    var cols = attrCols ? parseInt(attrCols) : globalPageColumns;
-
-                    if (cols <= 0) {
-                        $indicator.hide();
-                        return;
-                    }
+                    // --- C. CALCULATE GREEN BOX ---
+                    // Config
+                    var scanMarginY = 0.08; 
+                    var splitThreshold = 0.42; 
 
                     var startY = $currentMarker.offset().top;
                     var endY = $nextMarker.length ? 
                                $nextMarker.offset().top : 
                                $('.mw-parser-output').offset().top + $('.mw-parser-output').outerHeight();
-
                     var sectionHeight = Math.max(endY - startY, 1);
                     
-                    // 2. Calculate Progress
                     var progressRaw = (scrollTop - startY) / sectionHeight;
                     var linearProgress = Math.min(Math.max(progressRaw, 0), 1); 
 
-                    // 3. Apply Skew (Timing Fix)
+                    // Skew Logic
                     var skewedProgress = linearProgress;
                     if (cols === 2) {
                         if (linearProgress < splitThreshold) {
@@ -138,28 +152,23 @@
                         }
                     }
 
-                    // 4. Map to Columns
+                    // Grid Math
                     var totalGeoProgress = skewedProgress * cols;
                     var colIndex = Math.floor(totalGeoProgress);
-                    
                     if (colIndex >= cols) colIndex = cols - 1;
-
                     var verticalProgress = totalGeoProgress - colIndex; 
 
-                    // 5. Pixel Math (Vertical)
+                    // Pixel Math
                     var $img = $stickyRight.find('img');
                     var imgHeight = $img.height() || $stickyRight.height();
                     var boxHeightPx = 100; 
-
+                    
                     var effectiveImgHeight = imgHeight * (1 - (scanMarginY * 2));
                     var topMarginPx = imgHeight * scanMarginY;
                     var maxTravelPx = effectiveImgHeight - boxHeightPx;
-                    
                     if (maxTravelPx < 0) maxTravelPx = 0;
 
                     var boxTopPx = topMarginPx + (verticalProgress * maxTravelPx);
-
-                    // 6. Horizontal Math
                     var boxWidth = 100 / cols;
                     var boxLeft = colIndex * boxWidth;
 
@@ -172,15 +181,12 @@
                     });
 
                 } else {
-                    // --- DEACTIVATION LOGIC ---
-                    // If we are at Index 0 (Cover Page) or above the content
+                    // --- DEACTIVATION ---
+                    // Occurs if we are at Top, OR if cols=0 (Standard Book)
                     if (lastActiveIndex > -1) {
-                         // Make sure the last used sticky image becomes visible again
-                         var $oldMarker = $markers.eq(lastActiveIndex);
-                         $oldMarker.next('.otright').css('visibility', 'visible');
-                         lastActiveIndex = -1;
+                        $markers.eq(lastActiveIndex).next('.otright').css('visibility', 'visible');
+                        lastActiveIndex = -1;
                     }
-                    // Hide the sticky tracker completely
                     $tracker.removeClass('active');
                 }
             }
@@ -195,7 +201,8 @@
                     ticking = true;
                 }
             });
-
+            
+            // Run once on load to catch initial state
             updateStickyHeader();
         }
     });
