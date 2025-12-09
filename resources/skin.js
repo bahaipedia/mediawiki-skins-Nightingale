@@ -101,10 +101,15 @@
                         lastActiveIndex = activeIndex;
                     }
 
-                    // --- C. CALCULATE GREEN BOX ---
+                    // --- C. CALCULATE GREEN BOX (With Timing Fix) ---
                     
-                    // CONFIG: Vertical Margin Only
-                    var scanMarginY = 0.08; // 8% buffer on top/bottom
+                    // CONFIG 1: Vertical Margin (White space on scan edges)
+                    var scanMarginY = 0.08; 
+                    
+                    // CONFIG 2: Split Threshold (Fixes the "Late Switch" issue)
+                    // 0.5 = Even split. 
+                    // 0.42 = Switch to Col 2 when 42% through the section (Jump earlier).
+                    var splitThreshold = 0.42; 
 
                     // 1. Get Geometry
                     var attrCols = $currentMarker.attr('data-cols');
@@ -122,19 +127,33 @@
 
                     var sectionHeight = Math.max(endY - startY, 1);
                     
-                    // 2. Calculate Progress
+                    // 2. Calculate Linear Progress (0.0 to 1.0)
                     var progressRaw = (scrollTop - startY) / sectionHeight;
-                    var progress = Math.min(Math.max(progressRaw, 0), 1); 
+                    var linearProgress = Math.min(Math.max(progressRaw, 0), 1); 
 
-                    // 3. Map to Columns
-                    var totalGeoProgress = progress * cols;
+                    // 3. APPLY SKEW (The Timing Fix)
+                    // If we have 2 columns, we distort time to make Col 1 faster and Col 2 longer
+                    var skewedProgress = linearProgress;
+                    
+                    if (cols === 2) {
+                        if (linearProgress < splitThreshold) {
+                            // Map 0 -> 0.42  TO  0 -> 0.5 (Accelerate first half)
+                            skewedProgress = (linearProgress / splitThreshold) * 0.5;
+                        } else {
+                            // Map 0.42 -> 1.0  TO  0.5 -> 1.0 (Stretch second half)
+                            skewedProgress = 0.5 + ((linearProgress - splitThreshold) / (1 - splitThreshold)) * 0.5;
+                        }
+                    }
+
+                    // 4. Map to Columns
+                    var totalGeoProgress = skewedProgress * cols;
                     var colIndex = Math.floor(totalGeoProgress);
                     
                     if (colIndex >= cols) colIndex = cols - 1;
 
                     var verticalProgress = totalGeoProgress - colIndex; 
 
-                    // 4. PIXEL MATH (Vertical Only)
+                    // 5. PIXEL MATH (Vertical Position)
                     var $img = $stickyRight.find('img');
                     var imgHeight = $img.height() || $stickyRight.height();
                     var boxHeightPx = 100; // Fixed height
@@ -148,7 +167,7 @@
 
                     var boxTopPx = topMarginPx + (verticalProgress * maxTravelPx);
 
-                    // 5. HORIZONTAL MATH (Full Width)
+                    // 6. HORIZONTAL MATH
                     var boxWidth = 100 / cols;
                     var boxLeft = colIndex * boxWidth;
 
