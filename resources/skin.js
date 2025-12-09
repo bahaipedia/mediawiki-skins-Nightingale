@@ -105,8 +105,8 @@
                     // --- C. CALCULATE GREEN BOX (With Timing Fix) ---
                     
                     // CONFIG:
-                    var scanMarginY = 0.08; // 8% vertical margins
-                    var splitThreshold = 0.42; // Switch columns at 42% progress
+                    var scanMarginY = 0.07; // 7% vertical margins
+                    var splitThreshold = 0.39; // Switch columns at 39% progress
 
                     // 1. Get Geometry
                     var attrCols = $currentMarker.attr('data-cols');
