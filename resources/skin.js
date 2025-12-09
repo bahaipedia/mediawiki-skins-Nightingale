@@ -131,7 +131,7 @@
                     // --- C. CALCULATE GREEN BOX ---
                     // Config
                     var scanMarginY = 0.08; 
-                    var splitThreshold = 0.42; 
+                    var splitThreshold = 0.35; 
 
                     var startY = $currentMarker.offset().top;
                     var endY = $nextMarker.length ? 
