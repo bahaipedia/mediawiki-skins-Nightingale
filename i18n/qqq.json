@@ -4,7 +4,7 @@
 			"Sarah Haslip"
 		]
 	},
-	"skinname-ridvan": "Nightingale",
+	"skinname-nightingale": "Nightingale",
 	"nightingale-skin-desc": "Description of the skin, shown on [[Special:Version]]. Mentions that it is a rewrite of the Chameleon skin and was created for Bahai.works.",
 	"nightingale-no-categories": "Message to show when no categories available",
 	"nightingale-mobile-links-label": "Label for the mobile dropdown menu containing interwiki and language links.",
