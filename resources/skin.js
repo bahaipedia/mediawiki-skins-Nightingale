@@ -24,23 +24,31 @@
         });
 
         /* ==================================================================
-           2. COLUMN CONFIGURATION (Robust Array Method)
+           2. COLUMN CONFIGURATION (Updated for Issue 512+ Revert)
            ================================================================== */
         function getPageColumnCount() {
             var pageName = mw.config.get('wgPageName');
 
             var config = [
-                // 1. Bahá’í News: Special Logic for 3-Column Issues
+                // 1. Bahá’í News: Complex History
+                // Issues 1-321   : 3 Columns
+                // Issues 322-511 : 2 Columns
+                // Issues 512+    : 3 Columns
                 { 
                     pattern: /^Bahá’í_News/, 
                     cols: function(name) {
-                        // Look for Issue Number
                         var match = name.match(/Issue_(\d+)/);
                         if (match) {
-                            // Issues 1-321 are 3 columns. 322+ are 2 columns.
-                            return (parseInt(match[1], 10) <= 321) ? 3 : 2; 
+                            var issueNum = parseInt(match[1], 10);
+                            
+                            // If it's the Early Period OR the Late Period -> 3 Columns
+                            if (issueNum <= 321 || issueNum >= 512) {
+                                return 3;
+                            }
+                            // The Middle Period -> 2 Columns
+                            return 2; 
                         }
-                        return 2; // Fallback
+                        return 2; // Fallback if no issue number found
                     }
                 },
                 
@@ -54,7 +62,6 @@
 
             for (var i = 0; i < config.length; i++) {
                 if (config[i].pattern.test(pageName)) {
-                    // Support both static numbers and dynamic functions
                     if (typeof config[i].cols === 'function') {
                         return config[i].cols(pageName);
                     }
