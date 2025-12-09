@@ -107,8 +107,13 @@
                         lastActiveIndex = activeIndex;
                     }
 
-                    // --- C. CALCULATE GREEN BOX ---
+                    // --- C. CALCULATE GREEN BOX WITH MARGINS ---
                     
+                    // CONFIG: Virtual Margins (The white space on the book scan)
+                    // 0.15 = 15% margin on Left/Right. 0.08 = 8% margin on Top/Bottom.
+                    var scanMarginX = 0.15; 
+                    var scanMarginY = 0.08; 
+
                     // 1. Get Geometry
                     var attrCols = $currentMarker.attr('data-cols');
                     var cols = attrCols ? parseInt(attrCols) : globalPageColumns;
@@ -127,49 +132,49 @@
                     
                     // 2. Calculate Progress (0.0 to 1.0)
                     var progressRaw = (scrollTop - startY) / sectionHeight;
-                    var progress = Math.min(Math.max(progressRaw, 0), 1); // Clamp 0-1
+                    var progress = Math.min(Math.max(progressRaw, 0), 1); 
 
                     // 3. Map to Columns
                     var totalGeoProgress = progress * cols;
                     var colIndex = Math.floor(totalGeoProgress);
                     
-                    // Edge case: if exactly 100%, clamp to last column
                     if (colIndex >= cols) colIndex = cols - 1;
 
                     var verticalProgress = totalGeoProgress - colIndex; // 0.0 to 1.0 within the column
 
-                    // 4. PIXEL MATH (The Fix)
-                    // Get the actual height of the image displayed in the sticky tracker
+                    // 4. PIXEL MATH (Height & Vertical Position)
                     var $img = $stickyRight.find('img');
-                    var imgHeight = $img.height();
-                    
-                    // If image isn't loaded yet, fallback to container height
-                    if (!imgHeight) imgHeight = $stickyRight.height();
+                    var imgHeight = $img.height() || $stickyRight.height();
+                    var boxHeightPx = 100; // Fixed height
 
-                    // USER SETTING: Fixed Green Box Height
-                    var boxHeightPx = 100; 
+                    // -- Vertical Margin Logic --
+                    // We reduce the scrollable area by the top/bottom margins
+                    var effectiveImgHeight = imgHeight * (1 - (scanMarginY * 2));
+                    var topMarginPx = imgHeight * scanMarginY;
                     
-                    // Calculate the maximum "Top" value allowed
-                    // (Image Height - Box Height). This ensures the bottom of the box 
-                    // never goes past the bottom of the image.
-                    var maxTopPx = imgHeight - boxHeightPx;
+                    // Calculate available travel distance within the "safe text area"
+                    var maxTravelPx = effectiveImgHeight - boxHeightPx;
+                    if (maxTravelPx < 0) maxTravelPx = 0;
+
+                    // Final Top Position = Top Margin + (Progress * Travel)
+                    var boxTopPx = topMarginPx + (verticalProgress * maxTravelPx);
+
+                    // 5. HORIZONTAL MATH (Width & Left Position)
+                    // We reduce the available width by the left/right margins
+                    var availableWidthPercent = 100 * (1 - (scanMarginX * 2)); // e.g. 70%
                     
-                    // Allow negative maxTop if image is tiny (prevents broken math), 
-                    // though usually image > 100px.
-                    if (maxTopPx < 0) maxTopPx = 0; 
-
-                    var boxTopPx = verticalProgress * maxTopPx;
-
-                    // 5. Apply CSS
-                    var boxWidth = 100 / cols;
-                    var boxLeft = colIndex * boxWidth;
+                    var boxWidth = availableWidthPercent / cols;
+                    
+                    // Left Position = Left Margin % + (Column Index * Column Width %)
+                    var leftMarginPercent = scanMarginX * 100;
+                    var boxLeft = leftMarginPercent + (colIndex * boxWidth);
 
                     $indicator.css({
                         'display': 'block',
                         'width': boxWidth + '%',
-                        'height': boxHeightPx + 'px', // Fixed 100px
+                        'height': boxHeightPx + 'px', 
                         'left': boxLeft + '%',
-                        'top': boxTopPx + 'px'        // Pixel positioned
+                        'top': boxTopPx + 'px'
                     });
 
                 } else {
