@@ -31,7 +31,7 @@
 
             var config = [
                 // 1. Bahá’í News: Complex History
-                // Issues 1-330   : 3 Columns
+                // Issues 1-330   : 3 Columns (EXCEPT 245-256)
                 // Issues 331-511 : 2 Columns
                 // Issues 512+    : 3 Columns
                 { 
@@ -41,12 +41,18 @@
                         if (match) {
                             var issueNum = parseInt(match[1], 10);
                             
-                            // If it's the Early Period OR the Late Period -> 3 Columns
-                            if (issueNum <= 330 || issueNum >= 512) {
-                                return 3;
+                            // EXCEPTION: Issues 245-256 are 2 columns
+                            if (issueNum >= 245 && issueNum <= 256) {
+                                return 2;
                             }
+
                             // The Middle Period -> 2 Columns
-                            return 2; 
+                            if (issueNum >= 331 && issueNum <= 511) {
+                                return 2;
+                            }
+                            
+                            // Default for Bahá’í News (Early & Late Periods) -> 3 Columns
+                            return 3;
                         }
                         return 2; // Fallback if no issue number found
                     }
