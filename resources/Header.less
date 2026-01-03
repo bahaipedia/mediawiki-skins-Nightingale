@@ -245,6 +245,34 @@
     border-right: 1px solid #eaecf0;
 }
 
+.nightingale-section-primary:has(> li:nth-last-child(-n+3):first-child) {
+    
+    /* Change from vertical column to horizontal row */
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px; 
+    
+    /* Override the standard list item styling to fit horizontally */
+    li {
+        width: auto;       /* Let text define width, don't fill row */
+        padding: 0;        /* Reset standard padding */
+        margin-bottom: 5px;
+    }
+
+    /* Style the links to look more like 'pills' or tabs since they are horizontal */
+    li a {
+        padding: 5px 10px;
+        background-color: #f8f9fa; /* Light grey pill background */
+        border-radius: 4px;
+        white-space: nowrap;      /* Prevent text wrapping inside the pill */
+    }
+
+    li a:hover {
+        background-color: #eaecf0;
+    }
+}
+
 /* --- MOBILE OVERRIDES (Stacked) --- */
 @media ( max-width: @max-width-breakpoint-tablet ) {
     
@@ -257,6 +285,20 @@
     .nightingale-section-primary {
         border-right: none;
         border-bottom: 1px solid #eaecf0;
+    }
+
+    .nightingale-section-primary:has(> li:nth-last-child(-n+3):first-child) {
+        display: block; /* Return to vertical block layout */
+        
+        li {
+            width: 100%;
+            padding: 0em 0em 0.5em 2.0em; /* Restore original padding */
+        }
+        
+        li a {
+            background-color: transparent; /* Remove pill style */
+            padding: 6px 15px;
+        }
     }
     
     /* Optional: Add background to tools to differentiate slightly */
