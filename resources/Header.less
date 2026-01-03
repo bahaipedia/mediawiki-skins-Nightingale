@@ -225,3 +225,42 @@
         display: block !important;
     }
 }
+
+/* --- MEGA MENU LAYOUT --- */
+
+/* 1. The Flex Container */
+.nightingale-mega-menu {
+    display: flex;
+    flex-direction: row; /* Desktop: Side by Side */
+}
+
+/* 2. The Columns */
+.nightingale-menu-section {
+    padding: 5px 0;
+    min-width: 160px; /* Ensure columns aren't too skinny */
+}
+
+/* 3. The Separator Line (Desktop) */
+.nightingale-section-primary {
+    border-right: 1px solid #eaecf0;
+}
+
+/* --- MOBILE OVERRIDES (Stacked) --- */
+@media ( max-width: @max-width-breakpoint-tablet ) {
+    
+    /* Switch to Stacked */
+    .nightingale-mega-menu {
+        flex-direction: column;
+    }
+
+    /* Change Border from Vertical to Horizontal */
+    .nightingale-section-primary {
+        border-right: none;
+        border-bottom: 1px solid #eaecf0;
+    }
+    
+    /* Optional: Add background to tools to differentiate slightly */
+    .nightingale-section-tools {
+        background-color: #f8f9fa; 
+    }
+}
