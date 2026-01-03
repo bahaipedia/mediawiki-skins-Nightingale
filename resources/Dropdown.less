@@ -1,44 +1,60 @@
 @import 'mediawiki.skin.variables.less';
 
 /* Checkbox hack dropdown */
-/* We use '~' (General Sibling) because '+' (Adjacent) is fragile 
-   and breaks Personal Tools if there's any whitespace/comments.
-*/
 .mw-portlet-dropdown ~ .mw-portlet {
-	li {
-		display: block;
-		padding: 0em 0em 0.5em 2.0em;
-	}
+    position: relative; /* Ensure the body anchors to this */
 
-	.mw-portlet-body {
-		display: none;
+    li {
+        display: block;
+        padding: 0em 0em 0.5em 2.0em;
+        white-space: nowrap;
+    }
 
-		ul {
-			background: @background-color-article;
-			position: absolute;
-			overflow-y: auto;
-			z-index: 10;
-			box-shadow: 0 5px 17px 0 rgba( 0, 0, 0, 0.24 ), 0 0 1px @color-gray;
-			right: 0;
-			width: max-content;
-			min-width: 200px;
-			margin-top: 6px;
-			padding: 10px 0px;
-		}
-		li {
-            white-space: nowrap; 
+    /* MOVED STYLES: 
+       The .mw-portlet-body now acts as the "Card" 
+       instead of the ul. This allows it to hold multiple lists.
+    */
+    .mw-portlet-body {
+        display: none;
+        
+        /* Dropdown Card Styling */
+        position: absolute;
+        right: 0;
+        top: 100%; /* Push it exactly below the button */
+        z-index: 10;
+        background: @background-color-article;
+        box-shadow: 0 5px 17px 0 rgba( 0, 0, 0, 0.24 ), 0 0 1px @color-gray;
+        
+        /* Sizing */
+        width: max-content; /* Allow it to grow wide enough for side-by-side */
+        min-width: 200px;
+        /* prevent it from going off-screen on small mobile devices */
+        max-width: 90vw; 
+        
+        margin-top: 6px;
+        padding: 10px 0px;
+        overflow-y: auto;
+        
+        /* RESET CHILD LISTS */
+        /* The ULs should no longer float; they just sit inside the card */
+        ul {
+            position: static; 
+            box-shadow: none;
+            background: transparent;
+            width: auto;
+            min-width: auto;
+            margin: 0;
+            padding: 0;
+            right: auto;
         }
-	}
+    }
 
-	input:checked {
-		~ .mw-portlet-body ul {
-			opacity: 1;
-			visibility: visible;
-		}
-
-		~ .mw-portlet-body {
-			display: block;
-			opacity: 1;
-		}
-	}
+    /* Toggle Logic */
+    input:checked {
+        ~ .mw-portlet-body {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
