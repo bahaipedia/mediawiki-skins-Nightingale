@@ -1,18 +1,153 @@
 @import 'mediawiki.skin.defaults.less';
-@background-color-warning: #fdfcfb;
-@background-color-base: #f7f7f7;
-@background-color-article: #fbfdfd;
-@background-color-thumb: #fdfcfb;
-@color-thumb: #170b06;
-@color-base: #303030;
-@color-gray: #522173;
-@color-gray-2: #ced4da;
-@color-link: #0645ad;
-@color-link--active: #0645ad;
-@color-link--visited: #663366;
-@font-family: "Times New Roman", Times, serif;
-@icon-filter: none;
-@color-link-new: #9b1b2f;
+
+/* 1. Define the Variables as CSS Custom Properties */
+:root {
+    /* Base Colors */
+    --background-color-warning: #fdfcfb;
+    --background-color-base: #f7f7f7;
+    --background-color-article: #fbfdfd;
+    --background-color-thumb: #fdfcfb;
+    --background-color-card: #ffffff;
+    --border-color-base: #eaecf0;
+    
+    /* Text Colors */
+    --color-thumb: #170b06;
+    --color-base: #303030;
+    --color-gray: #522173;
+    --color-gray-2: #ced4da;
+    
+    /* Links */
+    --color-link: #0645ad;
+    --color-link-active: #0645ad;
+    --color-link-visited: #663366;
+    --color-link-new: #9b1b2f;
+    
+    /* Shadows */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-color-dropdown: rgba(0,0,0,0.2);
+
+    /* Header & UI Elements */
+    --background-color-header: #ffffff;
+    --color-header-text: #355b83;
+    --color-icon-base: #385b82; /* The blue background for edit/talk icons */
+    --color-icon-base-hover: #0645ad;
+    
+    /* Inputs */
+    --background-color-input: #ffffff;
+    --color-input-text: #000000;
+    --border-color-input: #ced4da;
+
+    /* Dropdowns */
+    --background-color-dropdown: #ffffff;
+    --border-color-dropdown: #a2a9b1;
+    --color-dropdown-text: #000000;
+    --background-color-dropdown-hover: #eaecf0;
+
+    /* Footer */
+    --background-color-footer: #72777d;
+    --color-footer-text: #ffffff;
+    --border-color-footer: #54595d;
+    --border-color-footer-divider: rgba(255,255,255,0.1);
+}
+
+/* 2. Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Base Colors */
+        --background-color-warning: #2a2a2a;
+        --background-color-base: #101010;
+        --background-color-article: #1c1c1c;
+        --background-color-thumb: #252525;
+        --background-color-card: #1c1c1c;
+        --border-color-base: #4a4a4a;
+
+        /* Text Colors */
+        --color-thumb: #dcdcdc;
+        --color-base: #eaecf0;
+        --color-gray: #b08fc2;
+        --color-gray-2: #555555;
+
+        /* Links */
+        --color-link: #8ab4f8;
+        --color-link-active: #8ab4f8;
+        --color-link-visited: #c58af9;
+        --color-link-new: #ff6e6e;
+        
+        /* Shadows */
+        --shadow-color: rgba(0, 0, 0, 0.5);
+        --shadow-color-dropdown: rgba(0, 0, 0, 0.8);
+
+        /* Header & UI Elements */
+        --background-color-header: #1c1c1c;
+        --color-header-text: #8ab4f8; /* Light blue for UI text in dark mode */
+        --color-icon-base: #2c445c;   /* Darker blue for icons */
+        --color-icon-base-hover: #8ab4f8;
+
+        /* Inputs */
+        --background-color-input: #252525;
+        --color-input-text: #eaecf0;
+        --border-color-input: #555555;
+
+        /* Dropdowns */
+        --background-color-dropdown: #252525;
+        --border-color-dropdown: #4a4a4a;
+        --color-dropdown-text: #eaecf0;
+        --background-color-dropdown-hover: #363636;
+
+        /* Footer */
+        --background-color-footer: #2a2a2a;
+        --color-footer-text: #eaecf0;
+        --border-color-footer: #4a4a4a;
+        --border-color-footer-divider: rgba(255,255,255,0.1);
+    }
+}
+
+/* 3. Map LESS variables to the CSS variables */
+@background-color-warning: var(--background-color-warning);
+@background-color-base: var(--background-color-base);
+@background-color-article: var(--background-color-article);
+@background-color-thumb: var(--background-color-thumb);
+@background-color-card: var(--background-color-card);
+@border-color-base: var(--border-color-base);
+
+@color-thumb: var(--color-thumb);
+@color-base: var(--color-base);
+@color-gray: var(--color-gray);
+@color-gray-2: var(--color-gray-2);
+
+@color-link: var(--color-link);
+@color-link--active: var(--color-link-active);
+@color-link--visited: var(--color-link-visited);
+@color-link-new: var(--color-link-new);
 @color-link-stub: @color-link;
 @color-link-external: @color-link;
 @color-link-new--visited: @color-link--visited;
+
+@shadow-color: var(--shadow-color);
+@shadow-color-dropdown: var(--shadow-color-dropdown);
+
+/* Header & UI Mappings */
+@background-color-header: var(--background-color-header);
+@color-header-text: var(--color-header-text);
+@color-icon-base: var(--color-icon-base);
+@color-icon-base-hover: var(--color-icon-base-hover);
+
+/* Input Mappings */
+@background-color-input: var(--background-color-input);
+@color-input-text: var(--color-input-text);
+@border-color-input: var(--border-color-input);
+
+/* Dropdown Mappings */
+@background-color-dropdown: var(--background-color-dropdown);
+@border-color-dropdown: var(--border-color-dropdown);
+@color-dropdown-text: var(--color-dropdown-text);
+@background-color-dropdown-hover: var(--background-color-dropdown-hover);
+
+/* Footer Mappings */
+@background-color-footer: var(--background-color-footer);
+@color-footer-text: var(--color-footer-text);
+@border-color-footer: var(--border-color-footer);
+@border-color-footer-divider: var(--border-color-footer-divider);
+
+@font-family: "Times New Roman", Times, serif;
+@icon-filter: none;
