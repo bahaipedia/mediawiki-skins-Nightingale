@@ -2,7 +2,7 @@
 
 /* Checkbox hack dropdown */
 .mw-portlet-dropdown ~ .mw-portlet {
-    position: relative; /* Ensure the body anchors to this */
+    position: relative; 
 
     li {
         display: block;
@@ -10,25 +10,20 @@
         white-space: nowrap;
     }
 
-    /* MOVED STYLES: 
-       The .mw-portlet-body now acts as the "Card" 
-       instead of the ul. This allows it to hold multiple lists.
-    */
     .mw-portlet-body {
         display: none;
         
         /* Dropdown Card Styling */
         position: absolute;
         right: 0;
-        top: 100%; /* Push it exactly below the button */
+        top: 100%; 
         z-index: 10;
-        background: @background-color-article;
-        box-shadow: 0 5px 17px 0 rgba( 0, 0, 0, 0.24 ), 0 0 1px @color-gray;
+        background: @background-color-card;
+        box-shadow: 0 5px 17px 0 @shadow-color-dropdown, 0 0 1px @color-gray;
         
         /* Sizing */
-        width: max-content; /* Allow it to grow wide enough for side-by-side */
+        width: max-content; 
         min-width: 200px;
-        /* prevent it from going off-screen on small mobile devices */
         max-width: 90vw; 
         
         margin-top: 6px;
@@ -36,7 +31,6 @@
         overflow-y: auto;
         
         /* RESET CHILD LISTS */
-        /* The ULs should no longer float; they just sit inside the card */
         ul {
             position: static; 
             box-shadow: none;
