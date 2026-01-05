@@ -5,10 +5,12 @@
 
 html {
     margin: 0;
+    background: @background-color-base;
 }
 
 body {
     background: @background-color-base;
+    color: @color-base;
     max-width: 100%;
     margin: 0 auto;
     font-family: @font-family;
@@ -79,7 +81,7 @@ main {
 
     main {
         background: @background-color-article;
-        padding: 1.5em 3em; /* Adjusted padding for better fixed-width look */
+        padding: 1.5em 3em;
         
         /* MOBILE OVERRIDE */
         @media (max-width: @max-width-breakpoint-tablet) {
