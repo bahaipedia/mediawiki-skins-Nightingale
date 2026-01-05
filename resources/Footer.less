@@ -2,11 +2,11 @@
 
 .mw-footer {
     grid-area: footer;
-    border-top: solid 1px #54595d;
-    color: #ffffff;
-    background: #72777d;
+    border-top: solid 1px @border-color-footer;
+    color: @color-footer-text;
+    background: @background-color-footer;
     padding: 1em;
-    position: relative; /* Context for dropups */
+    position: relative; 
     
     li {
         display: inline-block;
@@ -21,7 +21,7 @@
 .nightingale-footer-tools {
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid @border-color-footer-divider;
     margin-bottom: 1em;
     padding-bottom: 1em;
 
@@ -31,7 +31,7 @@
     }
 
     .mw-checkbox-hack-button {
-        color: #fff;
+        color: @color-footer-text;
         font-weight: bold;
         cursor: pointer;
     }
@@ -40,10 +40,10 @@
 /* DROP-UP Specifics */
 .nightingale-dropup {
     .mw-portlet-body {
-        bottom: 100%; /* Go UP */
+        bottom: 100%; 
         top: auto;
         left: 50%;
-        transform: translateX(-50%); /* Center align */
+        transform: translateX(-50%); 
         margin-bottom: 10px;
     }
 }
