@@ -12,6 +12,31 @@ class SkinNightingale extends SkinMustache {
         $data = parent::getTemplateData();
 
         // ---------------------------------------------------------
+        // PART 0: INJECT DARK MODE SCRIPT
+        // ---------------------------------------------------------
+        // Checks localStorage immediately to prevent "flash of white" and handles the toggle
+        $script = <<<JS
+        <script>
+        (function() {
+            // Apply saved preference immediately
+            var isDark = localStorage.getItem('nightingale-dark-mode') === 'true';
+            if (isDark) {
+                document.documentElement.classList.add('nightingale-dark-mode');
+            }
+            
+            // Define the toggle function globally
+            window.toggleNightingaleDarkMode = function(e) {
+                e.preventDefault();
+                var html = document.documentElement;
+                var isDark = html.classList.toggle('nightingale-dark-mode');
+                localStorage.setItem('nightingale-dark-mode', isDark);
+            };
+        })();
+        </script>
+        JS;
+        $this->getOutput()->addHeadItem( 'nightingale-darkmode', $script );
+
+        // ---------------------------------------------------------
         // PART 1: GLOBAL FLAGS & METADATA
         // ---------------------------------------------------------
         $data['is-redirect'] = $this->getTitle()->isRedirect();
@@ -76,24 +101,18 @@ class SkinNightingale extends SkinMustache {
                 continue;
             }
 
-            // 1. SKIP UNWANTED NAVIGATION
-            // This allows p-Project, p-Content etc. to pass, but kills the default nav.
             if ( $id === 'p-navigation' ) {
                 continue;
             }
-
-            // 2. WIKIBASE & LANG -> LINKS
             if ( $id === 'p-wikibase-otherprojects' || $id === 'p-wikibase' ) {
                 $mobileLinks = array_merge( $mobileLinks, $items );
             }
-            // 3. TOOLBOX -> TOOLS
             elseif ( $id === 'p-tb' ) {
                 $mobileTools = array_merge( $mobileTools, $items );
                 if ( !empty($label) ) {
                     $mobileToolsLabel = $label;
                 }
             }
-            // 4. EVERYTHING ELSE -> SIDEBAR DROPDOWNS
             else {
                 if ( empty($id) ) {
                     $id = 'p-' . Sanitizer::escapeIdForAttribute( $label );
@@ -103,8 +122,7 @@ class SkinNightingale extends SkinMustache {
             }
         }
 
-        // --- FIX: MANUALLY ADD SPECIAL PAGES TO TOOLS (CORRECT STRUCTURE) ---
-        // We use the complex 'array-links' structure so ListItem.mustache renders it correctly.
+        // --- MANUALLY ADD SPECIAL PAGES ---
         $mobileTools[] = [
             'id' => 't-specialpages',
             'class' => 'mw-list-item',
@@ -112,21 +130,29 @@ class SkinNightingale extends SkinMustache {
                 [
                     'text' => $this->msg( 'specialpages' )->text(),
                     'array-attributes' => [
-                        [
-                            'key' => 'href',
-                            'value' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL()
-                        ],
-                        [
-                            'key' => 'title',
-                            'value' => $this->msg( 'specialpages' )->text()
-                        ]
+                        [ 'key' => 'href', 'value' => \SpecialPage::getTitleFor( 'SpecialPages' )->getLocalURL() ],
+                        [ 'key' => 'title', 'value' => $this->msg( 'specialpages' )->text() ]
+                    ]
+                ]
+            ]
+        ];
+
+        // --- NEW: ADD DARK MODE TOGGLE TO TOOLS ---
+        $mobileTools[] = [
+            'id' => 't-darkmode',
+            'class' => 'mw-list-item',
+            'array-links' => [
+                [
+                    'text' => 'Dark Mode', // You can use $this->msg('nightingale-darkmode') if you add it to i18n
+                    'array-attributes' => [
+                        [ 'key' => 'href', 'value' => '#' ],
+                        [ 'key' => 'onclick', 'value' => 'toggleNightingaleDarkMode(event)' ]
                     ]
                 ]
             ]
         ];
         // ------------------------------------------------
 
-        // Add Language links to "Links" bucket
         $langRaw = $data['data-portlets']['data-languages']['array-items'] ?? [];
         $langClean = array_filter( $langRaw, function( $item ) {
             return strpos( $item['class'] ?? '', 'wbc-editpage' ) === false;
