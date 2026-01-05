@@ -58,10 +58,10 @@
 }
 
 .mw-body {
-    box-shadow: 4px 3px 7px 3px rgba(0, 0, 0, 0.1);
-    border: solid #eaecf0;
+    box-shadow: 4px 3px 7px 3px @shadow-color;
+    border: solid @border-color-base; 
     border-width: 1px 1px 0.2em;
-    background: #ffffff;
+    background: @background-color-card;
     margin-bottom: 10px;
     word-wrap: break-word;
     border-radius: 10px;
@@ -158,6 +158,12 @@
     font-size: 1rem;
     padding: 4px;
     line-height: 1.4;
+    color: @color-base;
+    box-shadow: 4px 3px 7px 3px @shadow-color;
+    border: solid @border-color-base;
+    border-width: 1px 1px 0.2em;
+    background: @background-color-card;
+    padding: 1em 2em 1em;
 }
 
 .catlinks {
