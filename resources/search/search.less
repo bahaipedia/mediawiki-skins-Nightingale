@@ -66,15 +66,20 @@
 
     /* --- INPUT STYLING (SIMPLIFIED) --- */
     &-input {
-        color: var( --color-input-text ) !important; /* Changed from var(--color-emphasized) */
+        color: var( --color-input-text ) !important; 
         caret-color: auto; 
         height: 100%;
         width: 100%;
         padding: 6px 8px;
         box-sizing: border-box;
-        background: var( --background-color-input ) !important; /* Changed from #fff */
+
+        background-color: @background-color-input !important;
+        background: var(--background-color-input) !important;
         border: 1px solid var(--border-color-base);
         border-radius: var(--border-radius-medium);
+
+        -webkit-appearance: none;
+        appearance: none;
         
         &:focus {
             border-color: #36c;
