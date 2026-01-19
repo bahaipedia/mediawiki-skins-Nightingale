@@ -178,27 +178,26 @@
 .mw-rcfilters-ui-filterTagItemWidget {
     background-color: @background-color-ui-widget !important;
     border-color: @border-color-ui-widget !important;
-    color: @color-base; /* Ensures text is readable in dark mode */
+    color: @color-base; 
 }
 
-/* 2. Fix the "Filter changes" input area */
-/* We target the widget wrapper and the internal input to ensure coverage */
-.mw-rcfilters-ui-filterTagMultiselectWidget-views-input,
-.mw-rcfilters-ui-filterTagMultiselectWidget-views-select {
+/* 2. Fix the Multiselect Handle (The gray wrapper) */
+/* User requested #f9f9f9 -> We use @background-color-ui-subtle */
+.oo-ui-tagMultiselectWidget-handle {
     background-color: @background-color-ui-subtle !important;
     border-color: @border-color-ui-widget !important;
 }
 
-/* 3. General Fix for OOUI Buttons and Dropdown Handles */
-/* This covers the list of items you found in step #5 */
-.oo-ui-buttonElement-button,
-.oo-ui-tagMultiselectWidget-handle,
-.mw-changeslist-legend {
+/* 3. Fix the Input View (The white typing area) */
+/* User requested #ffffff -> We use @background-color-ui-widget */
+/* Added .mw-rcfilters-ui-cell to increase specificity so it overrides base */
+.mw-rcfilters-ui-cell.mw-rcfilters-ui-filterTagMultiselectWidget-views-input,
+.mw-rcfilters-ui-filterTagMultiselectWidget-views-select {
     background-color: @background-color-ui-widget !important;
-    color: @color-base;
+    /* Removed border rule here to avoid double borders inside the input area */
 }
 
-/* 4. Fix for nested labels inside buttons to ensure they inherit color */
+/* 4. Ensure nested labels inherit text color (for Dark Mode readability) */
 .oo-ui-labelElement-label {
     color: inherit;
 }
