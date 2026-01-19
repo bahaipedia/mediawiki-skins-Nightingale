@@ -173,6 +173,37 @@
     word-wrap: break-word;
 }
 
+/* 1. Fix "Active Filters" buttons (Tags) */
+.oo-ui-tagItemWidget,
+.mw-rcfilters-ui-filterTagItemWidget {
+    background-color: @background-color-ui-widget !important;
+    border-color: @border-color-ui-widget !important;
+    color: @color-base; /* Ensures text is readable in dark mode */
+}
+
+/* 2. Fix the "Filter changes" input area */
+/* We target the widget wrapper and the internal input to ensure coverage */
+.mw-rcfilters-ui-filterTagMultiselectWidget-views-input,
+.mw-rcfilters-ui-filterTagMultiselectWidget-views-select {
+    background-color: @background-color-ui-subtle !important;
+    border-color: @border-color-ui-widget !important;
+}
+
+/* 3. General Fix for OOUI Buttons and Dropdown Handles */
+/* This covers the list of items you found in step #5 */
+.oo-ui-buttonElement-button,
+.oo-ui-tagMultiselectWidget-handle,
+.mw-changeslist-legend {
+    background-color: @background-color-ui-widget !important;
+    border: 1px solid @border-color-ui-widget !important;
+    color: @color-base;
+}
+
+/* 4. Fix for nested labels inside buttons to ensure they inherit color */
+.oo-ui-labelElement-label {
+    color: inherit;
+}
+
 @media (max-width: @max-width-breakpoint-tablet) {
     .mw-changeslist-legend {
         float: none !important;
