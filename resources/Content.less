@@ -254,6 +254,43 @@ pre, code, .mw-code {
     padding: 1em;
     display: block;
 }
+.mw-highlight .linenos,
+.hl-linenos {
+    background-color: @background-color-gutter !important;
+    color: @color-gutter-text !important;
+    border-right: 1px solid @border-color-code !important;
+}
+.mw-highlight .linenos a,
+.hl-linenos a {
+    color: @color-gutter-text !important;
+}
+/* --- Line Highlighting (.hll) --- */
+/* This handles the "Click to highlight" line */
+.mw-highlight .hll,
+.hll {
+    background-color: @background-color-highlight !important;
+    display: block; /* Ensures the highlight stretches full width */
+}
+
+/* --- WikiEditor Toolbar (The buttons above the edit box) --- */
+.wikiEditor-ui-toolbar {
+    background-color: @background-color-toolbar !important;
+    border-bottom: 1px solid @border-color-toolbar !important;
+    /* Remove the light mode shadow if you want a flatter look, or keep it */
+    box-shadow: none !important; 
+}
+
+/* Fix the group borders inside the toolbar */
+.wikiEditor-ui-toolbar .group {
+    border-right: 1px solid @border-color-toolbar !important;
+}
+
+/* --- Codex Messages (Warnings) --- */
+.cdx-message--warning {
+    background-color: @background-color-warning-subtle !important;
+    border-color: @border-color-warning !important;
+    color: @color-base !important; /* Ensures text is readable on the dark gold */
+}
 
 @media (max-width: @max-width-breakpoint-tablet) {
     .mw-changeslist-legend {
