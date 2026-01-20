@@ -41,10 +41,20 @@
     --background-color-code: #f8f9fa;
     --border-color-code: #eaecf0;
     --color-code-text: #000000;
-    
     --background-color-editor: #ffffff;
     --background-color-editor-bar: #fbfdfd;
     --color-editor-text: #000000;
+    --background-color-toolbar: #f8f9fa;
+    --border-color-toolbar: #c8ccd1;
+
+    /* Code Gutter & Highlighting */
+    --background-color-gutter: #f0f0f0;
+    --color-gutter-text: #888888;
+    --background-color-highlight: #fdf2d5; 
+
+    /* Codex Warnings */
+    --background-color-warning-subtle: #fdf2d5;
+    --border-color-warning: #ab7f2a;
     
     /* Save Buttons */
     --background-color-btn-save: #36c;
@@ -98,8 +108,8 @@ html.nightingale-dark-mode {
 
         /* Header & UI Elements */
         --background-color-header: #1c1c1c;
-        --color-header-text: #8ab4f8; /* Light blue for UI text in dark mode */
-        --color-icon-base: #2c445c;   /* Darker blue for icons */
+        --color-header-text: #8ab4f8;
+        --color-icon-base: #2c445c;
         --color-icon-base-hover: #8ab4f8;
 
         /* Inputs */
@@ -108,16 +118,26 @@ html.nightingale-dark-mode {
         --border-color-input: #555555;
 
         /* Editor & Code Blocks (Dark Mode) */
-        --background-color-code: #121212;   /* Distinct from card bg */
+        --background-color-code: #121212;
         --border-color-code: #333333;
-        --color-code-text: #d4d4d4;         /* VS Code style grey */
-
-        --background-color-editor: #1e1e1e; /* Standard IDE dark */
+        --color-code-text: #d4d4d4;
+        --background-color-editor: #1e1e1e;
         --background-color-editor-bar: #2d2d2d;
-        --color-editor-text: #E0E0E0;       /* The Platinum White you wanted */
+        --color-editor-text: #E0E0E0;
+        --background-color-toolbar: #2d2d2d;
+        --border-color-toolbar: #444444;
+
+        /* Code Gutter & Highlighting */
+        --background-color-gutter: #252525;
+        --color-gutter-text: #666666;
+        --background-color-highlight: #4d4512;
+
+        /* Codex Warnings */
+        --background-color-warning-subtle: #3b2d10;
+        --border-color-warning: #8a6d3b;
 
         /* Save Buttons */
-        --background-color-btn-save: #3b5998; /* Desaturated blue */
+        --background-color-btn-save: #3b5998;
         --color-btn-text: #ffffff;
 
         /* UI Widgets Dark Mode */
@@ -178,13 +198,22 @@ html.nightingale-dark-mode {
 @background-color-code: var(--background-color-code);
 @border-color-code: var(--border-color-code);
 @color-code-text: var(--color-code-text);
-
 @background-color-editor: var(--background-color-editor);
 @background-color-editor-bar: var(--background-color-editor-bar);
 @color-editor-text: var(--color-editor-text);
-
 @background-color-btn-save: var(--background-color-btn-save);
 @color-btn-text: var(--color-btn-text);
+
+/* Toolbar & Gutter Mappings */
+@background-color-gutter: var(--background-color-gutter);
+@color-gutter-text: var(--color-gutter-text);
+@background-color-highlight: var(--background-color-highlight);
+@background-color-toolbar: var(--background-color-toolbar);
+@border-color-toolbar: var(--border-color-toolbar);
+
+/* Codex Mappings */
+@background-color-warning-subtle: var(--background-color-warning-subtle);
+@border-color-warning: var(--border-color-warning);
 
 /* UI Widget Mappings */
 @background-color-ui-widget: var(--background-color-ui-widget);
