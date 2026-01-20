@@ -202,6 +202,59 @@
     color: inherit;
 }
 
+/* --- Editor Interface Fixes --- */
+
+/* 1. Main Edit Box */
+textarea,
+.mw-editfont-monospace,
+.ext-WikiEditor-realtimepreview-textbox {
+    background-color: @background-color-editor !important;
+    color: @color-editor-text !important;
+    border-color: @border-color-ui-widget !important;
+}
+
+/* 2. Edit Options Bar (The area surrounding Save/Preview) */
+.editOptions {
+    background-color: @background-color-editor-bar !important;
+    color: @color-base !important;
+    border-color: @border-color-ui-widget !important;
+    padding: 10px;
+}
+
+/* 3. Special Character Buttons (under the edit box) */
+.mw-edittools-section input[type="button"] {
+    background-color: @background-color-ui-subtle !important;
+    color: @color-base !important;
+    border: 1px solid @border-color-ui-widget !important;
+}
+
+/* 4. Action Buttons */
+/* Primary Save Button */
+#wpSave {
+    background-color: @background-color-btn-save !important;
+    color: @color-btn-text !important;
+    border: 1px solid @border-color-ui-widget !important;
+    cursor: pointer;
+}
+
+/* Preview & Diff Buttons */
+#wpPreview,
+#wpDiff {
+    background-color: @background-color-ui-subtle !important;
+    color: @color-base !important;
+    border: 1px solid @border-color-ui-widget !important;
+    cursor: pointer;
+}
+
+/* --- Code & Pre Blocks --- */
+pre, code, .mw-code {
+    background-color: @background-color-code !important;
+    color: @color-code-text !important;
+    border: 1px solid @border-color-code !important;
+    padding: 1em;
+    display: block;
+}
+
 @media (max-width: @max-width-breakpoint-tablet) {
     .mw-changeslist-legend {
         float: none !important;
