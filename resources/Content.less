@@ -202,6 +202,15 @@
     color: inherit;
 }
 
+/* 5. Fix OOUI Text Inputs (Search bars, etc) */
+.oo-ui-textInputWidget .oo-ui-inputWidget-input {
+    background-color: @background-color-input !important; 
+    color: @color-input-text !important;
+    border: 1px solid @border-color-ui-widget !important;
+    border-radius: 2px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
 /* --- Editor Interface Fixes --- */
 
 /* 1. Main Edit Box */
