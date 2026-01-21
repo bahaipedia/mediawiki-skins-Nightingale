@@ -211,6 +211,14 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* 6. Fix Buttons and Legend staying white in Night Mode */
+/* We only apply background and text color here to avoid adding unwanted borders */
+.oo-ui-buttonElement-button,
+.mw-changeslist-legend {
+    background-color: @background-color-ui-widget !important;
+    color: @color-base !important;
+}
+
 /* --- Editor Interface Fixes --- */
 
 /* 1. Main Edit Box */
