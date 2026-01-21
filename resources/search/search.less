@@ -11,19 +11,23 @@
 }
 
 /* --- COMPATIBILITY LAYER --- */
-/* We map the local variables to our new Global Dark Mode variables */
 .czsearch-typeahead {
+    /* Map Colors to Global Theme */
     --color-base: var(--color-base);
-    --color-emphasized: var(--color-dropdown-text);
-    --color-subtle: var(--color-gray); /* Maps to Purple (Light) / Lavender (Dark) */
-    --color-surface-3: var(--border-color-base);
+    --color-emphasized: var(--color-base);
+    --color-subtle: var(--color-gray);
     
+    /* Backgrounds */
     --background-color-base-fixed: var(--background-color-dropdown);
+    
+    /* Hover States */
     --background-color-button-quiet--hover: var(--background-color-dropdown-hover);
     --background-color-button-quiet--active: var(--background-color-dropdown-hover);
     
-    --border-color-base: var(--border-color-base);
+    /* Borders */
+    --border-color-base: var(--border-color-dropdown);  /* Was #a2a9b1 */
     
+    /* Layout Constants (Keep these fixed) */
     --border-radius-medium: 2px;
     --font-weight-medium: 500;
     --font-weight-semi-bold: 700;
@@ -45,9 +49,9 @@
 /* --- MAIN STYLES (Ported) --- */
 
 .czsearch-typeahead {
-    background: var(--background-color-base-fixed); /* Changed from #fff */
+    background: var(--background-color-base-fixed); /* FIX: Use variable instead of #fff */
     border: 1px solid var(--border-color-base);
-    box-shadow: 0 2px 4px var(--shadow-color-dropdown); /* Changed from rgba */
+    box-shadow: 0 2px 4px var(--shadow-color-dropdown); /* FIX: Use global shadow variable */
     position: absolute;
     top: 100%;
     left: -1px;
@@ -66,24 +70,19 @@
 
     /* --- INPUT STYLING (SIMPLIFIED) --- */
     &-input {
-        color: var( --color-input-text ) !important; 
+        color: var( --color-emphasized ) !important;
+        background-color: var(--background-color-input) !important; /* FIX: Added background variable */
         caret-color: auto; 
         height: 100%;
         width: 100%;
         padding: 6px 8px;
         box-sizing: border-box;
-
-        background-color: @background-color-input !important;
-        background: var(--background-color-input) !important;
         border: 1px solid var(--border-color-base);
         border-radius: var(--border-radius-medium);
-
-        -webkit-appearance: none;
-        appearance: none;
         
         &:focus {
-            border-color: #36c;
-            outline: 1px solid #36c;
+            border-color: var(--color-link); /* FIX: Use link color instead of hardcoded #36c */
+            outline: 1px solid var(--color-link);
         }
     }
 
@@ -136,7 +135,6 @@
         background-position: center;
         background-size: cover;
         border-radius: var( --border-radius-medium );
-        background-color: var(--background-color-thumb); /* Added: prevents white flash on load */
 
         &--placeholder {
             display: grid;
@@ -172,12 +170,12 @@
 .suggestions { display: none !important; }
 
 /* --- ICONS --- */
-/* 1. Base Icon Class (Sets size and prepares for masking) */
+/* 1. Base Icon Class */
 .czsearch-ui-icon {
     width: var(--size-icon);
     height: var(--size-icon);
     display: inline-block;
-    background-color: var(--color-subtle); /* Icon color (Grey) */
+    background-color: var(--color-subtle); /* This now maps to @color-gray, so it will flip in dark mode */
     
     /* Standard mask settings */
     -webkit-mask-repeat: no-repeat;
@@ -218,7 +216,7 @@
     }
 
     &-spinner {
-        border: 3px solid rgba(0, 0, 0, 0.1);
+        border: 3px solid var(--border-color-base); /* FIX: Was rgba(0,0,0,0.1) - Now uses theme border */
         border-left-color: var(--color-emphasized);
         border-radius: 50%;
         width: 24px;
@@ -241,6 +239,6 @@
         border-left: 1px solid var(--border-color-base);
         border-right: 1px solid var(--border-color-base);
         border-radius: var(--border-radius-medium);
-        box-shadow: 0 10px 20px var(--shadow-color-dropdown); /* Changed from rgba */
+        box-shadow: 0 10px 20px var(--shadow-color-dropdown); /* FIX: Use global shadow */
     }
 }
