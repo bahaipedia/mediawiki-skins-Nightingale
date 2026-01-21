@@ -211,11 +211,20 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 6. Fix Buttons and Legend staying white in Night Mode */
-/* We only apply background and text color here to avoid adding unwanted borders */
-.oo-ui-buttonElement-button,
-.mw-changeslist-legend {
+/* 6. Fix Buttons and Legend (Refined) */
+/* A. Fix Buttons: Only apply background to FRAMED buttons. 
+   This ensures icon-only buttons (frameless) remain transparent 
+   and don't look like floating white boxes. */
+.oo-ui-buttonElement-framed > .oo-ui-buttonElement-button {
     background-color: @background-color-ui-widget !important;
+    color: @color-base !important;
+}
+
+/* B. Fix Legend: Use @background-color-base instead of widget/white.
+   This ensures the text background matches the container's gray background 
+   so it doesn't look like a floating sticker. */
+.mw-changeslist-legend {
+    background-color: @background-color-base !important;
     color: @color-base !important;
 }
 
