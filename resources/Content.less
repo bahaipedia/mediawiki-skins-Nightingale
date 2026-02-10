@@ -229,7 +229,6 @@
 }
 
 /* --- Editor Interface Fixes --- */
-
 /* 1. Main Edit Box */
 textarea,
 .mw-editfont-monospace,
@@ -269,6 +268,58 @@ textarea,
     color: @color-base !important;
     border: 1px solid @border-color-ui-widget !important;
     cursor: pointer;
+}
+
+/* --- Diff View Fixes --- */
+table.diff {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    
+    /* General Text Color */
+    td {
+        color: @color-diff-text;
+    }
+
+    /* Context lines (unchanged) */
+    td.diff-context {
+        background-color: transparent;
+        border-color: @border-color-base;
+        color: @color-gutter-text; /* Slightly dimmer for context */
+    }
+
+    /* Deleted Lines (Left side) */
+    td.diff-deletedline {
+        background-color: @background-color-diff-deleted;
+        border-color: @background-color-diff-deleted;
+        
+        /* Highlight specific text changes inside the line */
+        .diffchange {
+            background-color: @background-color-diff-change-del;
+            color: @color-base;
+            font-weight: bold;
+        }
+    }
+
+    /* Added Lines (Right side) */
+    td.diff-addedline {
+        background-color: @background-color-diff-added;
+        border-color: @background-color-diff-added;
+
+        /* Highlight specific text changes inside the line */
+        .diffchange {
+            background-color: @background-color-diff-change-add;
+            color: @color-base;
+            font-weight: bold;
+        }
+    }
+
+    /* The + / - markers */
+    td.diff-marker {
+        color: @color-gray;
+        font-weight: bold;
+        padding: 0.25em;
+    }
 }
 
 /* --- Code & Pre Blocks --- */
