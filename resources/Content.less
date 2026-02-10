@@ -278,7 +278,7 @@ html.nightingale-dark-mode {
         
         /* General Text Color */
         td {
-            color: var(--diff-text);
+            color: var(--color-diff-text);
         }
 
         /* Context lines (unchanged) */
@@ -290,13 +290,13 @@ html.nightingale-dark-mode {
 
         /* Deleted Lines (Left side) */
         td.diff-deletedline {
-            background-color: var(--diff-bg-deleted);
+            background-color: var(--background-color-diff-deleted);
             /* Force override of MediaWiki default */
-            border-color: var(--diff-bg-deleted);
+            border-color: var(--background-color-diff-deleted);
             
             /* The specific text highlight */
             .diffchange {
-                background-color: var(--diff-change-del);
+                background-color: var(--background-color-diff-change-del);
                 color: @color-base;
                 font-weight: bold;
             }
@@ -304,12 +304,12 @@ html.nightingale-dark-mode {
 
         /* Added Lines (Right side) */
         td.diff-addedline {
-            background-color: var(--diff-bg-added);
-            border-color: var(--diff-bg-added);
+            background-color: var(--background-color-diff-added);
+            border-color: var(--background-color-diff-added);
 
             /* The specific text highlight */
             .diffchange {
-                background-color: var(--diff-change-add);
+                background-color: var(--background-color-diff-change-add);
                 color: @color-base;
                 font-weight: bold;
             }
