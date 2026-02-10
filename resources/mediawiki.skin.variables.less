@@ -127,6 +127,14 @@ html.nightingale-dark-mode {
         --background-color-toolbar: #2d2d2d;
         --border-color-toolbar: #444444;
 
+        /* Diff View Colors (Dark Mode) */
+        /* muted red for deleted lines, muted green for added lines */
+        --background-color-diff-deleted: #372323; 
+        --background-color-diff-added: #233723;
+        --background-color-diff-change-del: #683535; /* Brighter highlight for changed text */
+        --background-color-diff-change-add: #356835;
+        --color-diff-text: #d1d5db;
+
         /* Code Gutter & Highlighting */
         --background-color-gutter: #252525;
         --color-gutter-text: #666666;
@@ -203,6 +211,13 @@ html.nightingale-dark-mode {
 @color-editor-text: var(--color-editor-text);
 @background-color-btn-save: var(--background-color-btn-save);
 @color-btn-text: var(--color-btn-text);
+
+/* Diff Mappings */
+@background-color-diff-deleted: var(--background-color-diff-deleted);
+@background-color-diff-added: var(--background-color-diff-added);
+@background-color-diff-change-del: var(--background-color-diff-change-del);
+@background-color-diff-change-add: var(--background-color-diff-change-add);
+@color-diff-text: var(--color-diff-text);
 
 /* Toolbar & Gutter Mappings */
 @background-color-gutter: var(--background-color-gutter);
