@@ -271,54 +271,55 @@ textarea,
 }
 
 /* --- Diff View Fixes --- */
-table.diff {
-    background-color: transparent;
-    border: none;
-    width: 100%;
-    
-    /* General Text Color */
-    td {
-        color: @color-diff-text;
-    }
-
-    /* Context lines (unchanged) */
-    td.diff-context {
+html.nightingale-dark-mode {
+    table.diff {
         background-color: transparent;
-        border-color: @border-color-base;
-        color: @color-gutter-text; /* Slightly dimmer for context */
-    }
-
-    /* Deleted Lines (Left side) */
-    td.diff-deletedline {
-        background-color: @background-color-diff-deleted;
-        border-color: @background-color-diff-deleted;
+        border: none;
         
-        /* Highlight specific text changes inside the line */
-        .diffchange {
-            background-color: @background-color-diff-change-del;
-            color: @color-base;
+        /* General Text Color */
+        td {
+            color: var(--diff-text);
+        }
+
+        /* Context lines (unchanged) */
+        td.diff-context {
+            background-color: transparent;
+            border-color: @border-color-base;
+            color: @color-gutter-text; 
+        }
+
+        /* Deleted Lines (Left side) */
+        td.diff-deletedline {
+            background-color: var(--diff-bg-deleted);
+            /* Force override of MediaWiki default */
+            border-color: var(--diff-bg-deleted);
+            
+            /* The specific text highlight */
+            .diffchange {
+                background-color: var(--diff-change-del);
+                color: @color-base;
+                font-weight: bold;
+            }
+        }
+
+        /* Added Lines (Right side) */
+        td.diff-addedline {
+            background-color: var(--diff-bg-added);
+            border-color: var(--diff-bg-added);
+
+            /* The specific text highlight */
+            .diffchange {
+                background-color: var(--diff-change-add);
+                color: @color-base;
+                font-weight: bold;
+            }
+        }
+
+        /* The + / - markers */
+        td.diff-marker {
+            color: @color-gray;
             font-weight: bold;
         }
-    }
-
-    /* Added Lines (Right side) */
-    td.diff-addedline {
-        background-color: @background-color-diff-added;
-        border-color: @background-color-diff-added;
-
-        /* Highlight specific text changes inside the line */
-        .diffchange {
-            background-color: @background-color-diff-change-add;
-            color: @color-base;
-            font-weight: bold;
-        }
-    }
-
-    /* The + / - markers */
-    td.diff-marker {
-        color: @color-gray;
-        font-weight: bold;
-        padding: 0.25em;
     }
 }
 
