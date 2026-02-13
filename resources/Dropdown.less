@@ -11,6 +11,7 @@
     }
 
     .mw-portlet-body {
+        /* Default state: Hidden */
         display: none;
         
         /* Dropdown Card Styling */
@@ -18,17 +19,23 @@
         right: 0;
         top: 100%; 
         z-index: 10;
-        background: @background-color-card;
+        background: @background-color-card; /* Used current variable */
         box-shadow: 0 5px 17px 0 @shadow-color-dropdown, 0 0 1px @color-gray;
         
         /* Sizing */
         width: max-content; 
-        min-width: 200px;
+        min-width: 250px;
         max-width: 90vw; 
         
         margin-top: 6px;
-        padding: 10px 0px;
+        padding: 15px; /* Added slightly more padding for the card feel */
         overflow-y: auto;
+        
+        /* FLEXBOX LAYOUT (The Fix) */
+        /* This sets up the side-by-side behavior */
+        flex-direction: row-reverse; /* FIX 1: Swaps Left/Right columns */
+        align-items: flex-start;
+        gap: 20px; /* Space between the two lists */
         
         /* RESET CHILD LISTS */
         ul {
@@ -40,15 +47,37 @@
             margin: 0;
             padding: 0;
             right: auto;
+            
+            /* Ensure lists don't look weirdly compressed */
+            flex: 1; 
         }
     }
 
     /* Toggle Logic */
     input:checked {
         ~ .mw-portlet-body {
-            display: block;
+            /* We switch to FLEX, not block, to enable the columns */
+            display: flex; 
             opacity: 1;
             visibility: visible;
+        }
+    }
+}
+
+/* FIX 2: Mobile / Narrow Screen Collapse */
+/* If the screen is smaller than 720px, revert to a vertical list */
+@media screen and (max-width: 720px) {
+    .mw-portlet-dropdown ~ .mw-portlet {
+        .mw-portlet-body {
+            /* Force vertical stacking */
+            flex-direction: column; 
+            width: auto;
+            min-width: 200px;
+        }
+        
+        /* Revert the checked state to flex-column or block */
+        input:checked ~ .mw-portlet-body {
+            flex-direction: column;
         }
     }
 }
