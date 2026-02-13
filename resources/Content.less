@@ -149,19 +149,7 @@
 #mw-indicator-mw-helplink {
     display: none;
 }
-.catlinks select {
-    font-size: 1rem;
-    padding: 4px;
-    line-height: 1.4;
-    color: @color-base;
-    box-shadow: 4px 3px 7px 3px @shadow-color;
-    border: solid @border-color-base;
-    border-width: 1px 1px 0.2em;
-    background: @background-color-card;
-    padding: 1em 2em 1em;
-}
-
-.catlinks {
+#catlinks {
     box-shadow: 4px 3px 7px 3px var(--catlinks-shadow);
     border: solid var(--catlinks-border);
     border-width: 1px 1px 0.2em;
@@ -172,6 +160,19 @@
     margin-bottom: 1em;
     overflow: visible;
     word-wrap: break-word;
+    border-radius: 10px;
+}
+
+#catlinks select {
+    font-size: 1rem;
+    padding: 4px;
+    line-height: 1.4;
+    color: @color-base;
+    box-shadow: 4px 3px 7px 3px @shadow-color;
+    border: solid @border-color-base;
+    border-width: 1px 1px 0.2em;
+    background: @background-color-card;
+    padding: 1em 2em 1em;
 }
 
 /* 1. Fix "Active Filters" buttons (Tags) */
