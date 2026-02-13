@@ -18,7 +18,7 @@
         /* Container styling */
         background: var(--background-color-card, #ffffff);
         box-shadow: 0 5px 17px 0 var(--shadow-color-dropdown, rgba(0,0,0,0.1)), 0 0 1px var(--color-gray, #ccc);
-        border-radius: 4px; /* Optional: adds polish */
+        border-radius: 4px;
         
         /* Layout Sizing */
         width: max-content;
@@ -39,12 +39,10 @@
 /* 2. The Nightingale Mega Menu Layout */
 .nightingale-mega-menu {
     display: flex;
-    flex-direction: row; /* Aligns the two lists side-by-side */
+    flex-direction: row;
     align-items: flex-start;
     gap: 20px;
-    
-    /* If you prefer the "Tools" on the left and "Primary" on the right, uncomment this: */
-    /* flex-direction: row-reverse; */
+    flex-direction: row-reverse;
 }
 
 /* 3. The Menu Sections (The <ul> elements) */
