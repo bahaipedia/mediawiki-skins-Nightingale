@@ -25,20 +25,25 @@
     }
 }
 
-/* 2. BASE LAYOUT (Geometry Only )
-   This creates the 16x16 space. If no icon is defined, it remains invisible.
+/* 2. BASE LAYOUT (Geometry Only)
+   This creates the 16x16 space. 
 */
 #p-personal li a,
 .nightingale-mobile-dropdown li a,
 .nightingale-sidebar #p-tb li a,
-#p-hybrid li a, {
+#p-hybrid li a {
     &::before {
         content: '';
         display: inline-block;
+        
+        /* SIZE FIXES */
         width: 16px;
         height: 16px;
+        min-width: 16px;
+        flex-shrink: 0;
+        
+        /* ALIGNMENT */
         vertical-align: text-bottom;
-        margin-right: 8px;
     }
 }
 
