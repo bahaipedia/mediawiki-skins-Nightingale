@@ -162,25 +162,16 @@
 }
 
 .catlinks {
-    box-shadow: 4px 3px 7px 3px rgba(0, 0, 0, 0.1);
-    border: solid #eaecf0;
+    box-shadow: 4px 3px 7px 3px var(--catlinks-shadow);
+    border: solid var(--catlinks-border);
     border-width: 1px 1px 0.2em;
-    background: #ffffff;
+    background: var(--catlinks-bg);
+    color: var(--catlinks-text);
     padding: 1em 2em 1em;
     margin-top: 1em;
     margin-bottom: 1em;
     overflow: visible;
     word-wrap: break-word;
-}
-
-html.nightingale-dark-mode {
-    .catlinks {
-        background: var(--background-color-card);
-        border-color: var(--border-color-base);
-        color: var(--color-base);
-        /* darkening the shadow so it remains visible */
-        box-shadow: 4px 3px 7px 3px var(--shadow-color); 
-    }
 }
 
 /* 1. Fix "Active Filters" buttons (Tags) */
