@@ -2,11 +2,10 @@
 
 /* Dropdown.less */
 
-/* 1. Base Dropdown Toggle Logic (The "Checkbox Hack") */
+/* 1. Base Dropdown Toggle Logic */
 .mw-portlet-dropdown ~ .mw-portlet {
     position: relative;
 
-    /* Hide the menu by default */
     .mw-portlet-body {
         display: none;
         position: absolute;
@@ -15,48 +14,45 @@
         z-index: 10;
         margin-top: 6px;
         
-        /* Container styling */
         background: var(--background-color-card, #ffffff);
         box-shadow: 0 5px 17px 0 var(--shadow-color-dropdown, rgba(0,0,0,0.1)), 0 0 1px var(--color-gray, #ccc);
         border-radius: 4px;
         
-        /* Layout Sizing */
         width: max-content;
         min-width: 160px;
         max-width: 90vw;
         padding: 10px;
     }
 
-    /* Show the menu when the checkbox is checked */
     input:checked ~ .mw-portlet-body {
-        display: block; /* We use block here, flex is handled inside */
+        display: block; 
         opacity: 1;
         visibility: visible;
-        animation: fade-in 0.2s ease-out; /* Optional: smooth entry */
+        animation: fade-in 0.2s ease-out; 
     }
 }
 
-/* 2. The Nightingale Mega Menu Layout */
+/* 2. The Mega Menu Layout (Only affects the Mega Menu) */
 .nightingale-mega-menu {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse; /* Put Primary on left, Tools on right visually */
     align-items: flex-start;
     gap: 20px;
-    flex-direction: row-reverse;
 }
 
-/* 3. The Menu Sections (The <ul> elements) */
-.nightingale-menu-section {
-    /* CRITICAL FIX: Resetting browser defaults */
+/* 3. Global List Reset (Applies to Login AND Mega Menu) */
+/* This removes bullets and padding from ANY list inside the dropdown */
+.mw-portlet-body ul {
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    
+}
+
+/* Specific Mega Menu Column Layout */
+.nightingale-menu-section {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Spacing between list items */
-    
-    /* Ensure they don't collapse */
+    gap: 5px; 
     flex: 1;
     min-width: 120px;
 }
@@ -67,39 +63,50 @@
     padding-left: 20px !important;
 }
 
-/* 4. The List Items and Links */
-.nightingale-menu-section .mw-list-item {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.nightingale-menu-section a {
-    display: block;
+/* 4. GLOBAL Link Styling (The Fix) */
+/* Changed selector from '.nightingale-menu-section a' to '.mw-portlet-body a' */
+.mw-portlet-body a {
+    display: flex; /* Use flex to align icons and text nicely */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    
     padding: 8px 12px;
     text-decoration: none;
     color: var(--color-text-main, #333);
     border-radius: 4px;
     transition: background 0.1s ease;
     white-space: nowrap;
+    
+    /* Ensure font consistency */
+    font-size: 14px; 
+    font-weight: normal; 
 }
 
-.nightingale-menu-section a:hover {
+.mw-portlet-body a:hover {
     background-color: var(--background-color-hover, #f5f5f5);
     text-decoration: none;
+}
+
+/* Remove default margins from all list items */
+.mw-portlet-body .mw-list-item {
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 /* 5. Mobile / Responsive Adjustments */
 @media (max-width: 600px) {
     .nightingale-mega-menu {
-        flex-direction: column; /* Stack them vertically on small screens */
+        flex-direction: column; 
     }
     
     .nightingale-section-primary {
         border-right: none;
         border-bottom: 1px solid var(--border-color-subtle, #eee);
         padding-right: 0 !important;
+        padding-left: 0 !important; /* Fix padding for mobile */
         padding-bottom: 15px !important;
         margin-bottom: 15px !important;
+        border-left: none; /* Remove desktop border */
     }
 }
