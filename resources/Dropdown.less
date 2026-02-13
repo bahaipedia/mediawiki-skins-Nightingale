@@ -1,83 +1,107 @@
 @import 'mediawiki.skin.variables.less';
 
-/* Checkbox hack dropdown */
+/* Dropdown.less */
+
+/* 1. Base Dropdown Toggle Logic (The "Checkbox Hack") */
 .mw-portlet-dropdown ~ .mw-portlet {
-    position: relative; 
+    position: relative;
 
-    li {
-        display: block;
-        padding: 0em 0em 0.5em 2.0em;
-        white-space: nowrap;
-    }
-
+    /* Hide the menu by default */
     .mw-portlet-body {
-        /* Default state: Hidden */
         display: none;
-        
-        /* Dropdown Card Styling */
         position: absolute;
         right: 0;
-        top: 100%; 
+        top: 100%;
         z-index: 10;
-        background: @background-color-card; /* Used current variable */
-        box-shadow: 0 5px 17px 0 @shadow-color-dropdown, 0 0 1px @color-gray;
-        
-        /* Sizing */
-        width: max-content; 
-        min-width: 250px;
-        max-width: 90vw; 
-        
         margin-top: 6px;
-        padding: 15px; /* Added slightly more padding for the card feel */
-        overflow-y: auto;
         
-        /* FLEXBOX LAYOUT (The Fix) */
-        /* This sets up the side-by-side behavior */
-        flex-direction: row-reverse; /* FIX 1: Swaps Left/Right columns */
-        align-items: flex-start;
-        gap: 20px; /* Space between the two lists */
+        /* Container styling */
+        background: var(--background-color-card, #ffffff);
+        box-shadow: 0 5px 17px 0 var(--shadow-color-dropdown, rgba(0,0,0,0.1)), 0 0 1px var(--color-gray, #ccc);
+        border-radius: 4px; /* Optional: adds polish */
         
-        /* RESET CHILD LISTS */
-        ul {
-            position: static; 
-            box-shadow: none;
-            background: transparent;
-            width: auto;
-            min-width: auto;
-            margin: 0;
-            padding: 0;
-            right: auto;
-            
-            /* Ensure lists don't look weirdly compressed */
-            flex: 1; 
-        }
+        /* Layout Sizing */
+        width: max-content;
+        min-width: 250px;
+        max-width: 90vw;
+        padding: 15px;
     }
 
-    /* Toggle Logic */
-    input:checked {
-        ~ .mw-portlet-body {
-            /* We switch to FLEX, not block, to enable the columns */
-            display: flex; 
-            opacity: 1;
-            visibility: visible;
-        }
+    /* Show the menu when the checkbox is checked */
+    input:checked ~ .mw-portlet-body {
+        display: block; /* We use block here, flex is handled inside */
+        opacity: 1;
+        visibility: visible;
+        animation: fade-in 0.2s ease-out; /* Optional: smooth entry */
     }
 }
 
-/* FIX 2: Mobile / Narrow Screen Collapse */
-/* If the screen is smaller than 720px, revert to a vertical list */
-@media screen and (max-width: 720px) {
-    .mw-portlet-dropdown ~ .mw-portlet {
-        .mw-portlet-body {
-            /* Force vertical stacking */
-            flex-direction: column; 
-            width: auto;
-            min-width: 200px;
-        }
-        
-        /* Revert the checked state to flex-column or block */
-        input:checked ~ .mw-portlet-body {
-            flex-direction: column;
-        }
+/* 2. The Nightingale Mega Menu Layout */
+.nightingale-mega-menu {
+    display: flex;
+    flex-direction: row; /* Aligns the two lists side-by-side */
+    align-items: flex-start;
+    gap: 20px;
+    
+    /* If you prefer the "Tools" on the left and "Primary" on the right, uncomment this: */
+    /* flex-direction: row-reverse; */
+}
+
+/* 3. The Menu Sections (The <ul> elements) */
+.nightingale-menu-section {
+    /* CRITICAL FIX: Resetting browser defaults */
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Spacing between list items */
+    
+    /* Ensure they don't collapse */
+    flex: 1;
+    min-width: 120px;
+}
+
+/* Optional: Add a separator line between the two lists */
+.nightingale-section-primary {
+    border-right: 1px solid var(--border-color-subtle, #eee);
+    padding-right: 20px !important;
+}
+
+/* 4. The List Items and Links */
+.nightingale-menu-section .mw-list-item {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.nightingale-menu-section a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--color-text-main, #333);
+    border-radius: 4px;
+    transition: background 0.1s ease;
+    white-space: nowrap;
+}
+
+.nightingale-menu-section a:hover {
+    background-color: var(--background-color-hover, #f5f5f5);
+    text-decoration: none;
+}
+
+/* 5. Mobile / Responsive Adjustments */
+@media (max-width: 600px) {
+    .nightingale-mega-menu {
+        flex-direction: column; /* Stack them vertically on small screens */
+    }
+    
+    .nightingale-section-primary {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color-subtle, #eee);
+        padding-right: 0 !important;
+        padding-bottom: 15px !important;
+        margin-bottom: 15px !important;
     }
 }
