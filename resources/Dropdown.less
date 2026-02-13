@@ -2,7 +2,8 @@
 
 /* Dropdown.less */
 
-/* 1. Base Dropdown Toggle Logic */
+/* 1. Base Dropdown Container Logic */
+/* This targets ONLY portlets that are siblings of your special dropdown trigger */
 .mw-portlet-dropdown ~ .mw-portlet {
     position: relative;
 
@@ -24,31 +25,62 @@
         padding: 10px;
     }
 
+    /* Show menu on check */
     input:checked ~ .mw-portlet-body {
         display: block; 
         opacity: 1;
         visibility: visible;
         animation: fade-in 0.2s ease-out; 
     }
+
+    /* --- GLOBAL LIST RESET (Scoped to these dropdowns) --- */
+    .mw-portlet-body ul {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* --- GLOBAL LINK STYLING (Scoped to these dropdowns) --- */
+    /* This applies the nice styling to User Menu AND Mega Menu links */
+    /* But IGNORES the Notification icons because they don't have the .mw-portlet-dropdown sibling */
+    .mw-portlet-body a {
+        display: flex; 
+        align-items: center;
+        gap: 8px; /* Space between icon and text */
+        
+        padding: 8px 12px;
+        text-decoration: none;
+        color: var(--color-text-main, #333);
+        border-radius: 4px;
+        transition: background 0.1s ease;
+        white-space: nowrap;
+        
+        /* Font size removed so it inherits default (larger) size */
+        font-weight: normal; 
+    }
+
+    .mw-portlet-body a:hover {
+        background-color: var(--background-color-hover, #f5f5f5);
+        text-decoration: none;
+    }
+
+    /* Reset Item Margins */
+    .mw-portlet-body .mw-list-item {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
 }
 
-/* 2. The Mega Menu Layout (Only affects the Mega Menu) */
+/* 2. Mega Menu Specific Layout */
 .nightingale-mega-menu {
     display: flex;
-    flex-direction: row-reverse; /* Put Primary on left, Tools on right visually */
+    flex-direction: row-reverse; /* Primary left, Tools right */
     align-items: flex-start;
     gap: 20px;
 }
 
-/* 3. Global List Reset (Applies to Login AND Mega Menu) */
-/* This removes bullets and padding from ANY list inside the dropdown */
-.mw-portlet-body ul {
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Specific Mega Menu Column Layout */
+/* 3. Mega Menu Columns */
 .nightingale-menu-section {
     display: flex;
     flex-direction: column;
@@ -57,44 +89,13 @@
     min-width: 120px;
 }
 
-/* Optional: Add a separator line between the two lists */
+/* Separator Line for Mega Menu */
 .nightingale-section-primary {
     border-left: 1px solid var(--border-color-subtle, #eee);
     padding-left: 20px !important;
 }
 
-/* 4. GLOBAL Link Styling (The Fix) */
-/* Changed selector from '.nightingale-menu-section a' to '.mw-portlet-body a' */
-.mw-portlet-body a {
-    display: flex; /* Use flex to align icons and text nicely */
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    
-    padding: 8px 12px;
-    text-decoration: none;
-    color: var(--color-text-main, #333);
-    border-radius: 4px;
-    transition: background 0.1s ease;
-    white-space: nowrap;
-    
-    /* Ensure font consistency */
-    font-size: 14px; 
-    font-weight: normal; 
-}
-
-.mw-portlet-body a:hover {
-    background-color: var(--background-color-hover, #f5f5f5);
-    text-decoration: none;
-}
-
-/* Remove default margins from all list items */
-.mw-portlet-body .mw-list-item {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-/* 5. Mobile / Responsive Adjustments */
+/* 4. Mobile / Responsive Adjustments */
 @media (max-width: 600px) {
     .nightingale-mega-menu {
         flex-direction: column; 
@@ -104,9 +105,9 @@
         border-right: none;
         border-bottom: 1px solid var(--border-color-subtle, #eee);
         padding-right: 0 !important;
-        padding-left: 0 !important; /* Fix padding for mobile */
+        padding-left: 0 !important;
         padding-bottom: 15px !important;
         margin-bottom: 15px !important;
-        border-left: none; /* Remove desktop border */
+        border-left: none;
     }
 }
