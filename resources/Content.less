@@ -330,6 +330,55 @@ html.nightingale-dark-mode {
     color: @color-base;
     outline: 1px dashed @border-color-ui-widget;
 }
+/* --- CodeEditor (Lua Modules) Fixes --- */
+html.nightingale-dark-mode .ace-tm {
+    /* 1. Main Editor Background & Text */
+    background-color: @background-color-editor !important;
+    color: @color-editor-text !important;
+
+    /* 2. The Gutter (Line Numbers) */
+    .ace_gutter {
+        background-color: @background-color-gutter !important;
+        color: @color-gutter-text !important;
+        border-right: 1px solid @border-color-ui-widget !important;
+    }
+    
+    /* 3. The Active Line Highlight (The row you are currently typing in) */
+    .ace_marker-layer .ace_active-line {
+        background-color: @background-color-ui-subtle !important;
+    }
+
+    /* 4. The Cursor (Must be light to see on dark bg) */
+    .ace_cursor {
+        color: @color-editor-text !important;
+    }
+
+    /* 5. Text Selection Highlight */
+    .ace_marker-layer .ace_selection {
+        background-color: @color-link !important;
+        opacity: 0.25;
+    }
+
+    /* 6. Basic Syntax Highlighting Adjustments for Contrast 
+       (The default ACE colors are often too dark for dark mode) */
+    .ace_storage, 
+    .ace_keyword {
+        color: #cc7832 !important; /* Orange/Gold for keywords like 'function', 'local' */
+    }
+    .ace_string {
+        color: #6a8759 !important; /* Muted Green for strings */
+    }
+    .ace_comment {
+        color: @color-gutter-text !important; /* Grey for comments */
+    }
+    .ace_constant.ace_numeric {
+        color: #6897bb !important; /* Blue for numbers */
+    }
+    /* Force default text to be light if it isn't a special token */
+    .ace_identifier {
+        color: inherit !important;
+    }
+}
 
 /* --- Code & Pre Blocks --- */
 pre, code, .mw-code {
