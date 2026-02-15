@@ -388,6 +388,67 @@ html.nightingale-dark-mode .codeEditor-status {
     border-top: 1px solid @border-color-ui-widget !important;
     color: @color-editor-text !important;
 }
+/* --- Syntax Highlighting (View Mode) Fixes --- */
+/* This targets the static code view on Module: pages */
+html.nightingale-dark-mode .mw-highlight {
+    background-color: @background-color-editor !important;
+    color: @color-editor-text !important;
+    border: 1px solid @border-color-ui-widget !important;
+    padding: 1em; /* Add some breathing room */
+}
+
+html.nightingale-dark-mode .mw-highlight pre {
+    background-color: transparent !important;
+    border: none !important;
+    color: inherit !important;
+    font-family: monospace; /* Ensure it matches the editor font */
+}
+
+/* Map the SyntaxHighlight classes to match your Ace Editor colors */
+/* Keywords (function, local, return, if, then) -> Orange/Gold */
+html.nightingale-dark-mode .mw-highlight .k, 
+html.nightingale-dark-mode .mw-highlight .kd,
+html.nightingale-dark-mode .mw-highlight .kp,
+html.nightingale-dark-mode .mw-highlight .kr,
+html.nightingale-dark-mode .mw-highlight .kt {
+    color: #cc7832 !important;
+    font-weight: bold;
+}
+/* Strings ("text") -> Muted Green */
+html.nightingale-dark-mode .mw-highlight .s,
+html.nightingale-dark-mode .mw-highlight .s1,
+html.nightingale-dark-mode .mw-highlight .s2,
+html.nightingale-dark-mode .mw-highlight .se,
+html.nightingale-dark-mode .mw-highlight .si {
+    color: #6a8759 !important;
+}
+/* Comments (-- text) -> Grey */
+html.nightingale-dark-mode .mw-highlight .c,
+html.nightingale-dark-mode .mw-highlight .c1,
+html.nightingale-dark-mode .mw-highlight .cm,
+html.nightingale-dark-mode .mw-highlight .cs {
+    color: @color-gutter-text !important;
+    font-style: italic;
+}
+/* Numbers (123) -> Blue */
+html.nightingale-dark-mode .mw-highlight .m,
+html.nightingale-dark-mode .mw-highlight .mi,
+html.nightingale-dark-mode .mw-highlight .mf {
+    color: #6897bb !important;
+}
+/* Built-in Names/Variables -> Light Text */
+html.nightingale-dark-mode .mw-highlight .n,
+html.nightingale-dark-mode .mw-highlight .na,
+html.nightingale-dark-mode .mw-highlight .nb,
+html.nightingale-dark-mode .mw-highlight .nc,
+html.nightingale-dark-mode .mw-highlight .nv {
+    color: @color-editor-text !important; 
+}
+/* Operators (=, +, ..) -> Light Text */
+html.nightingale-dark-mode .mw-highlight .o,
+html.nightingale-dark-mode .mw-highlight .ow {
+    color: @color-editor-text !important;
+}
 
 /* --- Code & Pre Blocks --- */
 pre, code, .mw-code {
