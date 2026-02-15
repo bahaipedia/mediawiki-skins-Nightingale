@@ -336,6 +336,33 @@ html.nightingale-dark-mode {
 .ace_print-margin {
     display: none !important;
 }
+/* --- Wikitable Dark Mode Fixes --- */
+html.nightingale-dark-mode .wikitable {
+    background-color: @background-color-card !important;
+    color: @color-base !important;
+    border-color: @border-color-base !important;
+
+    /* Table Headers (th) - usually slightly darker in light mode, 
+       so we make them slightly lighter/distinct in dark mode */
+    > tr > th,
+    > * > tr > th {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-base !important;
+        border-color: @border-color-base !important;
+    }
+
+    /* Table Cells (td) */
+    > tr > td,
+    > * > tr > td {
+        border-color: @border-color-base !important;
+        color: @color-base !important;
+    }
+    
+    /* Fix captions if they exist */
+    caption {
+        color: @color-base !important;
+    }
+}
 html.nightingale-dark-mode .ace-tm {
     /* 1. Main Editor Background & Text */
     background-color: @background-color-editor !important;
