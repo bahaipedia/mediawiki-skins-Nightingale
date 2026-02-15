@@ -424,7 +424,6 @@ html.nightingale-dark-mode .mw-highlight {
     border: 1px solid @border-color-ui-widget !important;
     padding: 1em; /* Add some breathing room */
 }
-
 html.nightingale-dark-mode .mw-highlight pre {
     background-color: transparent !important;
     border: none !important;
@@ -485,6 +484,15 @@ html.nightingale-dark-mode .mw-highlight .ow {
 html.nightingale-dark-mode .mw-content-ltr.mw-highlight-lines pre,
 html.nightingale-dark-mode .mw-content-ltr.content .mw-highlight-lines pre {
     box-shadow: unset !important;
+}
+/* Dark Mode: Dim scanned page images */
+html.nightingale-dark-mode .otright img {
+    filter: brightness(0.8) contrast(1.1);
+    transition: filter 0.3s ease;
+}
+/* Optional: Brighten it back up when the user hovers over it */
+html.nightingale-dark-mode .otright img:hover {
+    filter: brightness(1) contrast(1);
 }
 
 /* --- Code & Pre Blocks --- */
