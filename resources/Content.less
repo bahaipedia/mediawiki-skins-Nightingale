@@ -1,5 +1,9 @@
 @import 'mediawiki.skin.variables.less';
 
+/* ==========================================================================
+   1. MAIN LAYOUT & STRUCTURE (LIGHT MODE / DEFAULT)
+   ========================================================================== */
+
 .content {
     &__header {
         position: relative;
@@ -45,6 +49,7 @@
     }
 }
 
+/* TOC: Global Selector (outside .content for specificity) */
 #toc,
 .toc,
 .toccolours,
@@ -87,8 +92,7 @@ div.thumbinner {
     display: none;
 }
 
-/* Settings that control how page numbers and images   */
-/* are displayed outside the the main content area     */
+/* --- Page Numbers & Sticky Tracker --- */
 .opage {
     float: left;
     width: 80px; 
@@ -148,10 +152,11 @@ div.thumbinner {
     border: 2px solid rgba(0, 128, 0, 0.2);
     transition: top 0.1s linear, left 0.1s steps(1); 
 }
-/* Hide "Help" link on certain pages */
 #mw-indicator-mw-helplink {
     display: none;
 }
+
+/* --- Category Links --- */
 #catlinks {
     box-shadow: 4px 3px 7px 3px var(--catlinks-shadow);
     border: solid var(--catlinks-border);
@@ -178,7 +183,11 @@ div.thumbinner {
     padding: 1em 2em 1em;
 }
 
-/* 1. Fix "Active Filters" buttons (Tags) */
+/* ==========================================================================
+   2. COMPONENT OVERRIDES (UI, EDITOR, OOUI)
+   ========================================================================== */
+
+/* Fix "Active Filters" buttons (Tags) */
 .oo-ui-tagItemWidget,
 .mw-rcfilters-ui-filterTagItemWidget {
     background-color: @background-color-ui-widget !important;
@@ -186,28 +195,24 @@ div.thumbinner {
     color: @color-base; 
 }
 
-/* 2. Fix the Multiselect Handle (The gray wrapper) */
-/* User requested #f9f9f9 -> We use @background-color-ui-subtle */
+/* Fix the Multiselect Handle */
 .oo-ui-tagMultiselectWidget-handle {
     background-color: @background-color-ui-subtle !important;
     border-color: @border-color-ui-widget !important;
 }
 
-/* 3. Fix the Input View (The white typing area) */
-/* User requested #ffffff -> We use @background-color-ui-widget */
-/* Added .mw-rcfilters-ui-cell to increase specificity so it overrides base */
+/* Fix the Input View */
 .mw-rcfilters-ui-cell.mw-rcfilters-ui-filterTagMultiselectWidget-views-input,
 .mw-rcfilters-ui-filterTagMultiselectWidget-views-select {
     background-color: @background-color-ui-widget !important;
-    /* Removed border rule here to avoid double borders inside the input area */
 }
 
-/* 4. Ensure nested labels inherit text color (for Dark Mode readability) */
+/* Ensure nested labels inherit text color */
 .oo-ui-labelElement-label {
     color: inherit;
 }
 
-/* 5. Fix OOUI Text Inputs (Search bars, etc) */
+/* Fix OOUI Text Inputs */
 .oo-ui-textInputWidget .oo-ui-inputWidget-input {
     background-color: @background-color-input !important; 
     color: @color-input-text !important;
@@ -216,25 +221,17 @@ div.thumbinner {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 6. Fix Buttons and Legend (Refined) */
-/* A. Fix Buttons: Only apply background to FRAMED buttons. 
-   This ensures icon-only buttons (frameless) remain transparent 
-   and don't look like floating white boxes. */
+/* Fix Buttons and Legend */
 .oo-ui-buttonElement-framed > .oo-ui-buttonElement-button {
     background-color: @background-color-ui-widget !important;
     color: @color-base !important;
 }
-
-/* B. Fix Legend: Use @background-color-base instead of widget/white.
-   This ensures the text background matches the container's gray background 
-   so it doesn't look like a floating sticker. */
 .mw-changeslist-legend {
     background-color: @background-color-base !important;
     color: @color-base !important;
 }
 
-/* --- Editor Interface Fixes --- */
-/* 1. Main Edit Box */
+/* Main Edit Box */
 textarea,
 .mw-editfont-monospace,
 .ext-WikiEditor-realtimepreview-textbox {
@@ -243,30 +240,27 @@ textarea,
     border-color: @border-color-ui-widget !important;
 }
 
-/* 2. Edit Options Bar (The area surrounding Save/Preview) */
+/* Edit Options Bar */
 .editOptions {
     background-color: @background-color-editor-bar !important;
     color: @color-base !important;
     border-color: @border-color-ui-widget !important;
 }
 
-/* 3. Special Character Buttons (under the edit box) */
+/* Special Character Buttons */
 .mw-edittools-section input[type="button"] {
     background-color: @background-color-ui-subtle !important;
     color: @color-base !important;
     border: 1px solid @border-color-ui-widget !important;
 }
 
-/* 4. Action Buttons */
-/* Primary Save Button */
+/* Save/Preview Buttons */
 #wpSave {
     background-color: @background-color-btn-save !important;
     color: @color-btn-text !important;
     border: 1px solid @border-color-ui-widget !important;
     cursor: pointer;
 }
-
-/* Preview & Diff Buttons */
 #wpPreview,
 #wpDiff {
     background-color: @background-color-ui-subtle !important;
@@ -275,227 +269,7 @@ textarea,
     cursor: pointer;
 }
 
-/* --- Diff View Fixes --- */
-html.nightingale-dark-mode {
-    table.diff {
-        background-color: transparent;
-        border: none;
-        
-        /* General Text Color */
-        td {
-            color: var(--color-diff-text);
-        }
-
-        /* Context lines (unchanged) */
-        td.diff-context {
-            background-color: transparent;
-            border-color: @border-color-base;
-            color: @color-gutter-text; 
-        }
-
-        /* Deleted Lines (Left side) */
-        td.diff-deletedline {
-            background-color: var(--background-color-diff-deleted);
-            /* Force override of MediaWiki default */
-            border-color: var(--background-color-diff-deleted);
-            
-            /* The specific text highlight */
-            .diffchange {
-                background-color: var(--background-color-diff-change-del);
-                color: @color-base;
-                font-weight: bold;
-            }
-        }
-
-        /* Added Lines (Right side) */
-        td.diff-addedline {
-            background-color: var(--background-color-diff-added);
-            border-color: var(--background-color-diff-added);
-
-            /* The specific text highlight */
-            .diffchange {
-                background-color: var(--background-color-diff-change-add);
-                color: @color-base;
-                font-weight: bold;
-            }
-        }
-
-        /* The + / - markers */
-        td.diff-marker {
-            color: @color-gray;
-            font-weight: bold;
-        }
-    }
-}
-#pagehistory li.selected {
-    background-color: @background-color-ui-subtle;
-    color: @color-base;
-    outline: 1px dashed @border-color-ui-widget;
-}
-/* --- CodeEditor (Lua Modules) Fixes --- */
-.ace_print-margin {
-    display: none !important;
-}
-/* --- Wikitable Dark Mode Fixes --- */
-html.nightingale-dark-mode .wikitable {
-    background-color: @background-color-card !important;
-    color: @color-base !important;
-    border-color: @border-color-base !important;
-
-    /* Table Headers (th) - usually slightly darker in light mode, 
-       so we make them slightly lighter/distinct in dark mode */
-    > tr > th,
-    > * > tr > th {
-        background-color: @background-color-ui-subtle !important;
-        color: @color-base !important;
-        border-color: @border-color-base !important;
-    }
-
-    /* Table Cells (td) */
-    > tr > td,
-    > * > tr > td {
-        border-color: @border-color-base !important;
-        color: @color-base !important;
-    }
-    
-    /* Fix captions if they exist */
-    caption {
-        color: @color-base !important;
-    }
-}
-html.nightingale-dark-mode .ace-tm {
-    /* 1. Main Editor Background & Text */
-    background-color: @background-color-editor !important;
-    color: @color-editor-text !important;
-
-    /* 2. The Gutter (Line Numbers) */
-    .ace_gutter {
-        background-color: @background-color-gutter !important;
-        color: @color-gutter-text !important;
-        border-right: 1px solid @border-color-ui-widget !important;
-    }
-    
-    /* 3. The Active Line Highlight (The row you are currently typing in) */
-    .ace_marker-layer .ace_active-line {
-        background-color: @background-color-ui-subtle !important;
-    }
-
-    /* 4. The Cursor (Must be light to see on dark bg) */
-    .ace_cursor {
-        color: @color-editor-text !important;
-    }
-
-    /* 5. Text Selection Highlight */
-    .ace_marker-layer .ace_selection {
-        background-color: @color-link !important;
-        opacity: 0.25;
-    }
-
-    /* 6. Basic Syntax Highlighting Adjustments for Contrast 
-       (The default ACE colors are often too dark for dark mode) */
-    .ace_storage, 
-    .ace_keyword {
-        color: #cc7832 !important; /* Orange/Gold for keywords like 'function', 'local' */
-    }
-    .ace_string {
-        color: #6a8759 !important; /* Muted Green for strings */
-    }
-    .ace_comment {
-        color: @color-gutter-text !important; /* Grey for comments */
-    }
-    .ace_constant.ace_numeric {
-        color: #6897bb !important; /* Blue for numbers */
-    }
-    /* Force default text to be light if it isn't a special token */
-    .ace_identifier {
-        color: inherit !important;
-    }
-}
-html.nightingale-dark-mode .codeEditor-status {
-    background-color: @background-color-editor-bar !important;
-    border-top: 1px solid @border-color-ui-widget !important;
-    color: @color-editor-text !important;
-}
-/* --- Syntax Highlighting (View Mode) Fixes --- */
-/* This targets the static code view on Module: pages */
-html.nightingale-dark-mode .mw-highlight {
-    background-color: @background-color-editor !important;
-    color: @color-editor-text !important;
-    border: 1px solid @border-color-ui-widget !important;
-    padding: 1em; /* Add some breathing room */
-}
-html.nightingale-dark-mode .mw-highlight pre {
-    background-color: transparent !important;
-    border: none !important;
-    color: inherit !important;
-    font-family: monospace; /* Ensure it matches the editor font */
-}
-
-/* Map the SyntaxHighlight classes to match your Ace Editor colors */
-/* Keywords (function, local, return, if, then) -> Orange/Gold */
-html.nightingale-dark-mode .mw-highlight .k, 
-html.nightingale-dark-mode .mw-highlight .kd,
-html.nightingale-dark-mode .mw-highlight .kp,
-html.nightingale-dark-mode .mw-highlight .kr,
-html.nightingale-dark-mode .mw-highlight .kt {
-    color: #cc7832 !important;
-    font-weight: bold;
-}
-/* Strings ("text") -> Muted Green */
-html.nightingale-dark-mode .mw-highlight .s,
-html.nightingale-dark-mode .mw-highlight .s1,
-html.nightingale-dark-mode .mw-highlight .s2,
-html.nightingale-dark-mode .mw-highlight .se,
-html.nightingale-dark-mode .mw-highlight .si {
-    color: #6a8759 !important;
-}
-/* Comments (-- text) -> Grey */
-html.nightingale-dark-mode .mw-highlight .c,
-html.nightingale-dark-mode .mw-highlight .c1,
-html.nightingale-dark-mode .mw-highlight .cm,
-html.nightingale-dark-mode .mw-highlight .cs {
-    color: @color-gutter-text !important;
-    font-style: italic;
-}
-/* Numbers (123) -> Blue */
-html.nightingale-dark-mode .mw-highlight .m,
-html.nightingale-dark-mode .mw-highlight .mi,
-html.nightingale-dark-mode .mw-highlight .mf {
-    color: #6897bb !important;
-}
-/* Built-in Names/Variables -> Light Text */
-html.nightingale-dark-mode .mw-highlight .n,
-html.nightingale-dark-mode .mw-highlight .na,
-html.nightingale-dark-mode .mw-highlight .nb,
-html.nightingale-dark-mode .mw-highlight .nv {
-    color: @color-editor-text !important; 
-}
-html.nightingale-dark-mode .mw-highlight .nc {
-    color: #4ec9b0 !important;
-}
-html.nightingale-dark-mode .mw-highlight .nf {
-    color: #dcdcaa !important;
-}
-/* Operators (=, +, ..) -> Light Text */
-html.nightingale-dark-mode .mw-highlight .o,
-html.nightingale-dark-mode .mw-highlight .ow {
-    color: @color-editor-text !important;
-}
-html.nightingale-dark-mode .mw-content-ltr.mw-highlight-lines pre,
-html.nightingale-dark-mode .mw-content-ltr.content .mw-highlight-lines pre {
-    box-shadow: unset !important;
-}
-/* Dark Mode: Dim scanned page images */
-html.nightingale-dark-mode .otright img {
-    filter: brightness(0.8) contrast(1.1);
-    transition: filter 0.3s ease;
-}
-/* Optional: Brighten it back up when the user hovers over it */
-html.nightingale-dark-mode .otright img:hover {
-    filter: brightness(1) contrast(1);
-}
-
-/* --- Code & Pre Blocks --- */
+/* Code & Pre Blocks (Generic) */
 pre, code, .mw-code {
     background-color: @background-color-code !important;
     color: @color-code-text !important;
@@ -513,33 +287,45 @@ pre, code, .mw-code {
 .hl-linenos a {
     color: @color-gutter-text !important;
 }
-/* --- Line Highlighting (.hll) --- */
-/* This handles the "Click to highlight" line */
+/* Line Highlighting */
 .mw-highlight .hll,
 .hll {
     background-color: @background-color-highlight !important;
-    display: block; /* Ensures the highlight stretches full width */
+    display: block; 
 }
 
-/* --- WikiEditor Toolbar (The buttons above the edit box) --- */
+/* WikiEditor Toolbar */
 .wikiEditor-ui-toolbar {
     background-color: @background-color-toolbar !important;
     border-bottom: 1px solid @border-color-toolbar !important;
-    /* Remove the light mode shadow if you want a flatter look, or keep it */
     box-shadow: none !important; 
 }
-
-/* Fix the group borders inside the toolbar */
 .wikiEditor-ui-toolbar .group {
     border-right: 1px solid @border-color-toolbar !important;
 }
 
-/* --- Codex Messages (Warnings) --- */
+/* Codex Messages (Warnings) */
 .cdx-message--warning {
     background-color: @background-color-warning-subtle !important;
     border-color: @border-color-warning !important;
-    color: @color-base !important; /* Ensures text is readable on the dark gold */
+    color: @color-base !important;
 }
+
+/* Hide Print Margin in CodeEditor (Global) */
+.ace_print-margin {
+    display: none !important;
+}
+
+/* Selected History Items */
+#pagehistory li.selected {
+    background-color: @background-color-ui-subtle;
+    color: @color-base;
+    outline: 1px dashed @border-color-ui-widget;
+}
+
+/* ==========================================================================
+   3. MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
 
 @media (max-width: @max-width-breakpoint-tablet) {
     .mw-changeslist-legend {
@@ -571,7 +357,7 @@ pre, code, .mw-code {
         padding: 5px !important;
     }
     .mw-header .nightingale-header-tools {
-        margin-top: 5px; /* Was 10px */
+        margin-top: 5px; 
     }
     .nightingale-edit-button,
     .nightingale-talk-button,
@@ -589,5 +375,168 @@ pre, code, .mw-code {
 @media (max-width: 500px) {
     .p-notifications {
         display: none;
+    }
+}
+
+/* ==========================================================================
+   4. DARK MODE CONSOLIDATED BLOCK
+   ========================================================================== */
+
+html.nightingale-dark-mode {
+    /* --- A. Diff View --- */
+    table.diff {
+        background-color: transparent;
+        border: none;
+        
+        td { color: var(--color-diff-text); }
+        td.diff-context {
+            background-color: transparent;
+            border-color: @border-color-base;
+            color: @color-gutter-text; 
+        }
+        td.diff-deletedline {
+            background-color: var(--background-color-diff-deleted);
+            border-color: var(--background-color-diff-deleted);
+            .diffchange {
+                background-color: var(--background-color-diff-change-del);
+                color: @color-base;
+                font-weight: bold;
+            }
+        }
+        td.diff-addedline {
+            background-color: var(--background-color-diff-added);
+            border-color: var(--background-color-diff-added);
+            .diffchange {
+                background-color: var(--background-color-diff-change-add);
+                color: @color-base;
+                font-weight: bold;
+            }
+        }
+        td.diff-marker {
+            color: @color-gray;
+            font-weight: bold;
+        }
+    }
+
+    /* --- B. Wikitables --- */
+    .wikitable {
+        background-color: @background-color-card !important;
+        color: @color-base !important;
+        border-color: @border-color-base !important;
+
+        > tr > th,
+        > * > tr > th {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        > tr > td,
+        > * > tr > td {
+            border-color: @border-color-base !important;
+            color: @color-base !important;
+        }
+        
+        caption { color: @color-base !important; }
+    }
+
+    /* --- C. CodeEditor (Lua Ace Edit Mode) --- */
+    .ace-tm {
+        background-color: @background-color-editor !important;
+        color: @color-editor-text !important;
+
+        .ace_gutter {
+            background-color: @background-color-gutter !important;
+            color: @color-gutter-text !important;
+            border-right: 1px solid @border-color-ui-widget !important;
+        }
+        
+        .ace_marker-layer .ace_active-line {
+            background-color: @background-color-ui-subtle !important;
+        }
+
+        .ace_cursor { color: @color-editor-text !important; }
+
+        .ace_marker-layer .ace_selection {
+            background-color: @color-link !important;
+            opacity: 0.25;
+        }
+
+        /* Syntax Highlighting (Edit Mode) */
+        .ace_storage, 
+        .ace_keyword { color: #cc7832 !important; } /* Gold */
+        .ace_string  { color: #6a8759 !important; } /* Green */
+        .ace_comment { color: @color-gutter-text !important; }
+        .ace_constant.ace_numeric { color: #6897bb !important; } /* Blue */
+        .ace_identifier { color: inherit !important; }
+    }
+
+    .codeEditor-status {
+        background-color: @background-color-editor-bar !important;
+        border-top: 1px solid @border-color-ui-widget !important;
+        color: @color-editor-text !important;
+    }
+
+    /* --- D. Syntax Highlighting (View Mode / .mw-highlight) --- */
+    .mw-highlight {
+        background-color: @background-color-editor !important;
+        color: @color-editor-text !important;
+        border: 1px solid @border-color-ui-widget !important;
+        padding: 1em;
+    }
+
+    .mw-highlight pre {
+        background-color: transparent !important;
+        border: none !important;
+        color: inherit !important;
+        font-family: monospace;
+    }
+
+    /* Syntax Highlighting Mapping */
+    .mw-highlight .k, 
+    .mw-highlight .kd,
+    .mw-highlight .kp,
+    .mw-highlight .kr,
+    .mw-highlight .kt { color: #cc7832 !important; font-weight: bold; }
+
+    .mw-highlight .s,
+    .mw-highlight .s1,
+    .mw-highlight .s2,
+    .mw-highlight .se,
+    .mw-highlight .si { color: #6a8759 !important; }
+
+    .mw-highlight .c,
+    .mw-highlight .c1,
+    .mw-highlight .cm,
+    .mw-highlight .cs { color: @color-gutter-text !important; font-style: italic; }
+
+    .mw-highlight .m,
+    .mw-highlight .mi,
+    .mw-highlight .mf { color: #6897bb !important; }
+
+    .mw-highlight .n,
+    .mw-highlight .na,
+    .mw-highlight .nb,
+    .mw-highlight .nv { color: @color-editor-text !important; }
+    
+    .mw-highlight .nc { color: #4ec9b0 !important; } /* Teal for Class Names */
+    .mw-highlight .nf { color: #dcdcaa !important; } /* Yellow for Functions */
+
+    .mw-highlight .o,
+    .mw-highlight .ow { color: @color-editor-text !important; }
+
+    /* Box-shadow gutter in view mode */
+    .mw-content-ltr.mw-highlight-lines pre,
+    .mw-content-ltr.content .mw-highlight-lines pre {
+        box-shadow: inset 2.75em 0 0 @background-color-gutter !important;
+    }
+    
+    /* --- E. Image Dimming (Scanned Pages) --- */
+    .otright img {
+        filter: brightness(0.8) contrast(1.1);
+        transition: filter 0.3s ease;
+    }
+    .otright img:hover {
+        filter: brightness(1) contrast(1);
     }
 }
