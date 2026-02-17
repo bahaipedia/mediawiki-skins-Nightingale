@@ -2,7 +2,7 @@
 
 /* DESKTOP HEADER LAYOUT */
 .mw-header {
-    background-color: @background-color-header; /* Var applied */
+    background-color: @background-color-header;
     width: 100%;
     padding: 0 20px;
     margin-bottom: 15px;
@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     min-height: 3.125em;
-    box-shadow: 0 4px 6px -2px @shadow-color; /* Var applied */
+    box-shadow: 0 4px 6px -2px @shadow-color;
 
     .nightingale-text-menus {
         order: 1; 
@@ -18,6 +18,11 @@
         gap: 15px;
         margin-left: 15px;
         margin-right: 15px;
+    }
+
+    #p-sitename a {
+        color: @color-header-text;
+        text-decoration: none;
     }
 
     #p-search {
@@ -102,7 +107,7 @@
     color: transparent;
     position: relative;
     vertical-align: middle;     
-    background-color: @color-icon-base; /* Var applied */
+    background-color: @color-icon-base;
     margin: 0px 4px;
     cursor: pointer;
 
@@ -115,7 +120,7 @@
     mask-size: contain;
 
     &:hover {
-        background-color: @color-icon-base-hover; /* Var applied */
+        background-color: @color-icon-base-hover;
     }
 }
 
@@ -135,7 +140,7 @@
     height: auto;
     padding: 0;
     background: transparent;
-    color: @color-header-text; /* Var applied */
+    color: @color-header-text;
     font-size: 16px;
     text-indent: 0;
     -webkit-mask-image: none;
@@ -166,9 +171,9 @@
         left: 0;
         top: 100%;
         z-index: 100;
-        background: @background-color-dropdown; /* Var applied */
-        border: 1px solid @border-color-dropdown; /* Var applied */
-        box-shadow: 0 2px 5px @shadow-color-dropdown; /* Var applied */
+        background: @background-color-dropdown;
+        border: 1px solid @border-color-dropdown;
+        box-shadow: 0 2px 5px @shadow-color-dropdown;
         min-width: 230px;
         padding: 5px 0;
         margin-top: 5px;
@@ -193,11 +198,11 @@
         a {
             display: block;
             padding: 6px 15px;
-            color: @color-dropdown-text; /* Var applied */
+            color: @color-dropdown-text;
             text-decoration: none;
 
             &:hover {
-                background-color: @background-color-dropdown-hover; /* Var applied */
+                background-color: @background-color-dropdown-hover;
                 text-decoration: none;
             }
         }
