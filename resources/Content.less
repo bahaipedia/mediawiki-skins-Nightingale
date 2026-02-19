@@ -576,6 +576,14 @@ html.nightingale-dark-mode {
         background-color: @background-color-editor-bar !important;
         color: @color-base !important;
     }
+
+   /* Image Thumbnails and Frames */
+    figure[typeof~='mw:File/Thumb'], 
+    figure[typeof~='mw:File/Frame'] {
+        border-color: @border-color-base !important;
+        background-color: @background-color-thumb !important;
+        color: @color-thumb !important;
+    }
     
     /* --- E. Image Dimming (Scanned Pages) --- */
     .otright img {
