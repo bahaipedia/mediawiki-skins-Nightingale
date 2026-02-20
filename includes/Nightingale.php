@@ -14,22 +14,32 @@ class SkinNightingale extends SkinMustache {
         // ---------------------------------------------------------
         // PART 0: INJECT DARK MODE SCRIPT
         // ---------------------------------------------------------
-        // Checks localStorage immediately to prevent "flash of white" and handles the toggle
+        // Checks localStorage first, then system preference, preventing "flash of white"
         $script = <<<JS
         <script>
         (function() {
-            // Apply saved preference immediately
-            var isDark = localStorage.getItem('nightingale-dark-mode') === 'true';
+            var html = document.documentElement;
+            var savedTheme = localStorage.getItem('nightingale-dark-mode');
+            var isDark = false;
+
+            if (savedTheme !== null) {
+                // User explicitly set a preference previously
+                isDark = savedTheme === 'true';
+            } else {
+                // No saved preference, use system default
+                isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
             if (isDark) {
-                document.documentElement.classList.add('nightingale-dark-mode');
+                html.classList.add('nightingale-dark-mode');
             }
             
             // Define the toggle function globally
             window.toggleNightingaleDarkMode = function(e) {
                 e.preventDefault();
-                var html = document.documentElement;
-                var isDark = html.classList.toggle('nightingale-dark-mode');
-                localStorage.setItem('nightingale-dark-mode', isDark);
+                var currentlyDark = html.classList.toggle('nightingale-dark-mode');
+                // Save the new explicit choice, overriding system default
+                localStorage.setItem('nightingale-dark-mode', currentlyDark);
             };
         })();
         </script>
