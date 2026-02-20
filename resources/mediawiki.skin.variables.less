@@ -97,108 +97,104 @@
 
 /* 2. Dark Mode Overrides */
 html.nightingale-dark-mode {
-/* @media (prefers-color-scheme: dark) { 
-    :root { */
-        /* Base Colors */
-        --background-color-warning: #2a2a2a;
-        --background-color-base: #101010;
-        --background-color-article: #1c1c1c;
-        --background-color-thumb: #252525;
-        --background-color-card: #1c1c1c;
-        --border-color-subtle: #4a4a4a;
-        --background-color-hover: #363636;
-        --background-color-interactive: #363636;
-        --background-color-interactive-selected: #2a4b8d;
-        --border-color-base: #4a4a4a;
+    /* Base Colors */
+    --background-color-warning: #2a2a2a;
+    --background-color-base: #101010;
+    --background-color-article: #1c1c1c;
+    --background-color-thumb: #252525;
+    --background-color-card: #1c1c1c;
+    --border-color-subtle: #4a4a4a;
+    --background-color-hover: #363636;
+    --background-color-interactive: #363636;
+    --background-color-interactive-selected: #2a4b8d;
+    --border-color-base: #4a4a4a;
 
-        /* Text Colors */
-        --color-text-main: #e6e6e6;
-        --color-thumb: #dcdcdc;
-        --color-base: #bdc1c6;
-        --color-gray: #b08fc2;
-        --color-gray-2: #555555;
+    /* Text Colors */
+    --color-text-main: #e6e6e6;
+    --color-thumb: #dcdcdc;
+    --color-base: #bdc1c6;
+    --color-gray: #b08fc2;
+    --color-gray-2: #555555;
 
-        /* Links */
-        --color-link: #8ab4f8;
-        --color-link-active: #8ab4f8;
-        --color-link-visited: #c58af9;
-        --color-link-new: #ff6e6e;
-        
-        /* Shadows */
-        --shadow-color: rgba(0, 0, 0, 0.5);
-        --shadow-color-dropdown: rgba(0, 0, 0, 0.8);
+    /* Links */
+    --color-link: #8ab4f8;
+    --color-link-active: #8ab4f8;
+    --color-link-visited: #c58af9;
+    --color-link-new: #ff6e6e;
+    
+    /* Shadows */
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-color-dropdown: rgba(0, 0, 0, 0.8);
 
-        /* Header & UI Elements */
-        --background-color-header: #1c1c1c;
-        --color-header-text: #8ab4f8;
-        --color-icon-base: #4493f8;
-        --color-icon-base-hover: #d2e3fc;
+    /* Header & UI Elements */
+    --background-color-header: #1c1c1c;
+    --color-header-text: #8ab4f8;
+    --color-icon-base: #4493f8;
+    --color-icon-base-hover: #d2e3fc;
 
-        /* Inputs */
-        --background-color-input: #252525;
-        --color-input-text: #d1d5db;
-        --border-color-input: #555555;
-        --background-color-progressive-subtle: #042347;
+    /* Inputs */
+    --background-color-input: #252525;
+    --color-input-text: #d1d5db;
+    --border-color-input: #555555;
+    --background-color-progressive-subtle: #042347;
 
-        /* Editor & Code Blocks (Dark Mode) */
-        --background-color-code: #121212;
-        --border-color-code: #333333;
-        --color-code-text: #d4d4d4;
-        --background-color-editor: #1e1e1e;
-        --background-color-editor-bar: #2d2d2d;
-        --color-editor-text: #E0E0E0;
-        --background-color-toolbar: #2d2d2d;
-        --border-color-toolbar: #444444;
+    /* Editor & Code Blocks (Dark Mode) */
+    --background-color-code: #121212;
+    --border-color-code: #333333;
+    --color-code-text: #d4d4d4;
+    --background-color-editor: #1e1e1e;
+    --background-color-editor-bar: #2d2d2d;
+    --color-editor-text: #E0E0E0;
+    --background-color-toolbar: #2d2d2d;
+    --border-color-toolbar: #444444;
 
-        /* Diff View Colors (Dark Mode) */
-        /* muted red for deleted lines, muted green for added lines */
-        --background-color-diff-deleted: #372323; 
-        --background-color-diff-added: #233723;
-        --background-color-diff-change-del: #683535;
-        --background-color-diff-change-add: #356835;
-        --color-diff-text: #d1d5db;
+    /* Diff View Colors (Dark Mode) */
+    --background-color-diff-deleted: #372323; 
+    --background-color-diff-added: #233723;
+    --background-color-diff-change-del: #683535;
+    --background-color-diff-change-add: #356835;
+    --color-diff-text: #d1d5db;
 
-        /* Code Gutter & Highlighting */
-        --background-color-gutter: #252525;
-        --color-gutter-text: #666666;
-        --background-color-highlight: #4d4512;
+    /* Code Gutter & Highlighting */
+    --background-color-gutter: #252525;
+    --color-gutter-text: #666666;
+    --background-color-highlight: #4d4512;
 
-        /* Codex */
-        --background-color-warning-subtle: #3b2d10;
-        --border-color-warning: #8a6d3b;
-        --background-color-interactive-subtle: var(--background-color-ui-subtle);
-        --background-color-interactive-subtle--hover: #2a2a2a;
-        --background-color-interactive-subtle--active: #363636;
-        --border-color-interactive: var(--border-color-ui-widget);
-        --border-color-interactive--hover: #6a6a6a;
+    /* Codex */
+    --background-color-warning-subtle: #3b2d10;
+    --border-color-warning: #8a6d3b;
+    --background-color-interactive-subtle: var(--background-color-ui-subtle);
+    --background-color-interactive-subtle--hover: #2a2a2a;
+    --background-color-interactive-subtle--active: #363636;
+    --border-color-interactive: var(--border-color-ui-widget);
+    --border-color-interactive--hover: #6a6a6a;
 
-        /* Save Buttons */
-        --background-color-btn-save: #3b5998;
-        --color-btn-text: #ffffff;
+    /* Save Buttons */
+    --background-color-btn-save: #3b5998;
+    --color-btn-text: #ffffff;
 
-        /* UI Widgets Dark Mode */
-        --background-color-ui-widget: #2a2a2a; 
-        --background-color-ui-subtle: #222222; 
-        --border-color-ui-widget: #555555;
+    /* UI Widgets Dark Mode */
+    --background-color-ui-widget: #2a2a2a; 
+    --background-color-ui-subtle: #222222; 
+    --border-color-ui-widget: #555555;
 
-        /* Dropdowns */
-        --background-color-dropdown: #252525;
-        --border-color-dropdown: #4a4a4a;
-        --color-dropdown-text: #d1d5db;
-        --background-color-dropdown-hover: #363636;
+    /* Dropdowns */
+    --background-color-dropdown: #252525;
+    --border-color-dropdown: #4a4a4a;
+    --color-dropdown-text: #d1d5db;
+    --background-color-dropdown-hover: #363636;
 
-        /* Category */
-        --catlinks-bg: #222222;
-        --catlinks-border: #4a4a4a;
-        --catlinks-shadow: rgba(0, 0, 0, 0.5);
-        --catlinks-text: #eaecf0;
+    /* Category */
+    --catlinks-bg: #222222;
+    --catlinks-border: #4a4a4a;
+    --catlinks-shadow: rgba(0, 0, 0, 0.5);
+    --catlinks-text: #eaecf0;
 
-        /* Footer */
-        --background-color-footer: #2a2a2a;
-        --color-footer-text: #d1d5db;
-        --border-color-footer: #4a4a4a;
-        --border-color-footer-divider: rgba(255,255,255,0.1);
-    /*} */
+    /* Footer */
+    --background-color-footer: #2a2a2a;
+    --color-footer-text: #d1d5db;
+    --border-color-footer: #4a4a4a;
+    --border-color-footer-divider: rgba(255,255,255,0.1);
 }
 
 /* 3. Map LESS variables to the CSS variables */
