@@ -10,5 +10,6 @@
 	"czsearch-search-editpage": "Seite „$1“ bearbeiten oder erstellen",
 	"czsearch-search-mediasearch": "Suche nach Mediendateien für „$1“",
 	"czsearch-search-empty-desc": "Suche nach Seiten, Medien und mehr",
-	"search-redirect": "(Weiterleitung nach $1)"
+	"search-redirect": "(Weiterleitung nach $1)",
+	"ridvan-darkmode-toggle": "Dunkelmodus"
 }
