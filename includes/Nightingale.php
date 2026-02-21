@@ -153,7 +153,7 @@ class SkinNightingale extends SkinMustache {
             'class' => 'mw-list-item',
             'array-links' => [
                 [
-                    'text' => 'Dark Mode', // You can use $this->msg('nightingale-darkmode') if you add it to i18n
+                    'text' => $this->msg( 'nightingale-darkmode-toggle' )->text(),
                     'array-attributes' => [
                         [ 'key' => 'href', 'value' => '#' ],
                         [ 'key' => 'onclick', 'value' => 'toggleNightingaleDarkMode(event)' ]
