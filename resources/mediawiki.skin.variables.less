@@ -60,6 +60,8 @@
     /* Codex */
     --background-color-warning-subtle: #fdf2d5;
     --border-color-warning: #ab7f2a;
+    --background-color-error-subtle: #fdf2d5;
+    --border-color-error: #ab7f2a;
     --background-color-interactive-subtle: var(--background-color-ui-subtle);
     --background-color-interactive-subtle--hover: #eaecf0;
     --background-color-interactive-subtle--active: #c8ccd1;
@@ -163,6 +165,8 @@ html.nightingale-dark-mode {
     /* Codex */
     --background-color-warning-subtle: #3b2d10;
     --border-color-warning: #8a6d3b;
+    --background-color-error-subtle: #3b2d10;
+    --border-color-error: #8a6d3b;
     --background-color-interactive-subtle: var(--background-color-ui-subtle);
     --background-color-interactive-subtle--hover: #2a2a2a;
     --background-color-interactive-subtle--active: #363636;
@@ -199,6 +203,7 @@ html.nightingale-dark-mode {
 
 /* 3. Map LESS variables to the CSS variables */
 @background-color-warning: var(--background-color-warning);
+@background-color-error: var(--background-color-error);
 @background-color-base: var(--background-color-base);
 @background-color-article: var(--background-color-article);
 @background-color-thumb: var(--background-color-thumb);
@@ -260,6 +265,7 @@ html.nightingale-dark-mode {
 
 /* Codex Mappings */
 @background-color-warning-subtle: var(--background-color-warning-subtle);
+@background-color-error-subtle: var(--background-color-error-subtle);
 @border-color-warning: var(--border-color-warning);
 
 /* UI Widget Mappings */
