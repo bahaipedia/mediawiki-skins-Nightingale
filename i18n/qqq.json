@@ -15,5 +15,6 @@
 	"czsearch-search-editpage": "Label for the button that takes the user to edit or create the page. $1 is the page title (search query).",
 	"czsearch-search-mediasearch": "Label for the button that takes the user to the media search page. $1 is the user's search query.",
 	"czsearch-search-empty-desc": "Description shown in the search dropdown placeholder when the input is empty.",
-	"search-redirect": "Label indicating a search result is a redirect. $1 is the target page title."
+	"search-redirect": "Label indicating a search result is a redirect. $1 is the target page title.",
+	"nightingale-darkmode-toggle": "Label for the menu link that toggles dark mode on and off."
 }
