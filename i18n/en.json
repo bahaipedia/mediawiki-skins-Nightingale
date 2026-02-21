@@ -10,5 +10,6 @@
 	"czsearch-search-editpage": "Edit or create the page \"$1\"",
 	"czsearch-search-mediasearch": "Search for media files matching \"$1\"",
 	"czsearch-search-empty-desc": "Search for pages, media, and more",
-	"search-redirect": "(Redirects to $1)"
+	"search-redirect": "(Redirects to $1)",
+	"ridvan-darkmode-toggle": "Dark mode"
 }
