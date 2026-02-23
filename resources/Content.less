@@ -599,6 +599,12 @@ html.nightingale-dark-mode {
        border-top: 1px solid @border-color-ui-widget !important;
    }
 
+   /* Fix muted/unselected items in RC filters dropdown */
+   .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted:not(.oo-ui-optionWidget-selected) {
+       background-color: @background-color-dropdown !important;
+       color: @color-dropdown-text !important;
+   }
+
    /* Replace Text Extension Options Box */
     .ext-replacetext-searchoptions {
         background-color: @background-color-ui-subtle !important;
