@@ -637,6 +637,11 @@ html.nightingale-dark-mode {
         color: @color-thumb !important;
     }
 
+   figure[typeof~='mw:File/Thumb'] > figcaption,
+   figure[typeof~='mw:File/Frame'] > figcaption {
+      border: 1px solid @border-color-base;
+   }
+
    /* File Page Table of Contents */
     #filetoc {
         background-color: @background-color-ui-subtle !important;
