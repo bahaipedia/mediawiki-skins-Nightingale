@@ -581,6 +581,24 @@ html.nightingale-dark-mode {
         color: @color-base !important;
     }
 
+   /* RC Filters Item Label Title ("Registered", "Unregistered", etc.) */
+   .mw-rcfilters-ui-itemMenuOptionWidget-label-title {
+       color: @color-dropdown-text !important;
+   }
+
+   /* RC Filters Item Hover/Highlight */
+   .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted.oo-ui-optionWidget-highlighted,
+   .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-highlighted {
+       background-color: @background-color-dropdown-hover !important;
+       color: @color-dropdown-text !important;
+   }
+
+   /* RC Filters Footer (At the very bottom of the menu) */
+   .mw-rcfilters-ui-menuSelectWidget-footer {
+       background-color: @background-color-ui-subtle !important;
+       border-top: 1px solid @border-color-ui-widget !important;
+   }
+
    /* Replace Text Extension Options Box */
     .ext-replacetext-searchoptions {
         background-color: @background-color-ui-subtle !important;
