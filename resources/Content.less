@@ -639,7 +639,20 @@ html.nightingale-dark-mode {
 
    figure[typeof~='mw:File/Thumb'] > figcaption,
    figure[typeof~='mw:File/Frame'] > figcaption {
-      border: 1px solid @border-color-base;
+      border: 1px solid @border-color-base !important;
+   }
+
+   /* Inner Image Elements */
+   figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element, 
+   figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element {
+       background-color: @background-color-thumb !important;
+       border: 1px solid @border-color-base !important;
+   }
+
+   figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ), 
+   figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ) {
+       background-color: @background-color-thumb !important;
+       color: @color-base !important;
    }
 
    /* File Page Table of Contents */
