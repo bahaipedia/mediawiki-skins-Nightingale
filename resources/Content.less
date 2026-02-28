@@ -692,6 +692,18 @@ html.nightingale-dark-mode {
         filter: invert(1) brightness(1.2) !important;
     }
 
+   /* Redirect Arrow Icon */
+    .mw-content-ltr .redirectText li,
+    .mw-content-rtl .redirectText li {
+        /* Inverts the black/dark-green arrow to white/light-green */
+        filter: invert(1) hue-rotate(180deg);
+    }
+    /* Redirect Arrow Icon - Reverse the filter on the link text so it retains your --color-link variable */
+    .mw-content-ltr .redirectText li a,
+    .mw-content-rtl .redirectText li a {
+        filter: invert(1) hue-rotate(180deg);
+    }
+
    /* MediaWiki Notification Popup */
     .mw-notification {
         background-color: @background-color-ui-widget !important;
