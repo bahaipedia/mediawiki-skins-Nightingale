@@ -23,7 +23,7 @@
                 {
                     "name": "nightingale",
                     "menus": [
-                        "namespaces",
+                        "associated-pages",
                         "views",
                         "actions",
                         "variants",
