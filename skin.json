@@ -22,6 +22,16 @@
             "args": [
                 {
                     "name": "nightingale",
+                    "menus": [
+                        "namespaces",
+                        "views",
+                        "actions",
+                        "variants",
+                        "user-menu",
+                        "notifications",
+                        "user-interface-preferences",
+                        "user-page"
+                    ],
                     "responsive": true,
                     "toc": true,
                     "messages": [
