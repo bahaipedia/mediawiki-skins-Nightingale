@@ -728,4 +728,65 @@ html.nightingale-dark-mode {
     .mw-file-element:hover {
         filter: brightness(1) contrast(1);
     }
+
+   /* --- F. Codex Selects & Dropdowns --- */
+    .cdx-select {
+        background-color: @background-color-input !important;
+        color: @color-input-text !important;
+        border-color: @border-color-input !important;
+        color-scheme: dark;
+        
+        /* If Codex is using a background SVG for the arrow, this replaces it with a light gray one */
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 3.5l5 5 5-5' fill='none' stroke='%23d1d5db' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    }
+    .cdx-table__header__caption,
+    .cdx-table__table th {
+        color: @color-base !important;
+    }
+
+    /* --- G. Metadata Tables --- */
+    .mw_metadata th {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-base !important;
+        border-color: @border-color-base !important;
+    }
+    .mw_metadata td {
+        border-color: @border-color-base !important;
+        background-color: transparent !important;
+    }
+
+    /* --- H. MW UI Buttons --- */
+    .mw-ui-button {
+        background-color: @background-color-ui-widget !important;
+        color: @color-base !important;
+        border-color: @border-color-ui-widget !important;
+    }
+    .mw-ui-button:not(:disabled):hover,
+    .mw-ui-button:not(:disabled):active {
+        background-color: @background-color-hover !important;
+    }
+
+    /* --- I. OOUI Date Selection Widgets --- */
+    .mw-widget-dateInputWidget-calendar,
+    .oo-ui-menuSelectWidget {
+        background-color: @background-color-dropdown !important;
+        border-color: @border-color-dropdown !important;
+        color: @color-dropdown-text !important;
+        box-shadow: 0 2px 2px 0 @shadow-color-dropdown !important;
+    }
+    .mw-widget-dateInputWidget-handle,
+    .oo-ui-textInputWidget.oo-ui-widget-enabled .oo-ui-inputWidget-input {
+        background-color: @background-color-input !important;
+        color: @color-input-text !important;
+        border-color: @border-color-input !important;
+    }
+    .mw-widget-dateInputWidget-handle .oo-ui-labelElement-label {
+        color: @color-input-text !important;
+    }
+	.mw-widget-calendarWidget-day {
+        color: @color-dropdown-text !important;
+    }
+	.mw-widget-calendarWidget-day-additional {
+        color: @color-gutter-text !important;
+    }
 }
