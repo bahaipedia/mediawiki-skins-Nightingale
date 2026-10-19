@@ -74,6 +74,7 @@ div.thumbinner {
     border-width: 1px 1px 0.2em;
     background: @background-color-card;
     margin-bottom: 10px;
+    display: flow-root;
     word-wrap: break-word;
     border-radius: 10px;
 }
@@ -979,6 +980,63 @@ html.nightingale-dark-mode {
 
     .sd-select__handle {
         color: @color-base !important;
+
+        svg {
+            fill: currentColor !important;
+        }
+    }
+
+    .sd-select-menu {
+        background-color: @background-color-dropdown !important;
+        border-color: @border-color-dropdown !important;
+        box-shadow: 0 2px 2px 0 @shadow-color-dropdown !important;
+        color: @color-dropdown-text !important;
+    }
+
+    .sd-select-menu__list-item {
+        color: @color-dropdown-text !important;
+    }
+
+    .sd-select-menu__list-item--active {
+        background-color: @background-color-dropdown-hover !important;
+        color: @color-text-main !important;
+    }
+
+    .sd-select-menu__list-item--selected {
+        background-color: @background-color-progressive-subtle !important;
+        color: @color-text-main !important;
+    }
+
+    .sd-select-menu__list-item--active.sd-select-menu__list-item--selected {
+        color: @color-link !important;
+    }
+
+    .sdms-audio-result__duration,
+    .sdms-page-result__namespace {
+        background-color: @background-color-ui-widget !important;
+        color: @color-base !important;
+    }
+
+    .sdms-page-result {
+        border-bottom-color: @border-color-base !important;
+    }
+
+    .cdx-button:enabled.cdx-button--weight-quiet,
+    .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-quiet {
+        color: @color-base !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+            mix-blend-mode: normal !important;
+        }
+    }
+
+    .cdx-button:enabled.cdx-button--action-progressive:hover,
+    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive:hover {
+        background-color: transparent !important;
+        color: @color-link !important;
+        border-color: @color-link !important;
     }
 
     .cdx-text-input__input:enabled {
@@ -997,7 +1055,7 @@ html.nightingale-dark-mode {
         color: @color-text-main !important;
     }
 
-    /* --- O. Revision Slider Toggle & Frameless OOUI Buttons --- */
+    /* --- O. Revision Slider, OOUI Icons & Frameless Buttons --- */
     .oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
         color: @color-base !important;
 
@@ -1007,7 +1065,7 @@ html.nightingale-dark-mode {
         }
 
         &:active {
-            background-color: @background-color-interactive !important;
+            background-color: var(--background-color-interactive) !important;
             color: @color-text-main !important;
         }
     }
@@ -1016,10 +1074,16 @@ html.nightingale-dark-mode {
         background-color: @background-color-ui-subtle !important;
         border: 1px solid @border-color-base !important;
         border-radius: 2px;
+    }
 
-        .oo-ui-indicatorElement-indicator {
-            filter: invert(1) brightness(1.2);
-        }
+    /* Invert black OOUI directional/action icons & indicators in dark mode */
+    .oo-ui-indicatorElement-indicator,
+    .oo-ui-icon-first,
+    .oo-ui-icon-previous,
+    .oo-ui-icon-next,
+    .oo-ui-icon-last,
+    .oo-ui-icon-pushPin {
+        filter: invert(1) brightness(1.2);
     }
 
     /* --- P. Browser Autofill Override --- */
@@ -1032,7 +1096,23 @@ html.nightingale-dark-mode {
         caret-color: @color-input-text !important;
     }
 
-    /* --- Q. Special:BotPasswords, Matrix Tables & Preferences --- */
+    /* --- Q. Special:BotPasswords, Checkboxes, Matrix Tables & Preferences --- */
+    .oo-ui-checkboxInputWidget [type='checkbox'] + span {
+        background-color: @background-color-input !important;
+        border-color: @border-color-input !important;
+    }
+
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:hover + span {
+        background-color: @background-color-hover !important;
+        border-color: @color-link !important;
+    }
+
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked + span,
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked:hover + span {
+        background-color: @background-color-btn-save !important;
+        border-color: @background-color-btn-save !important;
+    }
+
     .mw-htmlform-ooui .mw-htmlform-matrix tbody {
         tr td {
             background-color: @background-color-card !important;
@@ -1057,9 +1137,27 @@ html.nightingale-dark-mode {
         border-color: @border-color-base !important;
     }
 
+    /* Preferences Selected Tab */
+    .oo-ui-tabSelectWidget-framed {
+        background-color: @background-color-ui-subtle !important;
+
+        .oo-ui-tabOptionWidget.oo-ui-optionWidget-selected {
+            background-color: @background-color-card !important;
+            color: @color-text-main !important;
+        }
+    }
+
+    /* Disabled OOUI Framed Buttons (e.g. Save button before changes are made) */
+    .oo-ui-buttonElement-framed.oo-ui-widget-disabled > .oo-ui-buttonElement-button {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-gutter-text !important;
+        border-color: @border-color-base !important;
+    }
+
+    /* Preferences Sticky Submit Bar (distinct background from card) */
     #preferences .mw-htmlform-submit-buttons {
-        background-color: @background-color-card !important;
-        border-top-color: @border-color-base !important;
+        background-color: @background-color-editor-bar !important;
+        border-top-color: @border-color-ui-widget !important;
         box-shadow: 0 -4px 4px -4px @shadow-color !important;
     }
 }
