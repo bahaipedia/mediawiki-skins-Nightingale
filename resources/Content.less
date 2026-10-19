@@ -1108,14 +1108,9 @@ html.nightingale-dark-mode {
         border-top: none !important;
     }
 
-    /* Invert black OOUI directional/action icons & indicators in dark mode */
-    .oo-ui-indicatorElement-indicator,
-    .oo-ui-icon-first,
-    .oo-ui-icon-previous,
-    .oo-ui-icon-next,
-    .oo-ui-icon-last,
-    .oo-ui-icon-pushPin,
-    .oo-ui-icon-info {
+    /* Invert all black OOUI icons & indicators in dark mode */
+    .oo-ui-iconElement-icon,
+    .oo-ui-indicatorElement-indicator {
         &:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-invert) {
             filter: invert(1) brightness(1.2);
         }
