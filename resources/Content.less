@@ -1026,6 +1026,19 @@ html.nightingale-dark-mode {
         border-bottom-color: @border-color-base !important;
     }
 
+	.cdx-button:enabled,
+    .cdx-button.cdx-button--fake-button--enabled {
+        background-color: @background-color-ui-widget !important;
+        color: @color-text-main !important;
+        border-color: @border-color-ui-widget !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+            border-color: @border-color-ui-widget !important;
+        }
+    }
+
     .cdx-button:enabled.cdx-button--weight-quiet,
     .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-quiet {
         color: @color-base !important;
