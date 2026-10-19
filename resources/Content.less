@@ -986,6 +986,11 @@ html.nightingale-dark-mode {
         }
     }
 
+	.sd-input--pending .sd-input__input input {
+        background-image: none !important;
+        animation: none !important;
+    }
+
     .sd-select-menu {
         background-color: @background-color-dropdown !important;
         border-color: @border-color-dropdown !important;
@@ -1069,6 +1074,19 @@ html.nightingale-dark-mode {
             color: @color-text-main !important;
         }
     }
+	.oo-ui-dropdownWidget.oo-ui-widget-enabled {
+        .oo-ui-dropdownWidget-handle {
+            background-color: @background-color-ui-widget !important;
+            color: @color-base !important;
+            border-color: @border-color-ui-widget !important;
+
+            &:hover {
+                background-color: @background-color-hover !important;
+                color: @color-text-main !important;
+                border-color: @border-color-ui-widget !important;
+            }
+        }
+    }
 
     .mw-revslider-toggle-button {
         background-color: @background-color-ui-subtle !important;
@@ -1082,8 +1100,11 @@ html.nightingale-dark-mode {
     .oo-ui-icon-previous,
     .oo-ui-icon-next,
     .oo-ui-icon-last,
-    .oo-ui-icon-pushPin {
-        filter: invert(1) brightness(1.2);
+    .oo-ui-icon-pushPin,
+    .oo-ui-icon-info {
+        &:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-invert) {
+            filter: invert(1) brightness(1.2);
+        }
     }
 
     /* --- P. Browser Autofill Override --- */
