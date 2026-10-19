@@ -893,8 +893,9 @@ html.nightingale-dark-mode {
 
     /* Bottom Resizing Drag Bar under the Editor */
     .ext-WikiEditor-ResizingDragBar {
-        background-color: @background-color-editor-bar !important;
-        border-top-color: @border-color-toolbar !important;
+        background-color: var(--background-color-interactive) !important;
+        border-top: 1px solid @border-color-ui-widget !important;
+        border-bottom: 1px solid @border-color-ui-widget !important;
     }
 
     /* CodeEditor (Lua/JS/CSS Ace Edit Mode) */
