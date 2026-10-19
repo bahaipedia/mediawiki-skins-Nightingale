@@ -186,6 +186,96 @@ div.thumbinner {
     padding: 1em 2em 1em;
 }
 
+/* wikitable/prettytable class for skinning normal tables */
+table.wikitable,
+table.prettytable {
+    margin: 1em 1em 1em 0;
+    background: @background-color-ui-subtle;
+    border: 1px @border-color-ui-widget solid;
+    border-collapse: collapse;
+
+    th, td {
+        border: 1px @border-color-ui-widget solid;
+        padding: 0.2em;
+    }
+
+    th {
+        background: @background-color-interactive-subtle;
+        text-align: center;
+    }
+
+    caption {
+        margin-left: inherit;
+        margin-right: inherit;
+    }
+}
+
+/* Fix File history section on file pages */
+@media (max-width: 600px) {
+    .wikitable.filehistory,
+    .mw_metadata {
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+/* Responsive MediaWiki Galleries & Thumbnails - 500px */
+@media (max-width: 500px) {
+    /* Galleries */
+    .mw-body li.gallerybox {
+        width: 100% !important;
+    }
+    .mw-body li.gallerybox .thumb {
+        width: unset !important;
+        height: unset !important;
+    }
+    /* Thumbnails */
+    .mw-body .thumb,
+    .mw-body .thumbimage,
+    .mw-body figure[typeof~="mw:File"],
+    .mw-body figure[typeof~="mw:File/Thumb"],
+    .mw-body figure[typeof~="mw:File/Frame"] {
+        float: none !important; /* Make images take 100% of screen on small displays */
+        margin: 0 auto !important;
+    }
+    .mw-body .thumb img,
+    .mw-body .thumbimage img,
+    .mw-body .gallerybox .thumb img.mw-file-element,
+    .mw-body figure[typeof~="mw:File"] > :not(figcaption) img.mw-file-element,
+    .mw-body figure[typeof~="mw:File/Thumb"] > :not(figcaption) img.mw-file-element,
+    .mw-body figure[typeof~="mw:File/Frame"] > :not(figcaption) img.mw-file-element {
+        width: unset !important;
+        height: unset !important;
+        max-width: 97%;
+        margin: 1.5%;
+    }
+}
+
+/* Makes redirects appear in italics on [[Special:Allpages]] */
+.allpagesredirect {
+    font-style: italic;
+}
+
+/* Bytecounter colours (RecentChanges / Watchlist) */
+strong.mw-plusminus-neg,
+span.mw-plusminus-neg {
+    color: @border-color-error;
+}
+span.mw-plusminus-pos {
+    color: var(--background-color-diff-change-add);
+}
+
+/* Show a border for warning messages on Special:Upload */
+#wpDestFile-warning ul {
+    border: solid @border-color-error 1px;
+    padding: 1.5em;
+}
+
+/* Interwiki search results spacing on Special:Search */
+.iw-result__content {
+    margin-bottom: 20px;
+}
+
 /* ==========================================================================
    2. COMPONENT OVERRIDES (UI, EDITOR, OOUI)
    ========================================================================== */
@@ -255,11 +345,63 @@ textarea,
     border-color: @border-color-ui-widget !important;
 }
 
+/* Fix the 'save' bar/button on User preferences */
+#preferences .mw-htmlform-submit-buttons {
+    margin: 10px 0 0 0 !important;
+}
+
 /* Special Character Buttons */
-.mw-edittools-section input[type="button"] {
-    background-color: @background-color-ui-subtle !important;
-    color: @color-base !important;
-    border: 1px solid @border-color-ui-widget !important;
+.mw-charinsert-buttons {
+    margin-top: 8px;
+    border: 1px solid @border-color-toolbar;
+    padding: 2px 4px 4px;
+    font-size: 1.1em;
+    text-align: center;
+
+    a {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-text-main;
+        border: thin @color-link outset;
+        padding: 0 1px 2px;
+        font-size: 0.9em;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+            background-color: @background-color-card;
+            color: @color-link;
+        }
+
+        &:active {
+            background-color: @background-color-interactive-subtle--active;
+            border-style: inset;
+        }
+    }
+}
+
+.client-js .mw-edittools-section {
+    display: inline;
+
+    input[type="button"] {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-base !important;
+        border: 1px solid @border-color-ui-widget !important;
+        margin-left: 1px;
+        border-radius: 2px;
+        padding: 1px 6px;
+        font-size: 0.9em;
+        cursor: pointer;
+
+        &:hover {
+            background-color: @background-color-card !important;
+            color: @color-link !important;
+        }
+
+        &:active {
+            background-color: @background-color-interactive-subtle--active !important;
+            color: @color-text-main !important;
+        }
+    }
 }
 
 /* Save/Preview Buttons */
@@ -267,6 +409,7 @@ textarea,
     background-color: @background-color-btn-save !important;
     color: @color-btn-text !important;
     border: 1px solid @border-color-ui-widget !important;
+    font-weight: bold;
     cursor: pointer;
 }
 #wpPreview,
