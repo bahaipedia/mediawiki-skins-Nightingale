@@ -557,7 +557,190 @@ table.mw-datatable tr:hover td {
    ========================================================================== */
 
 html.nightingale-dark-mode {
-    /* --- A. Diff View --- */
+    /* ======================================================================
+       1. NATIVE BROWSER CONTROLS & AUTOFILL
+       ====================================================================== */
+
+    /* Force dark scrollbars and native browser form controls (e.g., History page radios/checkboxes) */
+    color-scheme: dark;
+
+    input[type='radio'],
+    input[type='checkbox'] {
+        color-scheme: dark;
+        accent-color: @background-color-btn-save;
+    }
+
+    /* Override Chrome/Edge light-blue/gray autofill background on Login & Forms */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px @background-color-input inset !important;
+        -webkit-text-fill-color: @color-input-text !important;
+        caret-color: @color-input-text !important;
+    }
+
+    /* ======================================================================
+       2. TABLES (Wikitables, DataTables, Metadata, Matrix Tables)
+       ====================================================================== */
+
+    /* Standard article wikitables */
+    .wikitable {
+        background-color: @background-color-card !important;
+        color: @color-base !important;
+        border-color: @border-color-base !important;
+
+        > tr > th,
+        > * > tr > th {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        > tr > td,
+        > * > tr > td {
+            border-color: @border-color-base !important;
+            color: @color-base !important;
+        }
+        
+        caption { color: @color-base !important; }
+    }
+
+    /* Core MediaWiki DataTables (e.g., Special:AllMessages, Special:ListFiles) */
+    .mw-datatable {
+        border-color: @border-color-base !important;
+
+        th {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        td {
+            background-color: @background-color-card !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        tr:hover td {
+            background-color: @background-color-hover !important;
+        }
+    }
+
+    /* Default message rows on Special:AllMessages */
+    #mw-allmessagestable .am_default,
+    #mw-allmessagestable body:hover .am_default {
+        background-color: @background-color-warning-subtle !important;
+    }
+
+    /* EXIF Metadata tables on File description pages */
+    .mw_metadata th {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-base !important;
+        border-color: @border-color-base !important;
+    }
+    .mw_metadata td {
+        border-color: @border-color-base !important;
+        background-color: transparent !important;
+    }
+
+    /* HTMLForm CheckMatrix tables (e.g., Special:BotPasswords, Echo Notification Preferences) */
+    .mw-htmlform-ooui .mw-htmlform-matrix tbody {
+        tr td {
+            background-color: @background-color-card !important;
+            color: @color-base !important;
+        }
+
+        tr:nth-child(even) td {
+            background-color: @background-color-ui-subtle !important;
+        }
+
+        tr:hover td {
+            background-color: @background-color-hover !important;
+        }
+    }
+
+    /* ======================================================================
+       3. IMAGES, THUMBNAILS, GALLERIES & FILE PAGES
+       ====================================================================== */
+
+    /* Dim bright scanned pages/images slightly until hovered */
+    #file img,
+    .mw-file-element {
+        filter: brightness(0.8) contrast(1.1);
+        transition: filter 0.3s ease;
+    }
+    #file img:hover,
+    .mw-file-element:hover {
+        filter: brightness(1) contrast(1);
+    }
+	
+	/* Dim bright scanned pages/images slightly until hovered */
+    .otright img,
+    #file img,
+    .mw-file-element {
+        filter: brightness(0.8) contrast(1.1);
+        transition: filter 0.3s ease;
+    }
+    .otright img:hover,
+    #file img:hover,
+    .mw-file-element:hover {
+        filter: brightness(1) contrast(1);
+    }
+
+    /* Parsoid/Core Image Thumbnails and Frames */
+    figure[typeof~='mw:File/Thumb'], 
+    figure[typeof~='mw:File/Frame'] {
+        border-color: @border-color-base !important;
+        background-color: @background-color-thumb !important;
+        color: @color-thumb !important;
+    }
+
+    figure[typeof~='mw:File/Thumb'] > figcaption,
+    figure[typeof~='mw:File/Frame'] > figcaption {
+        border: 1px solid @border-color-base !important;
+        border-top: 0 !important;
+    }
+
+    /* Inner Image Elements */
+    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element, 
+    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element {
+        background-color: @background-color-thumb !important;
+        border: 1px solid @border-color-base !important;
+    }
+
+    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ), 
+    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ) {
+        background-color: @background-color-thumb !important;
+        color: @color-base !important;
+    }
+
+    /* Traditional MediaWiki Galleries */
+    li.gallerybox div.thumb {
+        background-color: @background-color-thumb;
+        border: 1px solid @border-color-base;
+    }
+
+    /* File Page Table of Contents bar */
+    #filetoc {
+        background-color: @background-color-ui-subtle !important;
+        border-color: @border-color-ui-widget !important;
+    }
+
+    /* Multi-page File (PDF/DjVu) Page Selector Dropdown & Submit Button */
+    form[name="pageselector"] select,
+    form[name="pageselector"] input[type="submit"] {
+        background-color: @background-color-ui-subtle !important;
+        color: @color-base !important;
+        border: 1px solid @border-color-ui-widget !important;
+        border-radius: 2px;
+    }
+
+    /* ======================================================================
+       4. DIFF VIEW, HISTORY & REVISION SLIDER
+       ====================================================================== */
+
+    /* Diff comparison table */
     table.diff {
         background-color: transparent;
         border: none;
@@ -592,29 +775,35 @@ html.nightingale-dark-mode {
         }
     }
 
-    /* --- B. Wikitables --- */
-    .wikitable {
-        background-color: @background-color-card !important;
-        color: @color-base !important;
-        border-color: @border-color-base !important;
-
-        > tr > th,
-        > * > tr > th {
-            background-color: @background-color-ui-subtle !important;
-            color: @color-base !important;
-            border-color: @border-color-base !important;
-        }
-
-        > tr > td,
-        > * > tr > td {
-            border-color: @border-color-base !important;
-            color: @color-base !important;
-        }
-        
-        caption { color: @color-base !important; }
+    /* RevisionSlider container & interactive bar chart */
+    .mw-revslider-container {
+        border-color: @border-color-ui-widget !important;
     }
 
-    /* --- C. CodeEditor (Lua Ace Edit Mode) --- */
+    .mw-revslider-slider-wrapper {
+        border-top: none !important;
+    }
+
+    .mw-revslider-toggle-button {
+        background-color: @background-color-ui-subtle !important;
+        border: 1px solid @border-color-base !important;
+        border-radius: 2px;
+    }
+
+    .mw-revslider-revision {
+        background-color: @border-color-ui-widget !important;
+        border-color: @border-color-ui-widget !important;
+    }
+
+    .mw-revslider-revision-wrapper-hovered {
+        background-color: @background-color-hover !important;
+    }
+
+    /* ======================================================================
+       5. CODE EDITOR (ACE) & SYNTAX HIGHLIGHTING (PYGMENTS)
+       ====================================================================== */
+
+    /* CodeEditor (Lua/JS/CSS Ace Edit Mode) */
     .ace-tm {
         background-color: @background-color-editor !important;
         color: @color-editor-text !important;
@@ -625,18 +814,9 @@ html.nightingale-dark-mode {
             border-right: 1px solid @border-color-ui-widget !important;
         }
 
-       .ace_gutter-active-line {
-            background-color: @background-color-ui-subtle !important;
-        }
-        
+        .ace_gutter-active-line,
         .ace_marker-layer .ace_active-line {
             background-color: @background-color-ui-subtle !important;
-        }
-
-       .ace_marker-layer .ace_selected-word {
-            background-color: @background-color-progressive-subtle !important;
-            border: 1px solid @border-color-ui-widget !important;
-            border-radius: 2px;
         }
 
         .ace_cursor { color: @color-editor-text !important; }
@@ -644,6 +824,12 @@ html.nightingale-dark-mode {
         .ace_marker-layer .ace_selection {
             background-color: @color-link !important;
             opacity: 0.25;
+        }
+
+        .ace_marker-layer .ace_selected-word {
+            background-color: @background-color-progressive-subtle !important;
+            border: 1px solid @border-color-ui-widget !important;
+            border-radius: 2px;
         }
 
         /* Syntax Highlighting (Edit Mode) */
@@ -661,260 +847,140 @@ html.nightingale-dark-mode {
         color: @color-editor-text !important;
     }
 
-    /* --- D. Syntax Highlighting (View Mode / .mw-highlight) --- */
+    /* Syntax Highlighting (View Mode / .mw-highlight) */
     .mw-highlight {
         background-color: @background-color-editor !important;
         color: @color-editor-text !important;
         border: 1px solid @border-color-ui-widget !important;
         padding: 1em;
+
+        pre {
+            background-color: transparent !important;
+            border: none !important;
+            color: inherit !important;
+            font-family: monospace;
+        }
+
+        /* Keywords (Gold) */
+        .k, .kd, .kp, .kr, .kt { color: #cc7832 !important; font-weight: bold; }
+        /* Strings (Green) */
+        .s, .s1, .s2, .se, .si { color: #6a8759 !important; }
+        /* Comments (Gray Italic) */
+        .c, .c1, .cm, .cs { color: @color-gutter-text !important; font-style: italic; }
+        /* Numbers (Blue) */
+        .m, .mi, .mf { color: #6897bb !important; }
+        /* Names, Identifiers & Operators */
+        .n, .na, .nb, .nn, .nv, .o, .ow { color: @color-editor-text !important; }
+        /* Class Names (Teal) */
+        .nc { color: #4ec9b0 !important; }
+        /* Function Names (Yellow) */
+        .nf { color: #dcdcaa !important; }
     }
 
-    .mw-highlight pre {
-        background-color: transparent !important;
-        border: none !important;
-        color: inherit !important;
-        font-family: monospace;
-    }
-
-    /* Syntax Highlighting Mapping */
-    .mw-highlight .k, 
-    .mw-highlight .kd,
-    .mw-highlight .kp,
-    .mw-highlight .kr,
-    .mw-highlight .kt { color: #cc7832 !important; font-weight: bold; }
-
-    .mw-highlight .s,
-    .mw-highlight .s1,
-    .mw-highlight .s2,
-    .mw-highlight .se,
-    .mw-highlight .si { color: #6a8759 !important; }
-
-    .mw-highlight .c,
-    .mw-highlight .c1,
-    .mw-highlight .cm,
-    .mw-highlight .cs { color: @color-gutter-text !important; font-style: italic; }
-
-    .mw-highlight .m,
-    .mw-highlight .mi,
-    .mw-highlight .mf { color: #6897bb !important; }
-
-    .mw-highlight .n,
-    .mw-highlight .na,
-    .mw-highlight .nb,
-    .mw-highlight .nn,
-    .mw-highlight .nv { color: @color-editor-text !important; }
-    
-    .mw-highlight .nc { color: #4ec9b0 !important; } /* Teal for Class Names */
-    .mw-highlight .nf { color: #dcdcaa !important; } /* Yellow for Functions */
-
-    .mw-highlight .o,
-    .mw-highlight .ow { color: @color-editor-text !important; }
-
-    /* Box-shadow gutter in view mode */
+    /* Remove light-mode box-shadow gutter in view mode */
     .mw-content-ltr.mw-highlight-lines pre,
     .mw-content-ltr.content .mw-highlight-lines pre {
         box-shadow: unset !important;
     }
 
-   /* RC Filters Dropdown Header */
-    .mw-rcfilters-ui-filterMenuHeaderWidget-header {
-        background-color: @background-color-ui-subtle !important;
-        border-bottom: 1px solid @border-color-ui-widget !important;
+    /* ======================================================================
+       6. OOUI FRAMEWORK (Icons, Buttons, Inputs, Dropdowns, Modals)
+       ====================================================================== */
+
+    /* Invert black OOUI icons & dropdown indicators while preserving colored/inverted icons */
+    .oo-ui-iconElement-icon,
+    .oo-ui-indicatorElement-indicator {
+        &:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-invert) {
+            filter: invert(1) brightness(1.2);
+        }
     }
 
-   /* RC Filters Section Headers (The gray dividers) */
-    .mw-rcfilters-ui-filterMenuSectionOptionWidget {
-        background-color: @background-color-editor-bar !important; 
-        color: @color-base !important;
-    }
-
-   /* RC Filters Selected Item */
-   .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-selected {
-        background-color: @background-color-progressive-subtle !important;
-        color: @color-base !important;
-    }
-
-   /* RC Filters Item Label Title ("Registered", "Unregistered", etc.) */
-   .mw-rcfilters-ui-itemMenuOptionWidget-label-title {
-       color: @color-dropdown-text !important;
-   }
-
-   /* RC Filters Item Hover/Highlight */
-   .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted.oo-ui-optionWidget-highlighted,
-   .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-highlighted {
-       background-color: @background-color-dropdown-hover !important;
-       color: @color-dropdown-text !important;
-   }
-
-   /* RC Filters Footer (At the very bottom of the menu) */
-   .mw-rcfilters-ui-menuSelectWidget-footer {
-       background-color: @background-color-ui-subtle !important;
-       border-top: 1px solid @border-color-ui-widget !important;
-   }
-
-   /* Fix muted/unselected items in RC filters dropdown */
-   .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted:not(.oo-ui-optionWidget-selected) {
-       background-color: @background-color-dropdown !important;
-       color: @color-dropdown-text !important;
-   }
-
-   /* Replace Text Extension Options Box */
-    .ext-replacetext-searchoptions {
-        background-color: @background-color-ui-subtle !important;
-        border-color: @border-color-ui-widget !important;
-        color: @color-base !important;
-    }
-
-   /* AdvancedSearch Field Container */
-    .mw-advancedSearch-fieldContainer {
-        background: @background-color-ui-subtle !important;
-        border-color: @border-color-ui-widget !important;
-    }
-   /* AdvancedSearch Label */
-    .mw-advancedSearch-fieldContainer .oo-ui-labelElement > .oo-ui-fieldsetLayout-header > .oo-ui-labelElement-label {
-        background: @background-color-ui-subtle !important;
-        color: @color-base !important;
-    }
-
-    /* AdvancedSearch Expandable Pane Hover */
-    .mw-advancedSearch-expandablePane-button.oo-ui-widget-enabled.oo-ui-buttonWidget > .oo-ui-buttonElement-button:hover {
-        background-color: @background-color-editor-bar !important;
-        color: @color-base !important;
-    }
-
-   /* AdvancedSearch Namespace Selection */
-    .mw-advancedSearch-namespace-selection {
-        background: @background-color-ui-subtle !important;
-        border-color: @border-color-ui-widget !important;
-    }
-
-   /* Image Thumbnails and Frames */
-    figure[typeof~='mw:File/Thumb'], 
-    figure[typeof~='mw:File/Frame'] {
-        border-color: @border-color-base !important;
-        background-color: @background-color-thumb !important;
-        color: @color-thumb !important;
-    }
-
-    figure[typeof~='mw:File/Thumb'] > figcaption,
-    figure[typeof~='mw:File/Frame'] > figcaption {
-       border: 1px solid @border-color-base !important;
-       border-top: 0 !important;
-    }
-
-    /* Inner Image Elements */
-    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element, 
-    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element {
-        background-color: @background-color-thumb !important;
-        border: 1px solid @border-color-base !important;
-    }
-
-    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ), 
-    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ) {
-        background-color: @background-color-thumb !important;
-        color: @color-base !important;
-    }
-
-   /* File Page Table of Contents */
-    #filetoc {
-        background-color: @background-color-ui-subtle !important;
-        border-color: @border-color-ui-widget !important;
-    }
-
-   /* File Page Page Selector Dropdown & Button */
-    form[name="pageselector"] select,
-    form[name="pageselector"] input[type="submit"] {
-        background-color: @background-color-ui-subtle !important;
-        color: @color-base !important;
-        border: 1px solid @border-color-ui-widget !important;
-        border-radius: 2px;
-    }
-
-    li.gallerybox div.thumb {
-        background-color: @background-color-thumb;
-        border: 1px solid @border-color-base;
-    }
-
-   /* Revision Slider */
-    .mw-revslider-container {
-        border-color: @border-color-ui-widget !important;
-    }
-
-   /* Echo Notification Icons (Read State) */
-    .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
-        filter: invert(1) brightness(1.2) !important;
-    }
-
-   /* Redirect Arrow Icon */
-    .mw-content-ltr .redirectText li,
-    .mw-content-rtl .redirectText li {
-        /* Inverts the black/dark-green arrow to white/light-green */
-        filter: invert(1) hue-rotate(180deg);
-    }
-    /* Redirect Arrow Icon - Reverse the filter on the link text so it retains your --color-link variable */
-    .mw-content-ltr .redirectText li a,
-    .mw-content-rtl .redirectText li a {
-        filter: invert(1) hue-rotate(180deg);
-    }
-
-   /* MediaWiki Notification Popup */
-    .mw-notification {
-        background-color: @background-color-ui-widget !important;
-        border-color: @border-color-ui-widget !important;
+    /* Ensure OOUI field labels are readable */
+    .oo-ui-fieldLayout-header .oo-ui-labelElement-label {
         color: @color-text-main !important;
     }
-    
-    /* --- E. Image Dimming (Scanned Pages) --- */
-    .otright img,
-    #file img,
-    .mw-file-element {
-        filter: brightness(0.8) contrast(1.1);
-        transition: filter 0.3s ease;
-    }
-    .otright img:hover,
-    #file img:hover,
-    .mw-file-element:hover {
-        filter: brightness(1) contrast(1);
-    }
 
-   /* --- F. Codex Selects & Dropdowns --- */
-    .cdx-select {
-        background-color: @background-color-input !important;
-        color: @color-input-text !important;
-        border-color: @border-color-input !important;
-        color-scheme: dark;
-        
-        /* If Codex is using a background SVG for the arrow, this replaces it with a light gray one */
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 3.5l5 5 5-5' fill='none' stroke='%23d1d5db' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
-    }
-    .cdx-table__header__caption,
-    .cdx-table__table th {
+    /* Frameless OOUI Buttons */
+    .oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
         color: @color-base !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+        }
+
+        &:active {
+            background-color: var(--background-color-interactive) !important;
+            color: @color-text-main !important;
+        }
     }
 
-    /* --- G. Metadata Tables --- */
-    .mw_metadata th {
+    /* Disabled Framed OOUI Buttons (e.g., Save button before changes are made) */
+    .oo-ui-buttonElement-framed.oo-ui-widget-disabled > .oo-ui-buttonElement-button {
         background-color: @background-color-ui-subtle !important;
-        color: @color-base !important;
+        color: @color-gutter-text !important;
         border-color: @border-color-base !important;
-    }
-    .mw_metadata td {
-        border-color: @border-color-base !important;
-        background-color: transparent !important;
     }
 
-    /* --- H. MW UI Buttons --- */
+    /* Legacy MW UI Buttons */
     .mw-ui-button {
         background-color: @background-color-ui-widget !important;
         color: @color-base !important;
         border-color: @border-color-ui-widget !important;
-    }
-    .mw-ui-button:not(:disabled):hover,
-    .mw-ui-button:not(:disabled):active {
-        background-color: @background-color-hover !important;
+
+        &:not(:disabled):hover,
+        &:not(:disabled):active {
+            background-color: @background-color-hover !important;
+        }
     }
 
-    /* --- I. OOUI Date Selection Widgets --- */
+    /* OOUI Checkboxes */
+    .oo-ui-checkboxInputWidget [type='checkbox'] + span {
+        background-color: @background-color-input !important;
+        border-color: @border-color-input !important;
+    }
+
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:hover + span {
+        background-color: @background-color-hover !important;
+        border-color: @color-link !important;
+    }
+
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked + span,
+    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked:hover + span {
+        background-color: @background-color-btn-save !important;
+        border-color: @background-color-btn-save !important;
+    }
+
+    /* OOUI Radio Buttons */
+    .oo-ui-radioInputWidget [type='radio'] + span {
+        background-color: @background-color-input !important;
+        border-color: @border-color-input !important;
+    }
+
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:hover + span {
+        background-color: @background-color-hover !important;
+        border-color: @color-link !important;
+    }
+
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked + span,
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked:hover + span {
+        border-color: @background-color-btn-save !important;
+    }
+
+    /* OOUI Dropdown Handles */
+    .oo-ui-dropdownWidget.oo-ui-widget-enabled .oo-ui-dropdownWidget-handle {
+        background-color: @background-color-ui-widget !important;
+        color: @color-base !important;
+        border-color: @border-color-ui-widget !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+            border-color: @border-color-ui-widget !important;
+        }
+    }
+
+    /* OOUI Dropdown Menus & Date Input Calendar Widgets */
     .mw-widget-dateInputWidget-calendar,
     .oo-ui-menuSelectWidget {
         background-color: @background-color-dropdown !important;
@@ -922,49 +988,208 @@ html.nightingale-dark-mode {
         color: @color-dropdown-text !important;
         box-shadow: 0 2px 2px 0 @shadow-color-dropdown !important;
     }
+
     .mw-widget-dateInputWidget-handle,
     .oo-ui-textInputWidget.oo-ui-widget-enabled .oo-ui-inputWidget-input {
         background-color: @background-color-input !important;
         color: @color-input-text !important;
         border-color: @border-color-input !important;
     }
+
     .mw-widget-dateInputWidget-handle .oo-ui-labelElement-label {
         color: @color-input-text !important;
     }
-	.mw-widget-calendarWidget-day {
+
+    .mw-widget-calendarWidget-day {
         color: @color-dropdown-text !important;
     }
-	.mw-widget-calendarWidget-day-additional {
+
+    .mw-widget-calendarWidget-day-additional {
         color: @color-gutter-text !important;
     }
 
-	/* --- L. Special:AllMessages & DataTables --- */
-    .mw-datatable {
-        border-color: @border-color-base !important;
+    /* OOUI Modal Dialogs */
+    .oo-ui-windowManager-modal > .oo-ui-dialog > .oo-ui-window-frame {
+        background-color: @background-color-card !important;
+        border-color: @border-color-ui-widget !important;
+    }
 
-        th {
-            background-color: @background-color-ui-subtle !important;
-            color: @color-base !important;
-            border-color: @border-color-base !important;
-        }
+    .oo-ui-messageDialog-title,
+    .oo-ui-messageDialog-message {
+        color: @color-text-main !important;
+    }
 
-        td {
-            background-color: @background-color-card !important;
-            color: @color-base !important;
-            border-color: @border-color-base !important;
-        }
+    /* ======================================================================
+       7. CODEX DESIGN SYSTEM (Buttons, Inputs, Selects, Tabs, Tables)
+       ====================================================================== */
 
-        tr:hover td {
+    /* Standard Codex Buttons (e.g., History page action buttons) */
+    .cdx-button:enabled,
+    .cdx-button.cdx-button--fake-button--enabled {
+        background-color: @background-color-ui-widget !important;
+        color: @color-text-main !important;
+        border-color: @border-color-ui-widget !important;
+
+        &:hover {
             background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+            border-color: @border-color-ui-widget !important;
         }
     }
 
-    #mw-allmessagestable .am_default,
-    #mw-allmessagestable body:hover .am_default {
-        background-color: @background-color-warning-subtle !important;
+    /* Quiet Codex Buttons (borderless until hovered) */
+    .cdx-button:enabled.cdx-button--weight-quiet,
+    .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-quiet {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        color: @color-base !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+            mix-blend-mode: normal !important;
+        }
     }
 
-    /* --- M. Special:MediaSearch & Codex Components --- */
+    /* Progressive Primary Codex Buttons (e.g., Special:UserLogin "Log in") */
+    .cdx-button:enabled.cdx-button--action-progressive,
+    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive {
+        background-color: @background-color-btn-save !important;
+        color: @color-btn-text !important;
+        border-color: @background-color-btn-save !important;
+
+        &:hover {
+            background-color: @background-color-btn-save !important;
+            color: @color-btn-text !important;
+            border-color: @color-link !important;
+        }
+    }
+
+    /* Codex Text Inputs */
+    .cdx-text-input__input:enabled {
+        background-color: @background-color-input !important;
+        color: @color-input-text !important;
+        border-color: @border-color-input !important;
+    }
+
+    /* Codex Select Dropdowns */
+    .cdx-select {
+        background-color: @background-color-input !important;
+        color: @color-input-text !important;
+        border-color: @border-color-input !important;
+        color-scheme: dark;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 3.5l5 5 5-5' fill='none' stroke='%23d1d5db' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    }
+
+    /* Codex Unframed Tabs Header Bar */
+    .cdx-tabs:not(.cdx-tabs--framed) > .cdx-tabs__header {
+        background-color: transparent !important;
+        border-bottom-color: @border-color-base !important;
+    }
+
+    /* Codex Table Headers */
+    .cdx-table__header__caption,
+    .cdx-table__table th {
+        color: @color-base !important;
+    }
+
+    /* ======================================================================
+       8. SPECIAL PAGES (Preferences, RecentChanges, Search)
+       ====================================================================== */
+
+    /* Special:Preferences Tabs, Search & Sticky Submit Bar */
+    .mw-prefs-tabs-wrapper.oo-ui-panelLayout-framed,
+    .mw-prefs-tabs > .oo-ui-menuLayout-content > .oo-ui-indexLayout-stackLayout > .oo-ui-tabPanelLayout {
+        border-color: @border-color-base !important;
+    }
+
+    .oo-ui-tabSelectWidget-framed {
+        background-color: @background-color-ui-subtle !important;
+
+        .oo-ui-tabOptionWidget.oo-ui-optionWidget-selected {
+            background-color: @background-color-card !important;
+            color: @color-text-main !important;
+        }
+    }
+
+    #preferences .mw-htmlform-submit-buttons {
+        background-color: @background-color-editor-bar !important;
+        border: 1px solid @border-color-ui-widget !important;
+        box-shadow: 0 -4px 4px -4px @shadow-color !important;
+    }
+
+    .mw-prefs-tabs.mw-prefs-tabs-searching .oo-ui-tabPanelLayout.mw-prefs-search-matched > fieldset > legend {
+        background: @background-color-editor-bar !important;
+        color: @color-text-main !important;
+    }
+
+    .mw-prefs-search-highlight {
+        background: @background-color-progressive-subtle !important;
+        outline: 3px solid @background-color-progressive-subtle !important;
+    }
+
+    /* RecentChanges / Watchlist Filters Menu */
+    .mw-rcfilters-ui-filterMenuHeaderWidget-header {
+        background-color: @background-color-ui-subtle !important;
+        border-bottom: 1px solid @border-color-ui-widget !important;
+    }
+
+    .mw-rcfilters-ui-filterMenuSectionOptionWidget {
+        background-color: @background-color-editor-bar !important; 
+        color: @color-base !important;
+    }
+
+    .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-selected {
+        background-color: @background-color-progressive-subtle !important;
+        color: @color-base !important;
+    }
+
+    .mw-rcfilters-ui-itemMenuOptionWidget-label-title {
+        color: @color-dropdown-text !important;
+    }
+
+    .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted.oo-ui-optionWidget-highlighted,
+    .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-highlighted {
+        background-color: @background-color-dropdown-hover !important;
+        color: @color-dropdown-text !important;
+    }
+
+    .mw-rcfilters-ui-menuSelectWidget-footer {
+        background-color: @background-color-ui-subtle !important;
+        border-top: 1px solid @border-color-ui-widget !important;
+    }
+
+    .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted:not(.oo-ui-optionWidget-selected) {
+        background-color: @background-color-dropdown !important;
+        color: @color-dropdown-text !important;
+    }
+
+    /* Special:Search (Interwiki Results & AdvancedSearch) */
+    .mw-searchresults-has-iw .iw-result__header a {
+        color: @color-text-main !important;
+    }
+
+    .mw-advancedSearch-fieldContainer,
+    .mw-advancedSearch-namespace-selection {
+        background: @background-color-ui-subtle !important;
+        border-color: @border-color-ui-widget !important;
+    }
+
+    .mw-advancedSearch-fieldContainer .oo-ui-labelElement > .oo-ui-fieldsetLayout-header > .oo-ui-labelElement-label {
+        background: @background-color-ui-subtle !important;
+        color: @color-base !important;
+    }
+
+    .mw-advancedSearch-expandablePane-button.oo-ui-widget-enabled.oo-ui-buttonWidget > .oo-ui-buttonElement-button:hover {
+        background-color: @background-color-editor-bar !important;
+        color: @color-base !important;
+    }
+
+    /* ======================================================================
+       9. EXTENSIONS (MediaSearch, MediaUploader, Wikibase, ReplaceText, Echo)
+       ====================================================================== */
+
+    /* Extension:MediaSearch (Special:MediaSearch) */
     .sdms-search-filters .sd-select__content {
         color: @color-base !important;
 
@@ -987,7 +1212,7 @@ html.nightingale-dark-mode {
         }
     }
 
-	.sd-input--pending .sd-input__input input {
+    .sd-input--pending .sd-input__input input {
         background-image: none !important;
         animation: none !important;
     }
@@ -1027,214 +1252,36 @@ html.nightingale-dark-mode {
         border-bottom-color: @border-color-base !important;
     }
 
-	.cdx-button:enabled,
-    .cdx-button.cdx-button--fake-button--enabled {
+    /* Extension:ReplaceText (Special:ReplaceText options box) */
+    .ext-replacetext-searchoptions {
+        background-color: @background-color-ui-subtle !important;
+        border-color: @border-color-ui-widget !important;
+        color: @color-base !important;
+    }
+
+    /* Extension:Echo Notification Badge (Read State) */
+    .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
+        filter: invert(1) brightness(1.2) !important;
+    }
+
+    /* ======================================================================
+       10. MISC UI (Redirect Arrows & Toast Notifications)
+       ====================================================================== */
+
+    /* Redirect Page Arrow Icon (invert arrow while keeping link color normal) */
+    .mw-content-ltr .redirectText li,
+    .mw-content-rtl .redirectText li {
+        filter: invert(1) hue-rotate(180deg);
+
+        a {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    }
+
+    /* MediaWiki Toast Notification Popup */
+    .mw-notification {
         background-color: @background-color-ui-widget !important;
-        color: @color-text-main !important;
         border-color: @border-color-ui-widget !important;
-
-        &:hover {
-            background-color: @background-color-hover !important;
-            color: @color-text-main !important;
-            border-color: @border-color-ui-widget !important;
-        }
-    }
-
-    .cdx-button:enabled.cdx-button--weight-quiet,
-    .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-quiet {
-        color: @color-base !important;
-
-        &:hover {
-            background-color: @background-color-hover !important;
-            color: @color-text-main !important;
-            mix-blend-mode: normal !important;
-        }
-    }
-
-    .cdx-button:enabled.cdx-button--action-progressive,
-    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive {
-        background-color: @background-color-btn-save !important;
-        color: @color-btn-text !important;
-        border-color: @background-color-btn-save !important;
-
-        &:hover {
-            background-color: @background-color-btn-save !important;
-            color: @color-btn-text !important;
-            border-color: @color-link !important;
-        }
-    }
-
-    .cdx-text-input__input:enabled {
-        background-color: @background-color-input !important;
-        color: @color-input-text !important;
-        border-color: @border-color-input !important;
-    }
-
-    .cdx-tabs:not(.cdx-tabs--framed) > .cdx-tabs__header {
-        background-color: transparent !important;
-        border-bottom-color: @border-color-base !important;
-    }
-
-    /* --- N. Interwiki Search Results --- */
-    .mw-searchresults-has-iw .iw-result__header a {
         color: @color-text-main !important;
-    }
-
-    /* --- O. Revision Slider, OOUI Icons & Frameless Buttons --- */
-    .oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
-        color: @color-base !important;
-
-        &:hover {
-            background-color: @background-color-hover !important;
-            color: @color-text-main !important;
-        }
-
-        &:active {
-            background-color: var(--background-color-interactive) !important;
-            color: @color-text-main !important;
-        }
-    }
-
-	/* Revision Slider Bars & Hover States */
-    .mw-revslider-revision {
-        background-color: @border-color-ui-widget !important;
-        border-color: @border-color-ui-widget !important;
-    }
-
-    .mw-revslider-revision-wrapper-hovered {
-        background-color: @background-color-hover !important;
-    }
-
-    .mw-revslider-toggle-button {
-        background-color: @background-color-ui-subtle !important;
-        border: 1px solid @border-color-base !important;
-        border-radius: 2px;
-    }
-
-	.mw-revslider-slider-wrapper {
-        border-top: none !important;
-    }
-
-    /* Invert all black OOUI icons & indicators in dark mode */
-    .oo-ui-iconElement-icon,
-    .oo-ui-indicatorElement-indicator {
-        &:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-invert) {
-            filter: invert(1) brightness(1.2);
-        }
-    }
-
-    /* --- P. Browser Autofill Override --- */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px @background-color-input inset !important;
-        -webkit-text-fill-color: @color-input-text !important;
-        caret-color: @color-input-text !important;
-    }
-
-    /* --- Q. Special:BotPasswords, Checkboxes, Matrix Tables & Preferences --- */
-    .oo-ui-checkboxInputWidget [type='checkbox'] + span {
-        background-color: @background-color-input !important;
-        border-color: @border-color-input !important;
-    }
-
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:hover + span {
-        background-color: @background-color-hover !important;
-        border-color: @color-link !important;
-    }
-
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked + span,
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked:hover + span {
-        background-color: @background-color-btn-save !important;
-        border-color: @background-color-btn-save !important;
-    }
-
-	.oo-ui-radioInputWidget [type='radio'] + span {
-        background-color: @background-color-input !important;
-        border-color: @border-color-input !important;
-    }
-
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:hover + span {
-        background-color: @background-color-hover !important;
-        border-color: @color-link !important;
-    }
-
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked + span,
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked:hover + span {
-        border-color: @background-color-btn-save !important;
-    }
-
-	.oo-ui-dropdownWidget.oo-ui-widget-enabled {
-        .oo-ui-dropdownWidget-handle {
-            background-color: @background-color-ui-widget !important;
-            color: @color-base !important;
-            border-color: @border-color-ui-widget !important;
-
-            &:hover {
-                background-color: @background-color-hover !important;
-                color: @color-text-main !important;
-                border-color: @border-color-ui-widget !important;
-            }
-        }
-    }
-
-    .mw-htmlform-ooui .mw-htmlform-matrix tbody {
-        tr td {
-            background-color: @background-color-card !important;
-            color: @color-base !important;
-        }
-
-        tr:nth-child(even) td {
-            background-color: @background-color-ui-subtle !important;
-        }
-
-        tr:hover td {
-            background-color: @background-color-hover !important;
-        }
-    }
-
-    .oo-ui-fieldLayout-header .oo-ui-labelElement-label {
-        color: @color-text-main !important;
-    }
-
-    .mw-prefs-tabs-wrapper.oo-ui-panelLayout-framed,
-    .mw-prefs-tabs > .oo-ui-menuLayout-content > .oo-ui-indexLayout-stackLayout > .oo-ui-tabPanelLayout {
-        border-color: @border-color-base !important;
-    }
-
-    /* Preferences Selected Tab */
-    .oo-ui-tabSelectWidget-framed {
-        background-color: @background-color-ui-subtle !important;
-
-        .oo-ui-tabOptionWidget.oo-ui-optionWidget-selected {
-            background-color: @background-color-card !important;
-            color: @color-text-main !important;
-        }
-    }
-
-    /* Disabled OOUI Framed Buttons (e.g. Save button before changes are made) */
-    .oo-ui-buttonElement-framed.oo-ui-widget-disabled > .oo-ui-buttonElement-button {
-        background-color: @background-color-ui-subtle !important;
-        color: @color-gutter-text !important;
-        border-color: @border-color-base !important;
-    }
-
-    /* Preferences Sticky Submit Bar (distinct background from card) */
-    #preferences .mw-htmlform-submit-buttons {
-        background-color: @background-color-editor-bar !important;
-        border: 1px solid @border-color-ui-widget !important;
-        box-shadow: 0 -4px 4px -4px @shadow-color !important;
-    }
-
-	/* Preferences Search Highlighting */
-    .mw-prefs-tabs.mw-prefs-tabs-searching .oo-ui-tabPanelLayout.mw-prefs-search-matched > fieldset > legend {
-        background: @background-color-editor-bar !important;
-        color: @color-text-main !important;
-    }
-
-    .mw-prefs-search-highlight {
-        background: @background-color-progressive-subtle !important;
-        outline: 3px solid @background-color-progressive-subtle !important;
     }
 }
