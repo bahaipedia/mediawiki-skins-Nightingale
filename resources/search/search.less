@@ -69,24 +69,6 @@
         &:hover, &:focus { text-decoration: none; }
     }
 
-    /* --- INPUT STYLING (SIMPLIFIED) --- */
-    &-input {
-        color: var( --color-emphasized ) !important;
-        background-color: var(--background-color-input) !important; /* FIX: Added background variable */
-        caret-color: auto; 
-        height: 100%;
-        width: 100%;
-        padding: 6px 8px;
-        box-sizing: border-box;
-        border: 1px solid var(--border-color-base);
-        border-radius: var(--border-radius-medium);
-        
-        &:focus {
-            border-color: var(--color-link); /* FIX: Use link color instead of hardcoded #36c */
-            outline: 1px solid var(--color-link);
-        }
-    }
-
     &__highlight {
         font-weight: var( --font-weight-semi-bold );
     }
