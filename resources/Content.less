@@ -1050,11 +1050,17 @@ html.nightingale-dark-mode {
         }
     }
 
-    .cdx-button:enabled.cdx-button--action-progressive:hover,
-    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive:hover {
-        background-color: transparent !important;
-        color: @color-link !important;
-        border-color: @color-link !important;
+    .cdx-button:enabled.cdx-button--action-progressive,
+    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive {
+        background-color: @background-color-btn-save !important;
+        color: @color-btn-text !important;
+        border-color: @background-color-btn-save !important;
+
+        &:hover {
+            background-color: @background-color-btn-save !important;
+            color: @color-btn-text !important;
+            border-color: @color-link !important;
+        }
     }
 
     .cdx-text-input__input:enabled {
