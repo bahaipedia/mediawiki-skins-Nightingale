@@ -1121,6 +1121,21 @@ html.nightingale-dark-mode {
         border-color: @background-color-btn-save !important;
     }
 
+	.oo-ui-radioInputWidget [type='radio'] + span {
+        background-color: @background-color-input !important;
+        border-color: @border-color-input !important;
+    }
+
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:hover + span {
+        background-color: @background-color-hover !important;
+        border-color: @color-link !important;
+    }
+
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked + span,
+    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked:hover + span {
+        border-color: @background-color-btn-save !important;
+    }
+
 	.oo-ui-dropdownWidget.oo-ui-widget-enabled {
         .oo-ui-dropdownWidget-handle {
             background-color: @background-color-ui-widget !important;
