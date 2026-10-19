@@ -803,6 +803,89 @@ html.nightingale-dark-mode {
        5. CODE EDITOR (ACE) & SYNTAX HIGHLIGHTING (PYGMENTS)
        ====================================================================== */
 
+	/* WikiEditor Toolbar, Tabs, Help Booklet & Resizing Drag Bar */
+    .wikiEditor-ui-toolbar {
+        .group,
+        .section-secondary .group {
+            border-color: @border-color-toolbar !important;
+        }
+
+        .group .label,
+        .group .tool-select .label {
+            color: @color-base !important;
+        }
+
+        /* Toolbar Dropdown Menus (e.g., "Heading" selector) */
+        .group .tool-select .options {
+            background-color: @background-color-dropdown !important;
+            border-color: @border-color-dropdown !important;
+
+            .option {
+                color: @color-dropdown-text !important;
+
+                &:hover {
+                    background-color: @background-color-dropdown-hover !important;
+                }
+            }
+        }
+
+        /* Tabs ("Advanced", "Special characters", "Help") */
+        .tabs span.tab a {
+            color: @color-link !important;
+
+            &.current,
+            &.current:visited {
+                color: @color-text-main !important;
+            }
+
+            /* Invert the black down-caret SVG */
+            &::before {
+                filter: invert(1) brightness(1.2);
+            }
+        }
+
+        /* Booklet Left Index & Special Characters Grid */
+        .booklet {
+            > .index {
+                > div {
+                    color: @color-base !important;
+
+                    &:hover {
+                        background-color: @background-color-hover !important;
+                    }
+                }
+
+                > .current {
+                    background-color: @background-color-progressive-subtle !important;
+                    color: @color-link !important;
+                }
+            }
+
+            .pages {
+                background-color: @background-color-card !important;
+            }
+        }
+
+        /* Help Section Tables ("Description / What you type / What you get") */
+        .page-table {
+            th {
+                color: @color-text-main !important;
+                border-bottom: 1px solid @border-color-base !important;
+            }
+
+            td {
+                color: @color-base !important;
+                border-top: 1px solid @border-color-base !important;
+            }
+        }
+    }
+
+    /* Bottom Resizing Drag Bar under the Editor */
+    .ext-WikiEditor-ResizingDragBar {
+        background-color: @background-color-editor-bar !important;
+        border-top-color: @border-color-toolbar !important;
+    }
+
     /* CodeEditor (Lua/JS/CSS Ace Edit Mode) */
     .ace-tm {
         background-color: @background-color-editor !important;
