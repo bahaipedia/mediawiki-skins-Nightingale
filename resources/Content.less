@@ -520,6 +520,10 @@ table.mw-datatable tr:hover td {
     #sticky-page-tracker {
         display: none !important;
     }
+	/* Fix table of contents headings appearing on a new line from their numbering */
+    .tocnumber, .toctext {
+        display: inline !important;
+    }
 }
 @media (max-width: 650px) {
     .mw-header {
@@ -931,5 +935,132 @@ html.nightingale-dark-mode {
     }
 	.mw-widget-calendarWidget-day-additional {
         color: @color-gutter-text !important;
+    }
+
+	/* --- L. Special:AllMessages & DataTables --- */
+    .mw-datatable {
+        border-color: @border-color-base !important;
+
+        th {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        td {
+            background-color: @background-color-card !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+
+        tr:hover td {
+            background-color: @background-color-hover !important;
+        }
+    }
+
+    #mw-allmessagestable .am_default,
+    #mw-allmessagestable body:hover .am_default {
+        background-color: @background-color-warning-subtle !important;
+    }
+
+    /* --- M. Special:MediaSearch & Codex Components --- */
+    .sdms-search-filters .sd-select__content {
+        color: @color-base !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+        }
+    }
+
+    .sd-select__content {
+        background-color: @background-color-ui-subtle !important;
+        border-color: @border-color-ui-widget !important;
+        color: @color-base !important;
+    }
+
+    .sd-select__handle {
+        color: @color-base !important;
+    }
+
+    .cdx-text-input__input:enabled {
+        background-color: @background-color-input !important;
+        color: @color-input-text !important;
+        border-color: @border-color-input !important;
+    }
+
+    .cdx-tabs:not(.cdx-tabs--framed) > .cdx-tabs__header {
+        background-color: transparent !important;
+        border-bottom-color: @border-color-base !important;
+    }
+
+    /* --- N. Interwiki Search Results --- */
+    .mw-searchresults-has-iw .iw-result__header a {
+        color: @color-text-main !important;
+    }
+
+    /* --- O. Revision Slider Toggle & Frameless OOUI Buttons --- */
+    .oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
+        color: @color-base !important;
+
+        &:hover {
+            background-color: @background-color-hover !important;
+            color: @color-text-main !important;
+        }
+
+        &:active {
+            background-color: @background-color-interactive !important;
+            color: @color-text-main !important;
+        }
+    }
+
+    .mw-revslider-toggle-button {
+        background-color: @background-color-ui-subtle !important;
+        border: 1px solid @border-color-base !important;
+        border-radius: 2px;
+
+        .oo-ui-indicatorElement-indicator {
+            filter: invert(1) brightness(1.2);
+        }
+    }
+
+    /* --- P. Browser Autofill Override --- */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px @background-color-input inset !important;
+        -webkit-text-fill-color: @color-input-text !important;
+        caret-color: @color-input-text !important;
+    }
+
+    /* --- Q. Special:BotPasswords, Matrix Tables & Preferences --- */
+    .mw-htmlform-ooui .mw-htmlform-matrix tbody {
+        tr td {
+            background-color: @background-color-card !important;
+            color: @color-base !important;
+        }
+
+        tr:nth-child(even) td {
+            background-color: @background-color-ui-subtle !important;
+        }
+
+        tr:hover td {
+            background-color: @background-color-hover !important;
+        }
+    }
+
+    .oo-ui-fieldLayout-header .oo-ui-labelElement-label {
+        color: @color-text-main !important;
+    }
+
+    .mw-prefs-tabs-wrapper.oo-ui-panelLayout-framed,
+    .mw-prefs-tabs > .oo-ui-menuLayout-content > .oo-ui-indexLayout-stackLayout > .oo-ui-tabPanelLayout {
+        border-color: @border-color-base !important;
+    }
+
+    #preferences .mw-htmlform-submit-buttons {
+        background-color: @background-color-card !important;
+        border-top-color: @border-color-base !important;
+        box-shadow: 0 -4px 4px -4px @shadow-color !important;
     }
 }
