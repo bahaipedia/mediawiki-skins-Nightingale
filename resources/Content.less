@@ -1074,19 +1074,6 @@ html.nightingale-dark-mode {
             color: @color-text-main !important;
         }
     }
-	.oo-ui-dropdownWidget.oo-ui-widget-enabled {
-        .oo-ui-dropdownWidget-handle {
-            background-color: @background-color-ui-widget !important;
-            color: @color-base !important;
-            border-color: @border-color-ui-widget !important;
-
-            &:hover {
-                background-color: @background-color-hover !important;
-                color: @color-text-main !important;
-                border-color: @border-color-ui-widget !important;
-            }
-        }
-    }
 
     .mw-revslider-toggle-button {
         background-color: @background-color-ui-subtle !important;
@@ -1132,6 +1119,20 @@ html.nightingale-dark-mode {
     .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked:hover + span {
         background-color: @background-color-btn-save !important;
         border-color: @background-color-btn-save !important;
+    }
+
+	.oo-ui-dropdownWidget.oo-ui-widget-enabled {
+        .oo-ui-dropdownWidget-handle {
+            background-color: @background-color-ui-widget !important;
+            color: @color-base !important;
+            border-color: @border-color-ui-widget !important;
+
+            &:hover {
+                background-color: @background-color-hover !important;
+                color: @color-text-main !important;
+                border-color: @border-color-ui-widget !important;
+            }
+        }
     }
 
     .mw-htmlform-ooui .mw-htmlform-matrix tbody {
