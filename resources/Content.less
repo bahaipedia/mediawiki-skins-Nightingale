@@ -942,9 +942,100 @@ html.nightingale-dark-mode {
         color: @color-editor-text !important;
     }
 
-	/* CodeMirror Syntax Highlight Toggle Button in WikiEditor */
-    .cm-mw-toggle-wikieditor:hover {
+	/* CodeMirror 6 (Wikitext Syntax Highlighting in WikiEditor) */
+	.cm-mw-toggle-wikieditor:hover {
         background-color: @background-color-hover !important;
+    }
+
+    .cm-editor {
+        background-color: @background-color-editor !important;
+
+        /* Line Number Gutter */
+        .cm-gutters {
+            background-color: @background-color-gutter !important;
+            color: @color-gutter-text !important;
+            border-right: 1px solid @border-color-ui-widget !important;
+        }
+
+        .cm-activeLineGutter,
+        .cm-activeLine {
+            background-color: @background-color-ui-subtle !important;
+        }
+
+        /* Cursor & Text Selection */
+        .cm-cursor,
+        .cm-dropCursor {
+            border-left-color: @color-editor-text !important;
+        }
+
+        .cm-selectionBackground,
+        &.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+            background-color: @background-color-interactive-selected !important;
+        }
+
+        /* Muted Dark-Mode Wikitext Palette */
+        /* 1. Links & Section Headers (Soft Blue) */
+        .cm-mw-link,
+        .cm-mw-link-tosection,
+        .cm-mw-link-pagename,
+        .cm-mw-extlink,
+        .cm-mw-free-extlink,
+        .cm-mw-section-header {
+            color: @color-link !important;
+        }
+
+        /* 2. Templates (Soft Lavender for name/brackets, Soft Cream for arguments) */
+        .cm-mw-template-name,
+        .cm-mw-template-bracket,
+        .cm-mw-template-delimiter {
+            color: @color-link-visited !important;
+        }
+
+        .cm-mw-template-argument-name {
+            color: #dcdcaa !important;
+        }
+
+        .cm-mw-template {
+            color: @color-editor-text !important;
+        }
+
+        /* 3. Parser Functions (Warm Gold) */
+        .cm-mw-parserfunction-name,
+        .cm-mw-parserfunction-bracket,
+        .cm-mw-parserfunction-delimiter,
+        .cm-mw-conversion-bracket,
+        .cm-mw-conversion-delimiter,
+        .cm-mw-conversion-flag,
+        .cm-mw-conversion-lang {
+            color: #cc7832 !important;
+        }
+
+        /* 4. Template Parameters {{{1}}} (Soft Peach) */
+        .cm-mw-templatevariable,
+        .cm-mw-templatevariable-name,
+        .cm-mw-templatevariable-bracket,
+        .cm-mw-templatevariable-delimiter {
+            color: #e5c07b !important;
+        }
+
+        /* 5. HTML & Extension Tags <ref>, <div> (Muted Teal) */
+        .cm-mw-exttag-name,
+        .cm-mw-exttag-bracket,
+        .cm-mw-htmltag-name,
+        .cm-mw-htmltag-bracket {
+            color: #4ec9b0 !important;
+        }
+
+        .cm-mw-exttag-attribute,
+        .cm-mw-htmltag-attribute {
+            color: #9cdcfe !important;
+        }
+
+        /* 6. Comments (Muted Gray) */
+        .cm-mw-comment {
+            color: @color-gutter-text !important;
+            font-style: italic;
+        }
     }
 
     /* Syntax Highlighting (View Mode / .mw-highlight) */
