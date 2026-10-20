@@ -625,10 +625,19 @@ html.nightingale-dark-mode {
         }
     }
 
-    /* Default message rows on Special:AllMessages */
-    #mw-allmessagestable .am_default,
-    #mw-allmessagestable body:hover .am_default {
-        background-color: @background-color-warning-subtle !important;
+    /* Modified message rows on Special:AllMessages (Old Default vs. New Actual) */
+    #mw-allmessagestable {
+        .am_default,
+        tbody:hover .am_default {
+            background-color: @background-color-diff-deleted !important;
+            color: var(--color-diff-text) !important;
+        }
+
+        .am_actual,
+        tbody:hover .am_actual {
+            background-color: @background-color-diff-added !important;
+            color: var(--color-diff-text) !important;
+        }
     }
 
     /* EXIF Metadata tables on File description pages */
