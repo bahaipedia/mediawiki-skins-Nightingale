@@ -1125,11 +1125,9 @@ html.nightingale-dark-mode {
        ====================================================================== */
 
     /* Invert black OOUI icons & dropdown indicators while preserving colored/inverted icons */
-    .oo-ui-iconElement-icon,
-    .oo-ui-indicatorElement-indicator {
-        &:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-success):not(.oo-ui-image-warning):not(.oo-ui-image-invert) {
-            filter: invert(1) brightness(0.6);
-        }
+    .oo-ui-iconElement-icon:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-image-success):not(.oo-ui-image-warning):not(.oo-ui-image-invert),
+    .oo-ui-indicatorElement-indicator:not(.oo-ui-image-invert) {
+        filter: invert(1) brightness(0.6);
     }
 
     /* Ensure OOUI field labels are readable */
