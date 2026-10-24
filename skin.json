@@ -144,20 +144,6 @@
                 "mediawiki.template.mustache",
                 "mediawiki.util"
             ]
-        },
-        "skins.nightingale.redirectfixer": {
-            "scripts": [
-                "resources/redirect-fixer.js"
-            ],
-            "dependencies": [
-                "mediawiki.api",
-                "mediawiki.util",
-                "mediawiki.jqueryMsg"
-            ],
-            "targets": [
-                "desktop",
-                "mobile"
-            ]
         }
     },
     "ResourceFileModulePaths": {
