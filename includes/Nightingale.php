@@ -183,6 +183,30 @@ class SkinNightingale extends SkinMustache {
         $data['nightingale-mobile-links-label'] = $this->msg('nightingale-mobile-links-label')->text();
         $data['nightingale-has-mobile-links'] = !empty($mobileLinks);
 
+        $footerPortlets = [];
+        if ( !empty( $hybridMenu ) ) {
+            $footerPortlets[] = [
+                'id' => 'actions',
+                'label' => $this->msg( 'actions' )->text(),
+                'array-items' => $hybridMenu
+            ];
+        }
+        if ( !empty( $mobileTools ) ) {
+            $footerPortlets[] = [
+                'id' => 'tb',
+                'label' => $mobileToolsLabel,
+                'array-items' => $mobileTools
+            ];
+        }
+        foreach ( $sidebarMenus as $menu ) {
+            $footerPortlets[] = [
+                'id' => $menu['html-id'] ?? 'sidebar',
+                'label' => $menu['label'] ?? '',
+                'array-items' => $menu['array-items'] ?? []
+            ];
+        }
+        $data['nightingale-footer-portlets'] = $footerPortlets;
+
         // ---------------------------------------------------------
         // PART 5: USER MENU
         // ---------------------------------------------------------
