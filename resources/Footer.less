@@ -5,7 +5,7 @@
     border-top: solid 1px @border-color-footer;
     color: @color-footer-text;
     background: @background-color-footer;
-    padding: 1.5rem 0;
+    padding: 2.25rem 0 1.25rem;
     position: relative;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -29,6 +29,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 1.75rem;
 
     @media (max-width: @max-width-breakpoint-tablet) {
         max-width: 100%;
@@ -36,22 +37,159 @@
     }
 }
 
-/* TIER 1: Document Colophon & Tools */
-.nightingale-footer-colophon {
+/* TIER 1: Multi-Column Digital Library Directory */
+.nightingale-footer-directory {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.2fr) 2.5fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.nightingale-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.nightingale-footer-sitename {
+    font-size: 1.35rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: @color-footer-text;
+}
+
+.nightingale-footer-desc {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 34ch;
+}
+
+.nightingale-footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+}
+
+.nightingale-footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.nightingale-footer-heading {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: @color-footer-text;
+    opacity: 0.65;
+    font-family: inherit;
+}
+
+.nightingale-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    /* Compact the lengthy "Content" list into 2 sub-columns if needed */
+    #footer-p-Content & {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        gap: 0.35rem 1.25rem;
+    }
+
+    li {
+        margin: 0;
+        padding: 0;
+        display: block;
+
+        a {
+            opacity: 0.9;
+            font-size: 0.88rem;
+        }
+    }
+}
+
+/* GIVE #footer-p-Content extra width so its 2 sub-columns breathe */
+#footer-p-Content {
+    grid-column: span 2;
+
+    @media (max-width: 900px) {
+        grid-column: span 1;
+    }
+}
+
+/* Site Places Links (Privacy, About, Disclaimers, Traffic Stats) */
+.nightingale-footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+}
+
+#footer-places {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0;
+    font-size: 0.82rem;
+    opacity: 0.85;
+
+    li {
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+
+        &:not(:last-child)::after {
+            content: "•";
+            margin: 0 0.5rem;
+            opacity: 0.5;
+        }
+    }
+}
+
+#copyright {
+    font-size: 0.82rem;
+    opacity: 0.75;
+
+    &:empty {
+        display: none;
+    }
+}
+
+/* TIER 2: Sub-Footer Colophon & Page Tools */
+.nightingale-footer-subbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid @border-color-footer-divider;
+    padding-top: 1rem;
+    border-top: 1px solid @border-color-footer-divider;
 }
 
 .nightingale-colophon-meta {
     .skin-last-modified {
         display: inline-block;
-        opacity: 0.9;
+        font-size: 0.85rem;
+        opacity: 0.8;
     }
+}
+
+.nightingale-footer-right {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .nightingale-footer-tools {
@@ -69,8 +207,8 @@
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid @border-color-footer-divider;
         border-radius: 4px;
-        padding: 0.35rem 0.75rem;
-        font-size: 0.85rem;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.82rem;
         font-weight: 600;
         cursor: pointer;
         text-decoration: none;
@@ -145,52 +283,6 @@
     }
 }
 
-/* TIER 2: Global Site Footer */
-.nightingale-footer-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.nightingale-footer-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-#footer-places {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 0;
-
-    li {
-        display: inline-flex;
-        align-items: center;
-        margin: 0;
-
-        &:not(:last-child)::after {
-            content: "•";
-            margin: 0 0.65rem;
-            opacity: 0.5;
-        }
-    }
-}
-
-#copyright {
-    font-size: 0.85rem;
-    opacity: 0.8;
-
-    &:empty {
-        display: none;
-    }
-}
-
 #footer-icons {
     list-style: none;
     margin: 0;
@@ -204,7 +296,6 @@
         display: inline-flex;
     }
 
-    /* Soften the Codex button wrapper around the MediaWiki badge */
     .cdx-button {
         background: rgba(255, 255, 255, 0.9);
         border-radius: 4px;
@@ -213,13 +304,19 @@
     }
 }
 
+@media (max-width: 900px) {
+    .nightingale-footer-directory {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
 @media (max-width: 720px) {
     .mw-footer {
-        padding: 1.25rem 1rem;
+        padding: 1.5rem 0 1rem;
     }
 
-    .nightingale-footer-colophon,
-    .nightingale-footer-main {
+    .nightingale-footer-subbar {
         flex-direction: column;
         align-items: flex-start;
     }
