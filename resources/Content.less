@@ -1569,6 +1569,13 @@ html.nightingale-dark-mode {
        10. MISC UI (Redirect Arrows & Toast Notifications)
        ====================================================================== */
 
+	/* Reference Tooltip Hover & Clicked Citation Highlight */
+    .rt-target,
+    ol.references li:target,
+    sup.reference:target {
+        background-color: @background-color-progressive-subtle !important;
+    }
+
     /* Redirect Page Arrow Icon (invert arrow while keeping link color normal) */
     .mw-content-ltr .redirectText li,
     .mw-content-rtl .redirectText li {
