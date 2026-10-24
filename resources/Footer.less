@@ -54,12 +54,7 @@
     flex-wrap: wrap;
     gap: 0.5rem;
 
-    .mw-portlet-dropdown {
-        margin: 0;
-        position: relative;
-    }
-
-    .mw-checkbox-hack-button,
+    .nightingale-dropup-button,
     .nightingale-back-to-top {
         display: inline-flex;
         align-items: center;
@@ -88,15 +83,25 @@
     }
 }
 
-/* DROP-UP Menu Body */
+/* DROP-UP Menu Logic & Body */
 .nightingale-dropup {
-    .mw-portlet-body {
+    position: relative;
+    margin: 0;
+
+    .nightingale-dropup-checkbox {
+        display: none;
+    }
+
+    .nightingale-dropup-body {
+        display: none;
+        position: absolute;
         bottom: calc(100% + 8px);
         top: auto;
         right: 0;
         left: auto;
-        transform: none;
         min-width: 200px;
+        width: max-content;
+        max-width: 90vw;
         background: @background-color-dropdown;
         border: 1px solid @border-color-dropdown;
         border-radius: 6px;
@@ -127,6 +132,10 @@
                 }
             }
         }
+    }
+
+    .nightingale-dropup-checkbox:checked ~ .nightingale-dropup-body {
+        display: block;
     }
 }
 
