@@ -42,7 +42,7 @@
     display: grid;
     grid-template-columns: minmax(240px, 1.2fr) 2.5fr;
     gap: 3rem;
-    align-items: start;
+    align-items: stretch;
 }
 
 .nightingale-footer-brand {
@@ -114,7 +114,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    margin-top: 0.25rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
 }
 
 #footer-places {
@@ -126,7 +127,6 @@
     align-items: center;
     gap: 0.35rem 0;
     font-size: 0.82rem;
-    opacity: 0.85;
 
     li {
         display: inline-flex;
@@ -137,6 +137,17 @@
             content: "•";
             margin: 0 0.5rem;
             opacity: 0.5;
+        }
+
+        a {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(255, 255, 255, 0.4);
+
+            &:hover {
+                text-decoration-color: @color-footer-text;
+                opacity: 1;
+            }
         }
     }
 }
