@@ -291,7 +291,7 @@ class SkinNightingale extends SkinMustache {
                 if ( preg_match( '/^(https?:)?\/\//i', $target ) ) {
                     $href = $target;
                 } else {
-                    $title = \Title::newFromText( $target );
+                    $title = \MediaWiki\Title\Title::newFromText( $target );
                     $href = $title ? $title->getLocalURL() : '#';
                 }
 
