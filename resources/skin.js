@@ -9,17 +9,20 @@
         /* ==================================================================
            1. MENU LOGIC
            ================================================================== */
+        var $menuContainers = $('.mw-portlet, .nightingale-dropup');
+        var $menuCheckboxes = $menuContainers.find('input[type="checkbox"]');
+
         $(window).on('click', function () {
-            $('.mw-portlet input[type="checkbox"]').prop('checked', false);
+            $menuCheckboxes.prop('checked', false);
         });
 
-        $('.mw-portlet').on('click', function (e) {
+        $menuContainers.on('click', function (e) {
             e.stopPropagation();
         });
 
-        $('.mw-portlet input[type="checkbox"]').on('change', function () {
+        $menuCheckboxes.on('change', function () {
             if ($(this).is(':checked')) {
-                $('.mw-portlet input[type="checkbox"]').not(this).prop('checked', false);
+                $menuCheckboxes.not(this).prop('checked', false);
             }
         });
     });
