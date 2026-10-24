@@ -12,10 +12,10 @@
 
             <div class="nightingale-footer-tools">
                 {{#nightingale-footer-portlets}}
-                    <div class="mw-portlet mw-portlet-dropdown nightingale-dropup">
-                        <input type="checkbox" id="cb-foot-{{id}}" class="mw-checkbox-hack-checkbox">
-                        <label for="cb-foot-{{id}}" class="mw-checkbox-hack-button">{{label}} <span class="dropup-caret">▴</span></label>
-                        <div class="mw-portlet-body">
+                    <div class="nightingale-dropup">
+                        <input type="checkbox" id="cb-foot-{{id}}" class="nightingale-dropup-checkbox">
+                        <label for="cb-foot-{{id}}" class="nightingale-dropup-button">{{label}} <span class="dropup-caret">▴</span></label>
+                        <div class="nightingale-dropup-body">
                             <ul>
                                 {{#array-items}}{{>ListItem}}{{/array-items}}
                             </ul>
@@ -24,7 +24,6 @@
                 {{/nightingale-footer-portlets}}
                 <a href="#" class="nightingale-back-to-top">↑ Top</a>
             </div>
-        </div>
 
         {{! Tier 2: Global Site Footer }}
         {{#data-footer}}
