@@ -5,45 +5,212 @@
     border-top: solid 1px @border-color-footer;
     color: @color-footer-text;
     background: @background-color-footer;
-    padding: 1em;
-    position: relative; 
-    
-    li {
-        display: inline-block;
-        margin-right: 20px;
+    padding: 1.5rem 2rem;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    a {
+        color: @color-footer-text;
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
     }
 }
 
-.footer-icons {
-    float: right;
+.nightingale-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* TIER 1: Document Colophon & Tools */
+.nightingale-footer-colophon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid @border-color-footer-divider;
+}
+
+.nightingale-colophon-meta {
+    .skin-last-modified {
+        display: inline-block;
+        opacity: 0.9;
+    }
 }
 
 .nightingale-footer-tools {
     display: flex;
-    justify-content: center;
-    border-bottom: 1px solid @border-color-footer-divider;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 
     .mw-portlet-dropdown {
-        margin: 0 15px;
+        margin: 0;
         position: relative;
     }
 
-    .mw-checkbox-hack-button {
+    .mw-checkbox-hack-button,
+    .nightingale-back-to-top {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
         color: @color-footer-text;
-        font-weight: bold;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid @border-color-footer-divider;
+        border-radius: 4px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 600;
         cursor: pointer;
+        text-decoration: none;
+        transition: background 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.16);
+            text-decoration: none;
+            opacity: 1;
+        }
+    }
+
+    .dropup-caret {
+        font-size: 0.75em;
+        opacity: 0.8;
     }
 }
 
-/* DROP-UP Specifics */
+/* DROP-UP Menu Body */
 .nightingale-dropup {
     .mw-portlet-body {
-        bottom: 100%; 
+        bottom: calc(100% + 8px);
         top: auto;
-        left: 50%;
-        transform: translateX(-50%); 
-        margin-bottom: 10px;
+        right: 0;
+        left: auto;
+        transform: none;
+        min-width: 200px;
+        background: @background-color-dropdown;
+        border: 1px solid @border-color-dropdown;
+        border-radius: 6px;
+        box-shadow: 0 4px 16px @shadow-color-dropdown;
+        padding: 0.4rem 0;
+        z-index: 100;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: block;
+            margin: 0;
+
+            a {
+                display: block;
+                padding: 0.4rem 1rem;
+                color: @color-dropdown-text;
+                text-decoration: none;
+                white-space: nowrap;
+
+                &:hover {
+                    background: @background-color-dropdown-hover;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+/* TIER 2: Global Site Footer */
+.nightingale-footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.nightingale-footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+#footer-places {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0;
+
+    li {
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+
+        &:not(:last-child)::after {
+            content: "•";
+            margin: 0 0.65rem;
+            opacity: 0.5;
+        }
+    }
+}
+
+#copyright {
+    font-size: 0.85rem;
+    opacity: 0.8;
+
+    &:empty {
+        display: none;
+    }
+}
+
+#footer-icons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    li {
+        margin: 0;
+        display: inline-flex;
+    }
+
+    /* Soften the Codex button wrapper around the MediaWiki badge */
+    .cdx-button {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 4px;
+        padding: 4px 8px;
+        border: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .mw-footer {
+        padding: 1.25rem 1rem;
+    }
+
+    .nightingale-footer-colophon,
+    .nightingale-footer-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nightingale-dropup .mw-portlet-body {
+        left: 0;
+        right: auto;
     }
 }
