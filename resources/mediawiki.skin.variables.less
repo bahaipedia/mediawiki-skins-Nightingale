@@ -22,6 +22,7 @@
     
     /* Links */
     --color-link: #0645ad;
+    --color-link-external: #36b;
     --color-link-active: #0645ad;
     --color-link-visited: #663366;
     --color-link-new: #9b1b2f;
@@ -122,6 +123,7 @@ html.nightingale-dark-mode {
 
     /* Links */
     --color-link: #8ab4f8;
+    --color-link-external: #9cc3ff;
     --color-link-active: #8ab4f8;
     --color-link-visited: #c58af9;
     --color-link-new: #ff6e6e;
@@ -228,7 +230,7 @@ html.nightingale-dark-mode {
 @color-link--visited: var(--color-link-visited);
 @color-link-new: var(--color-link-new);
 @color-link-stub: @color-link;
-@color-link-external: @color-link;
+@color-link-external: var(--color-link-external);
 @color-link-new--visited: @color-link--visited;
 
 @shadow-color: var(--shadow-color);
