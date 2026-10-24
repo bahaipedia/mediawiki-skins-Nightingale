@@ -49,10 +49,8 @@ class SkinNightingale extends SkinMustache {
         // ---------------------------------------------------------
         // PART 1: GLOBAL FLAGS & METADATA
         // ---------------------------------------------------------
+        // Inject redirect status for template logic (e.g. hiding categories)
         $data['is-redirect'] = $this->getTitle()->isRedirect();
-        if ( $data['is-redirect'] ) {
-            $this->getOutput()->addModules( 'skins.nightingale.redirectfixer' );
-        }
 
         // ---------------------------------------------------------
         // PART 2: HEADER BUTTONS (ACTIONS)
