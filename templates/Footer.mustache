@@ -2,39 +2,61 @@
 	to mitigate a VoiceOver bug. }}
 <footer id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
     <div class="nightingale-footer-inner">
-        {{! Tier 1: Document Colophon & Page Tools }}
-        <div class="nightingale-footer-colophon">
+        {{! Tier 1: Multi-Column Digital Library Directory }}
+        <div class="nightingale-footer-directory">
+            <div class="nightingale-footer-brand">
+                <div class="nightingale-footer-sitename">Bahaiworks</div>
+                <p class="nightingale-footer-desc">
+                    A collaborative digital library of Bahá’í periodicals, books, transcripts, and historical documents.
+                </p>
+                {{#data-footer}}
+                <div id="footer-list" class="nightingale-footer-info">
+                    {{#data-places}}{{>FooterList}}{{/data-places}}
+                    <div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
+                </div>
+                {{/data-footer}}
+            </div>
+
+            <div class="nightingale-footer-columns">
+                {{#nightingale-sidebar-menus}}
+                <div class="nightingale-footer-column" id="footer-{{html-id}}">
+                    <h4 class="nightingale-footer-heading">{{label}}</h4>
+                    <ul class="nightingale-footer-links">
+                        {{#array-items}}{{>ListItem}}{{/array-items}}
+                    </ul>
+                </div>
+                {{/nightingale-sidebar-menus}}
+            </div>
+        </div>
+
+        {{! Tier 2: Sub-Footer Colophon & Page Tools }}
+        <div class="nightingale-footer-subbar">
             <div class="nightingale-colophon-meta">
                 {{#data-footer}}
                     {{#data-last-modified}}{{>LastModifiedLine}}{{/data-last-modified}}
                 {{/data-footer}}
             </div>
 
-            <div class="nightingale-footer-tools">
-                {{#nightingale-footer-portlets}}
-                    <div class="nightingale-dropup">
-                        <input type="checkbox" id="cb-foot-{{id}}" class="nightingale-dropup-checkbox">
-                        <label for="cb-foot-{{id}}" class="nightingale-dropup-button">{{label}} <span class="dropup-caret">▴</span></label>
-                        <div class="nightingale-dropup-body">
-                            <ul>
-                                {{#array-items}}{{>ListItem}}{{/array-items}}
-                            </ul>
+            <div class="nightingale-footer-right">
+                <div class="nightingale-footer-tools">
+                    {{#nightingale-footer-portlets}}
+                        <div class="nightingale-dropup">
+                            <input type="checkbox" id="cb-foot-{{id}}" class="nightingale-dropup-checkbox">
+                            <label for="cb-foot-{{id}}" class="nightingale-dropup-button">{{label}} <span class="dropup-caret">▴</span></label>
+                            <div class="nightingale-dropup-body">
+                                <ul>
+                                    {{#array-items}}{{>ListItem}}{{/array-items}}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                {{/nightingale-footer-portlets}}
-                <a href="#" class="nightingale-back-to-top">↑ Top</a>
-            </div>
-        </div>
+                    {{/nightingale-footer-portlets}}
+                    <a href="#" class="nightingale-back-to-top">↑ Top</a>
+                </div>
 
-        {{! Tier 2: Global Site Footer }}
-        {{#data-footer}}
-        <div class="nightingale-footer-main">
-            <div id="footer-list" class="nightingale-footer-info">
-                {{#data-places}}{{>FooterList}}{{/data-places}}
-                <div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
+                {{#data-footer}}
+                    {{#data-icons}}{{>FooterList}}{{/data-icons}}
+                {{/data-footer}}
             </div>
-            {{#data-icons}}{{>FooterList}}{{/data-icons}}
         </div>
-        {{/data-footer}}
     </div>
 </footer>
