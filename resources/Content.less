@@ -491,6 +491,11 @@ table.mw-datatable tr:hover td {
     background-color: var(--background-color-hover);
 }
 
+/* Fix hidden settings dropdown on Special:Notifications */
+.mw-echo-ui-notificationsInboxWidget-toolbarWrapper { 
+	z-index: auto !important; 
+}
+
 /* ==========================================================================
    3. MEDIA QUERIES (RESPONSIVE)
    ========================================================================== */
@@ -549,6 +554,7 @@ table.mw-datatable tr:hover td {
         display: none;
     }
 }
+
 
 /* ==========================================================================
    4. DARK MODE CONSOLIDATED BLOCK
