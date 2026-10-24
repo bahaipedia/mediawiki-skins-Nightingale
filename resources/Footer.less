@@ -5,7 +5,7 @@
     border-top: solid 1px @border-color-footer;
     color: @color-footer-text;
     background: @background-color-footer;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 0;
     position: relative;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -23,11 +23,18 @@
 }
 
 .nightingale-footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 84%;
+    padding: 0 0 0 10rem;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+
+    @media (max-width: @max-width-breakpoint-tablet) {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
 }
 
 /* TIER 1: Document Colophon & Tools */
