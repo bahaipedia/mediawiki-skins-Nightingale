@@ -198,13 +198,6 @@ class SkinNightingale extends SkinMustache {
                 'array-items' => $mobileTools
             ];
         }
-        foreach ( $sidebarMenus as $menu ) {
-            $footerPortlets[] = [
-                'id' => $menu['html-id'] ?? 'sidebar',
-                'label' => $menu['label'] ?? '',
-                'array-items' => $menu['array-items'] ?? []
-            ];
-        }
         $data['nightingale-footer-portlets'] = $footerPortlets;
 
         // ---------------------------------------------------------
