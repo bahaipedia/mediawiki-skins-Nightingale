@@ -29,7 +29,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 0.6rem;
 
     @media (max-width: @max-width-breakpoint-tablet) {
         max-width: 100%;
@@ -126,7 +126,6 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.35rem 0;
-    font-size: 0.82rem;
 
     li {
         display: inline-flex;
@@ -140,14 +139,8 @@
         }
 
         a {
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            text-decoration-color: rgba(255, 255, 255, 0.4);
-
-            &:hover {
-                text-decoration-color: @color-footer-text;
-                opacity: 1;
-            }
+            opacity: 0.9;
+            font-size: 0.88rem;
         }
     }
 }
