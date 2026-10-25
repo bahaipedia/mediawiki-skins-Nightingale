@@ -9,12 +9,6 @@
                 <p class="nightingale-footer-desc">
                     A collaborative digital library of Bahá’í periodicals, books, transcripts, and historical documents.
                 </p>
-                {{#data-footer}}
-                <div id="footer-list" class="nightingale-footer-info">
-                    {{#data-places}}{{>FooterList}}{{/data-places}}
-                    <div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
-                </div>
-                {{/data-footer}}
             </div>
 
             <div class="nightingale-footer-columns">
@@ -33,7 +27,11 @@
         <div class="nightingale-footer-subbar">
             <div class="nightingale-colophon-meta">
                 {{#data-footer}}
-                    {{#data-last-modified}}{{>LastModifiedLine}}{{/data-last-modified}}
+                <div id="footer-list" class="nightingale-footer-info">
+                    {{#data-places}}{{>FooterList}}{{/data-places}}
+                    <div id="copyright">{{#data-copyright}}{{{html}}}{{/data-copyright}}</div>
+                </div>
+                {{#data-last-modified}}{{>LastModifiedLine}}{{/data-last-modified}}
                 {{/data-footer}}
             </div>
 
