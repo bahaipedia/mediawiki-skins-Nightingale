@@ -201,6 +201,9 @@ class SkinNightingale extends SkinMustache {
         $data['nightingale-footer-portlets'] = $footerPortlets;
         $data['nightingale-footer-columns'] = $this->getFooterColumns();
 
+        $footerAboutMsg = $this->msg( 'footer-about' )->inContentLanguage();
+        $data['html-nightingale-footer-about'] = $footerAboutMsg->isDisabled() ? '' : $footerAboutMsg->parse();
+
         // ---------------------------------------------------------
         // PART 5: USER MENU
         // ---------------------------------------------------------
