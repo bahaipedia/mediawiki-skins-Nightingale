@@ -183,12 +183,18 @@ class SkinNightingale extends SkinMustache {
         $data['nightingale-mobile-links-label'] = $this->msg('nightingale-mobile-links-label')->text();
         $data['nightingale-has-mobile-links'] = !empty($mobileLinks);
 
+        $footerActions = array_merge(
+            $editButton ? [ $editButton ] : [],
+            $talkButton ? [ $talkButton ] : [],
+            $hybridMenu
+        );
+
         $footerPortlets = [];
-        if ( !empty( $hybridMenu ) ) {
+        if ( !empty( $footerActions ) ) {
             $footerPortlets[] = [
                 'id' => 'actions',
                 'label' => $this->msg( 'actions' )->text(),
-                'array-items' => $hybridMenu
+                'array-items' => $footerActions
             ];
         }
         if ( !empty( $mobileTools ) ) {
