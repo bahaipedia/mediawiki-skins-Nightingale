@@ -40,8 +40,8 @@
 /* TIER 1: Multi-Column Digital Library Directory */
 .nightingale-footer-directory {
     display: grid;
-    grid-template-columns: minmax(240px, 1.2fr) 2.5fr;
-    gap: 3rem;
+    grid-template-columns: minmax(200px, 1.1fr) 2.5fr;
+    gap: clamp(1.25rem, 3vw, 3rem);
     align-items: stretch;
 }
 
@@ -64,12 +64,16 @@
     font-size: 0.9rem;
     line-height: 1.6;
     max-width: 34ch;
+
+    p {
+        margin: 0;
+    }
 }
 
 .nightingale-footer-columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
 }
 
 .nightingale-footer-column {
@@ -306,6 +310,50 @@
 @media (max-width: 720px) {
     .mw-footer {
         padding: 1.5rem 0 1rem;
+    }
+
+    .nightingale-footer-directory {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .nightingale-footer-desc {
+        max-width: 100%;
+    }
+
+    .nightingale-footer-columns {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .nightingale-footer-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.35rem 0.75rem;
+    }
+
+    .nightingale-footer-heading {
+        min-width: 75px;
+    }
+
+    .nightingale-footer-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.25rem 0;
+
+        li {
+            display: inline-flex;
+            align-items: center;
+
+            &:not(:last-child)::after {
+                content: "•";
+                margin: 0 0.5rem;
+                opacity: 0.5;
+            }
+        }
     }
 
     .nightingale-footer-subbar {
