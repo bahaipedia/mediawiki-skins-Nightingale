@@ -173,18 +173,17 @@ div.thumbinner {
     overflow: visible;
     word-wrap: break-word;
     border-radius: 10px;
-}
 
-#catlinks select {
-    font-size: 1rem;
-    padding: 4px;
-    line-height: 1.4;
-    color: @color-base;
-    box-shadow: 4px 3px 7px 3px @shadow-color;
-    border: solid @border-color-base;
-    border-width: 1px 1px 0.2em;
-    background: @background-color-card;
-    padding: 1em 2em 1em;
+    select {
+        font-size: 1rem;
+        line-height: 1.4;
+        color: @color-base;
+        box-shadow: 4px 3px 7px 3px @shadow-color;
+        border: solid @border-color-base;
+        border-width: 1px 1px 0.2em;
+        background: @background-color-card;
+        padding: 1em 2em 1em;
+    }
 }
 
 /* wikitable/prettytable class for skinning normal tables */
@@ -228,33 +227,42 @@ table.prettytable {
 
 /* Responsive MediaWiki Galleries & Thumbnails - 500px */
 @media (max-width: 500px) {
-    /* Galleries */
-    .mw-body li.gallerybox {
-        width: 100% !important;
+    .p-notifications {
+        display: none;
     }
-    .mw-body li.gallerybox .thumb {
-        width: unset !important;
-        height: unset !important;
-    }
-    /* Thumbnails */
-    .mw-body .thumb,
-    .mw-body .thumbimage,
-    .mw-body figure[typeof~="mw:File"],
-    .mw-body figure[typeof~="mw:File/Thumb"],
-    .mw-body figure[typeof~="mw:File/Frame"] {
-        float: none !important; /* Make images take 100% of screen on small displays */
-        margin: 0 auto !important;
-    }
-    .mw-body .thumb img,
-    .mw-body .thumbimage img,
-    .mw-body .gallerybox .thumb img.mw-file-element,
-    .mw-body figure[typeof~="mw:File"] > :not(figcaption) img.mw-file-element,
-    .mw-body figure[typeof~="mw:File/Thumb"] > :not(figcaption) img.mw-file-element,
-    .mw-body figure[typeof~="mw:File/Frame"] > :not(figcaption) img.mw-file-element {
-        width: unset !important;
-        height: unset !important;
-        max-width: 97%;
-        margin: 1.5%;
+
+    .mw-body {
+        /* Galleries */
+        li.gallerybox {
+            width: 100% !important;
+
+            .thumb {
+                width: unset !important;
+                height: unset !important;
+            }
+        }
+
+        /* Thumbnails */
+        .thumb,
+        .thumbimage,
+        figure[typeof~="mw:File"],
+        figure[typeof~="mw:File/Thumb"],
+        figure[typeof~="mw:File/Frame"] {
+            float: none !important;
+            margin: 0 auto !important;
+        }
+
+        .thumb img,
+        .thumbimage img,
+        .gallerybox .thumb img.mw-file-element,
+        figure[typeof~="mw:File"] > :not(figcaption) img.mw-file-element,
+        figure[typeof~="mw:File/Thumb"] > :not(figcaption) img.mw-file-element,
+        figure[typeof~="mw:File/Frame"] > :not(figcaption) img.mw-file-element {
+            width: unset !important;
+            height: unset !important;
+            max-width: 97%;
+            margin: 1.5%;
+        }
     }
 }
 
@@ -413,18 +421,20 @@ textarea,
 }
 
 /* Save/Preview Buttons */
+#wpSave,
+#wpPreview,
+#wpDiff {
+    border: 1px solid @border-color-ui-widget !important;
+    cursor: pointer;
+}
 #wpSave {
     background-color: @background-color-btn-save !important;
     color: @color-btn-text !important;
-    border: 1px solid @border-color-ui-widget !important;
-    cursor: pointer;
 }
 #wpPreview,
 #wpDiff {
     background-color: @background-color-ui-subtle !important;
     color: @color-base !important;
-    border: 1px solid @border-color-ui-widget !important;
-    cursor: pointer;
 }
 
 /* Code & Pre Blocks (Generic) */
@@ -438,10 +448,10 @@ pre, code, .mw-code {
     background-color: @background-color-gutter !important;
     color: @color-gutter-text !important;
     border-right: 1px solid @border-color-code !important;
-}
-.mw-highlight .linenos a,
-.hl-linenos a {
-    color: @color-gutter-text !important;
+
+    a {
+        color: @color-gutter-text !important;
+    }
 }
 /* Line Highlighting */
 .mw-highlight .hll,
@@ -455,9 +465,10 @@ pre, code, .mw-code {
     background-color: @background-color-toolbar !important;
     border-bottom: 1px solid @border-color-toolbar !important;
     box-shadow: none !important; 
-}
-.wikiEditor-ui-toolbar .group {
-    border-right: 1px solid @border-color-toolbar !important;
+
+    .group {
+        border-right: 1px solid @border-color-toolbar !important;
+    }
 }
 
 /* Codex Messages (Warnings) */
@@ -486,15 +497,16 @@ pre, code, .mw-code {
 /* Skin standard MediaWiki datatables */
 table.mw-datatable {
     background-color: var(--background-color-base);
-}
-table.mw-datatable th {
-    background-color: var(--background-color-interactive-subtle);
-}
-table.mw-datatable td {
-    background-color: var(--background-color-card);
-}
-table.mw-datatable tr:hover td {
-    background-color: var(--background-color-hover);
+
+    th {
+        background-color: var(--background-color-interactive-subtle);
+    }
+    td {
+        background-color: var(--background-color-card);
+    }
+    tr:hover td {
+        background-color: var(--background-color-hover);
+    }
 }
 
 /* Fix hidden settings dropdown on Special:Notifications */
@@ -653,14 +665,16 @@ html.nightingale-dark-mode {
     }
 
     /* EXIF Metadata tables on File description pages */
-    .mw_metadata th {
-        background-color: @background-color-ui-subtle !important;
-        color: @color-base !important;
-        border-color: @border-color-base !important;
-    }
-    .mw_metadata td {
-        border-color: @border-color-base !important;
-        background-color: transparent !important;
+    .mw_metadata {
+        th {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border-color: @border-color-base !important;
+        }
+        td {
+            border-color: @border-color-base !important;
+            background-color: transparent !important;
+        }
     }
 
     /* HTMLForm CheckMatrix tables (e.g., Special:BotPasswords, Echo Notification Preferences) */
@@ -684,27 +698,15 @@ html.nightingale-dark-mode {
        ====================================================================== */
 
     /* Dim bright scanned pages/images slightly until hovered */
-    #file img,
-    .mw-file-element {
-        filter: brightness(0.8) contrast(1.1);
-        transition: filter 0.3s ease;
-    }
-    #file img:hover,
-    .mw-file-element:hover {
-        filter: brightness(1) contrast(1);
-    }
-	
-	/* Dim bright scanned pages/images slightly until hovered */
     .otright img,
     #file img,
     .mw-file-element {
         filter: brightness(0.8) contrast(1.1);
         transition: filter 0.3s ease;
-    }
-    .otright img:hover,
-    #file img:hover,
-    .mw-file-element:hover {
-        filter: brightness(1) contrast(1);
+
+        &:hover {
+            filter: brightness(1) contrast(1);
+        }
     }
 
     /* Parsoid/Core Image Thumbnails and Frames */
@@ -713,25 +715,21 @@ html.nightingale-dark-mode {
         border-color: @border-color-base !important;
         background-color: @background-color-thumb !important;
         color: @color-thumb !important;
-    }
 
-    figure[typeof~='mw:File/Thumb'] > figcaption,
-    figure[typeof~='mw:File/Frame'] > figcaption {
-        border: 1px solid @border-color-base !important;
-        border-top: 0 !important;
-    }
+        > figcaption {
+            border: 1px solid @border-color-base !important;
+            border-top: 0 !important;
+        }
 
-    /* Inner Image Elements */
-    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element, 
-    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element {
-        background-color: @background-color-thumb !important;
-        border: 1px solid @border-color-base !important;
-    }
+        /* Inner Image Elements */
+        > :not( figcaption ) .mw-file-element {
+            background-color: @background-color-thumb !important;
+            border: 1px solid @border-color-base !important;
 
-    figure[typeof~='mw:File/Thumb'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ), 
-    figure[typeof~='mw:File/Frame'] > :not( figcaption ) .mw-file-element:not( .mw-broken-media ) {
-        background-color: @background-color-thumb !important;
-        color: @color-base !important;
+            &:not( .mw-broken-media ) {
+                color: @color-base !important;
+            }
+        }
     }
 
     /* Traditional MediaWiki Galleries */
@@ -747,12 +745,14 @@ html.nightingale-dark-mode {
     }
 
     /* Multi-page File (PDF/DjVu) Page Selector Dropdown & Submit Button */
-    form[name="pageselector"] select,
-    form[name="pageselector"] input[type="submit"] {
-        background-color: @background-color-ui-subtle !important;
-        color: @color-base !important;
-        border: 1px solid @border-color-ui-widget !important;
-        border-radius: 2px;
+    form[name="pageselector"] {
+        select,
+        input[type="submit"] {
+            background-color: @background-color-ui-subtle !important;
+            color: @color-base !important;
+            border: 1px solid @border-color-ui-widget !important;
+            border-radius: 2px;
+        }
     }
 
     /* ======================================================================
