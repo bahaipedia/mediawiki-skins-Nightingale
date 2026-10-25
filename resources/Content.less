@@ -1506,12 +1506,13 @@ html.nightingale-dark-mode {
         color: @color-base !important;
     }
 
-    /* Extension:Echo */
+    /* Extension:Echo (Notifications Popup & Special:Notifications) */
     .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
         filter: invert(1) brightness(0.6) !important;
     }
 
-	.mw-echo-ui-notificationItemWidget {
+    /* Notification Items (Read, Unread, Empty Placeholder & Text) */
+    .mw-echo-ui-notificationItemWidget {
         background-color: @background-color-ui-subtle !important;
         border-color: @border-color-base !important;
         color: @color-base !important;
@@ -1519,39 +1520,44 @@ html.nightingale-dark-mode {
         &:hover {
             background-color: @background-color-hover !important;
         }
+
+        &-unread {
+            background-color: @background-color-card !important;
+        }
+
+        &-content-message-header,
+        &-content-message-body,
+        &-content-actions-timestamp {
+            color: @color-base !important;
+        }
     }
 
-    .mw-echo-ui-notificationItemWidget-unread {
-        background-color: @background-color-card !important;
-    }
-
-	.mw-echo-ui-placeholderItemWidget {
+    .mw-echo-ui-placeholderItemWidget {
         background-color: @background-color-ui-subtle !important;
         color: @color-base !important;
     }
 
-    .mw-echo-ui-notificationItemWidget-content-message-header,
-    .mw-echo-ui-notificationItemWidget-content-message-body,
-    .mw-echo-ui-notificationItemWidget-content-actions-timestamp {
-        color: @color-base !important;
+    .mw-echo-ui-menuItemWidget > .oo-ui-buttonElement-button > .oo-ui-labelElement-label {
+        color: @color-dropdown-text !important;
     }
 
-	/* Special:Notifications Inbox Toolbar & Left Sidebar Filter Options */
+    /* Special:Notifications Inbox Toolbar & Left Sidebar Filters */
     .mw-echo-ui-notificationsInboxWidget-toolbarWrapper {
         background-color: @background-color-card !important;
         box-shadow: 0 2px 0 0 @shadow-color !important;
+        z-index: auto !important;
     }
 
     .mw-echo-ui-pageNotificationsOptionWidget {
         color: @color-base !important;
 
+        &-label-count {
+            background-color: @background-color-ui-widget !important;
+            color: @color-base !important;
+        }
+
         &.oo-ui-optionWidget-selected {
             background-color: @background-color-progressive-subtle !important;
-            color: @color-link !important;
-
-            .mw-echo-ui-pageNotificationsOptionWidget-title-label {
-                color: @color-link !important;
-            }
         }
 
         &:hover,
@@ -1559,21 +1565,17 @@ html.nightingale-dark-mode {
         &.oo-ui-optionWidget-selected:hover,
         &.oo-ui-optionWidget-selected.oo-ui-optionWidget-highlighted {
             background-color: @background-color-hover !important;
+        }
+
+        &:hover,
+        &.oo-ui-optionWidget-highlighted,
+        &.oo-ui-optionWidget-selected {
             color: @color-link !important;
 
             .mw-echo-ui-pageNotificationsOptionWidget-title-label {
                 color: @color-link !important;
             }
         }
-    }
-
-    .mw-echo-ui-pageNotificationsOptionWidget-label-count {
-        background-color: @background-color-ui-widget !important;
-        color: @color-base !important;
-    }
-
-	.mw-echo-ui-menuItemWidget > .oo-ui-buttonElement-button > .oo-ui-labelElement-label {
-        color: @color-dropdown-text !important;
     }
 
     /* ======================================================================
