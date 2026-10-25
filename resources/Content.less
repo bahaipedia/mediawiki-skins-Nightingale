@@ -795,27 +795,25 @@ html.nightingale-dark-mode {
     }
 
     /* RevisionSlider container & interactive bar chart */
-    .mw-revslider-container {
-        border-color: @border-color-ui-widget !important;
-    }
-
-    .mw-revslider-slider-wrapper {
-        border-top: none !important;
-    }
-
-    .mw-revslider-toggle-button {
-        background-color: @background-color-ui-subtle !important;
-        border: 1px solid @border-color-base !important;
-        border-radius: 2px;
-    }
-
-    .mw-revslider-revision {
-        background-color: @border-color-ui-widget !important;
-        border-color: @border-color-ui-widget !important;
-    }
-
-    .mw-revslider-revision-wrapper-hovered {
-        background-color: @background-color-hover !important;
+    .mw-revslider {
+        &-container {
+            border-color: @border-color-ui-widget !important;
+        }
+        &-slider-wrapper {
+            border-top: none !important;
+        }
+        &-toggle-button {
+            background-color: @background-color-ui-subtle !important;
+            border: 1px solid @border-color-base !important;
+            border-radius: 2px;
+        }
+        &-revision {
+            background-color: @border-color-ui-widget !important;
+            border-color: @border-color-ui-widget !important;
+        }
+        &-revision-wrapper-hovered {
+            background-color: @background-color-hover !important;
+        }
     }
 
     /* ======================================================================
@@ -1096,42 +1094,6 @@ html.nightingale-dark-mode {
         box-shadow: unset !important;
     }
 
-    /* Syntax Highlighting (View Mode / .mw-highlight) */
-    .mw-highlight {
-        background-color: @background-color-editor !important;
-        color: @color-editor-text !important;
-        border: 1px solid @border-color-ui-widget !important;
-        padding: 1em;
-
-        pre {
-            background-color: transparent !important;
-            border: none !important;
-            color: inherit !important;
-            font-family: monospace;
-        }
-
-        /* Keywords (Gold) */
-        .k, .kd, .kp, .kr, .kt { color: #cc7832 !important; font-weight: bold; }
-        /* Strings (Green) */
-        .s, .s1, .s2, .se, .si { color: #6a8759 !important; }
-        /* Comments (Gray Italic) */
-        .c, .c1, .cm, .cs { color: @color-gutter-text !important; font-style: italic; }
-        /* Numbers (Blue) */
-        .m, .mi, .mf { color: #6897bb !important; }
-        /* Names, Identifiers & Operators */
-        .n, .na, .nb, .nn, .nv, .o, .ow { color: @color-editor-text !important; }
-        /* Class Names (Teal) */
-        .nc { color: #4ec9b0 !important; }
-        /* Function Names (Yellow) */
-        .nf { color: #dcdcaa !important; }
-    }
-
-    /* Remove light-mode box-shadow gutter in view mode */
-    .mw-content-ltr.mw-highlight-lines pre,
-    .mw-content-ltr.content .mw-highlight-lines pre {
-        box-shadow: unset !important;
-    }
-
     /* ======================================================================
        6. OOUI FRAMEWORK (Icons, Buttons, Inputs, Dropdowns, Modals)
        ====================================================================== */
@@ -1182,36 +1144,42 @@ html.nightingale-dark-mode {
     }
 
     /* OOUI Checkboxes */
-    .oo-ui-checkboxInputWidget [type='checkbox'] + span {
-        background-color: @background-color-input !important;
-        border-color: @border-color-input !important;
-    }
+    .oo-ui-checkboxInputWidget {
+        [type='checkbox'] + span {
+            background-color: @background-color-input !important;
+            border-color: @border-color-input !important;
+        }
 
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:hover + span {
-        background-color: @background-color-hover !important;
-        border-color: @color-link !important;
-    }
-
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked + span,
-    .oo-ui-checkboxInputWidget.oo-ui-widget-enabled [type='checkbox']:checked:hover + span {
-        background-color: @background-color-btn-save !important;
-        border-color: @background-color-btn-save !important;
+        &.oo-ui-widget-enabled [type='checkbox'] {
+            &:hover + span {
+                background-color: @background-color-hover !important;
+                border-color: @color-link !important;
+            }
+            &:checked + span,
+            &:checked:hover + span {
+                background-color: @background-color-btn-save !important;
+                border-color: @background-color-btn-save !important;
+            }
+        }
     }
 
     /* OOUI Radio Buttons */
-    .oo-ui-radioInputWidget [type='radio'] + span {
-        background-color: @background-color-input !important;
-        border-color: @border-color-input !important;
-    }
+    .oo-ui-radioInputWidget {
+        [type='radio'] + span {
+            background-color: @background-color-input !important;
+            border-color: @border-color-input !important;
+        }
 
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:hover + span {
-        background-color: @background-color-hover !important;
-        border-color: @color-link !important;
-    }
-
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked + span,
-    .oo-ui-radioInputWidget.oo-ui-widget-enabled [type='radio']:checked:hover + span {
-        border-color: @background-color-btn-save !important;
+        &.oo-ui-widget-enabled [type='radio'] {
+            &:hover + span {
+                background-color: @background-color-hover !important;
+                border-color: @color-link !important;
+            }
+            &:checked + span,
+            &:checked:hover + span {
+                border-color: @background-color-btn-save !important;
+            }
+        }
     }
 
     /* OOUI Dropdown Handles */
@@ -1282,33 +1250,31 @@ html.nightingale-dark-mode {
             color: @color-text-main !important;
             border-color: @border-color-ui-widget !important;
         }
-    }
 
-    /* Quiet Codex Buttons (borderless until hovered) */
-    .cdx-button:enabled.cdx-button--weight-quiet,
-    .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-quiet {
-        background-color: transparent !important;
-        border-color: transparent !important;
-        color: @color-base !important;
+        /* Quiet Codex Buttons (borderless until hovered) */
+        &.cdx-button--weight-quiet {
+            background-color: transparent !important;
+            border-color: transparent !important;
+            color: @color-base !important;
 
-        &:hover {
-            background-color: @background-color-hover !important;
-            color: @color-text-main !important;
-            mix-blend-mode: normal !important;
+            &:hover {
+                background-color: @background-color-hover !important;
+                color: @color-text-main !important;
+                mix-blend-mode: normal !important;
+            }
         }
-    }
 
-    /* Progressive Primary Codex Buttons (e.g., Special:UserLogin "Log in") */
-    .cdx-button:enabled.cdx-button--action-progressive,
-    .cdx-button.cdx-button--fake-button--enabled.cdx-button--action-progressive {
-        background-color: @background-color-btn-save !important;
-        color: @color-btn-text !important;
-        border-color: @background-color-btn-save !important;
-
-        &:hover {
+        /* Progressive Primary Codex Buttons (e.g., Special:UserLogin "Log in") */
+        &.cdx-button--action-progressive {
             background-color: @background-color-btn-save !important;
             color: @color-btn-text !important;
-            border-color: @color-link !important;
+            border-color: @background-color-btn-save !important;
+
+            &:hover {
+                background-color: @background-color-btn-save !important;
+                color: @color-btn-text !important;
+                border-color: @color-link !important;
+            }
         }
     }
 
@@ -1376,39 +1342,41 @@ html.nightingale-dark-mode {
     }
 
     /* RecentChanges / Watchlist Filters Menu */
-    .mw-rcfilters-ui-filterMenuHeaderWidget-header {
-        background-color: @background-color-ui-subtle !important;
-        border-bottom: 1px solid @border-color-ui-widget !important;
-    }
+    .mw-rcfilters-ui {
+        &-filterMenuHeaderWidget-header {
+            background-color: @background-color-ui-subtle !important;
+            border-bottom: 1px solid @border-color-ui-widget !important;
+        }
 
-    .mw-rcfilters-ui-filterMenuSectionOptionWidget {
-        background-color: @background-color-editor-bar !important; 
-        color: @color-base !important;
-    }
+        &-filterMenuSectionOptionWidget {
+            background-color: @background-color-editor-bar !important; 
+            color: @color-base !important;
+        }
 
-    .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-selected {
-        background-color: @background-color-progressive-subtle !important;
-        color: @color-base !important;
-    }
+        &-itemMenuOptionWidget.oo-ui-optionWidget-selected {
+            background-color: @background-color-progressive-subtle !important;
+            color: @color-base !important;
+        }
 
-    .mw-rcfilters-ui-itemMenuOptionWidget-label-title {
-        color: @color-dropdown-text !important;
-    }
+        &-itemMenuOptionWidget-label-title {
+            color: @color-dropdown-text !important;
+        }
 
-    .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted.oo-ui-optionWidget-highlighted,
-    .mw-rcfilters-ui-itemMenuOptionWidget.oo-ui-optionWidget-highlighted {
-        background-color: @background-color-dropdown-hover !important;
-        color: @color-dropdown-text !important;
-    }
+        &-filterMenuOptionWidget.oo-ui-flaggedElement-muted.oo-ui-optionWidget-highlighted,
+        &-itemMenuOptionWidget.oo-ui-optionWidget-highlighted {
+            background-color: @background-color-dropdown-hover !important;
+            color: @color-dropdown-text !important;
+        }
 
-    .mw-rcfilters-ui-menuSelectWidget-footer {
-        background-color: @background-color-ui-subtle !important;
-        border-top: 1px solid @border-color-ui-widget !important;
-    }
+        &-menuSelectWidget-footer {
+            background-color: @background-color-ui-subtle !important;
+            border-top: 1px solid @border-color-ui-widget !important;
+        }
 
-    .mw-rcfilters-ui-filterMenuOptionWidget.oo-ui-flaggedElement-muted:not(.oo-ui-optionWidget-selected) {
-        background-color: @background-color-dropdown !important;
-        color: @color-dropdown-text !important;
+        &-filterMenuOptionWidget.oo-ui-flaggedElement-muted:not(.oo-ui-optionWidget-selected) {
+            background-color: @background-color-dropdown !important;
+            color: @color-dropdown-text !important;
+        }
     }
 
     /* Special:Search (Interwiki Results & AdvancedSearch) */
@@ -1469,24 +1437,24 @@ html.nightingale-dark-mode {
         border-color: @border-color-dropdown !important;
         box-shadow: 0 2px 2px 0 @shadow-color-dropdown !important;
         color: @color-dropdown-text !important;
-    }
 
-    .sd-select-menu__list-item {
-        color: @color-dropdown-text !important;
-    }
+        &__list-item {
+            color: @color-dropdown-text !important;
 
-    .sd-select-menu__list-item--active {
-        background-color: @background-color-dropdown-hover !important;
-        color: @color-text-main !important;
-    }
+            &--active {
+                background-color: @background-color-dropdown-hover !important;
+                color: @color-text-main !important;
+            }
 
-    .sd-select-menu__list-item--selected {
-        background-color: @background-color-progressive-subtle !important;
-        color: @color-text-main !important;
-    }
+            &--selected {
+                background-color: @background-color-progressive-subtle !important;
+                color: @color-text-main !important;
+            }
 
-    .sd-select-menu__list-item--active.sd-select-menu__list-item--selected {
-        color: @color-link !important;
+            &--active&--selected {
+                color: @color-link !important;
+            }
+        }
     }
 
     .sdms-audio-result__duration,
