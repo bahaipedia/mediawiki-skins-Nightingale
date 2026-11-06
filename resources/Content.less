@@ -1550,11 +1550,30 @@ html.nightingale-dark-mode {
        10. MISC UI (Redirect Arrows & Toast Notifications)
        ====================================================================== */
 
-	/* Reference Tooltip Hover & Clicked Citation Highlight */
+	/* Reference Tooltips Gadget & Clicked Citation Highlight */
     .rt-target,
     ol.references li:target,
     sup.reference:target {
         background-color: @background-color-progressive-subtle !important;
+    }
+
+    .rt-tooltip {
+        background: @background-color-dropdown !important;
+        color: @color-dropdown-text !important;
+        border-color: @border-color-dropdown !important;
+        box-shadow: 0 15px 45px -10px @shadow-color-dropdown !important;
+    }
+
+    .rt-tooltipTail {
+        background: linear-gradient(to top right, @border-color-dropdown 50%, transparent 50%) !important;
+
+        &::after {
+            background: linear-gradient(to top right, @background-color-dropdown 50%, transparent 50%) !important;
+        }
+    }
+
+    .rt-settingsLink {
+        filter: invert(1) brightness(0.8) !important;
     }
 
     /* Redirect Page Arrow Icon (invert arrow while keeping link color normal) */
